@@ -103,8 +103,9 @@ model Church {
 
   massSchedules MassSchedule[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  crunchMedias CrunchMedia[]
 }
 
 model MassSchedule {
@@ -236,6 +237,7 @@ model Media {
   ministries       MinistryMedia[]
   financialReports FinancialReportMedia[]
   homilies         HomilyMedia[]
+  crunchMedias     CrunchMedia[]
 }
 
 //////////////////////////////////////////////////////
@@ -280,4 +282,14 @@ model HomilyMedia {
   media  Media  @relation(fields: [mediaId], references: [id])
 
   @@id([homilyId, mediaId])
+}
+
+model CrunchMedia {
+  crunchId String
+  mediaId  String
+
+  crunch Church @relation(fields: [crunchId], references: [id])
+  media  Media  @relation(fields: [mediaId], references: [id])
+
+  @@id([crunchId, mediaId])
 }

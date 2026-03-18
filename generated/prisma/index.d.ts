@@ -88,6 +88,11 @@ export type FinancialReportMedia = $Result.DefaultSelection<Prisma.$FinancialRep
  * 
  */
 export type HomilyMedia = $Result.DefaultSelection<Prisma.$HomilyMediaPayload>
+/**
+ * Model CrunchMedia
+ * 
+ */
+export type CrunchMedia = $Result.DefaultSelection<Prisma.$CrunchMediaPayload>
 
 /**
  * Enums
@@ -416,6 +421,16 @@ export class PrismaClient<
     * ```
     */
   get homilyMedia(): Prisma.HomilyMediaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.crunchMedia`: Exposes CRUD operations for the **CrunchMedia** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CrunchMedias
+    * const crunchMedias = await prisma.crunchMedia.findMany()
+    * ```
+    */
+  get crunchMedia(): Prisma.CrunchMediaDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -864,7 +879,8 @@ export namespace Prisma {
     NewsMedia: 'NewsMedia',
     MinistryMedia: 'MinistryMedia',
     FinancialReportMedia: 'FinancialReportMedia',
-    HomilyMedia: 'HomilyMedia'
+    HomilyMedia: 'HomilyMedia',
+    CrunchMedia: 'CrunchMedia'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -880,7 +896,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "newsCategory" | "news" | "church" | "massSchedule" | "ministry" | "financialReport" | "homily" | "appointment" | "appointmentDocument" | "media" | "newsMedia" | "ministryMedia" | "financialReportMedia" | "homilyMedia"
+      modelProps: "user" | "newsCategory" | "news" | "church" | "massSchedule" | "ministry" | "financialReport" | "homily" | "appointment" | "appointmentDocument" | "media" | "newsMedia" | "ministryMedia" | "financialReportMedia" | "homilyMedia" | "crunchMedia"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1994,6 +2010,80 @@ export namespace Prisma {
           }
         }
       }
+      CrunchMedia: {
+        payload: Prisma.$CrunchMediaPayload<ExtArgs>
+        fields: Prisma.CrunchMediaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CrunchMediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CrunchMediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>
+          }
+          findFirst: {
+            args: Prisma.CrunchMediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CrunchMediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>
+          }
+          findMany: {
+            args: Prisma.CrunchMediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>[]
+          }
+          create: {
+            args: Prisma.CrunchMediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>
+          }
+          createMany: {
+            args: Prisma.CrunchMediaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CrunchMediaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>[]
+          }
+          delete: {
+            args: Prisma.CrunchMediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>
+          }
+          update: {
+            args: Prisma.CrunchMediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>
+          }
+          deleteMany: {
+            args: Prisma.CrunchMediaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CrunchMediaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CrunchMediaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>[]
+          }
+          upsert: {
+            args: Prisma.CrunchMediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrunchMediaPayload>
+          }
+          aggregate: {
+            args: Prisma.CrunchMediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCrunchMedia>
+          }
+          groupBy: {
+            args: Prisma.CrunchMediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CrunchMediaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CrunchMediaCountArgs<ExtArgs>
+            result: $Utils.Optional<CrunchMediaCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2117,6 +2207,7 @@ export namespace Prisma {
     ministryMedia?: MinistryMediaOmit
     financialReportMedia?: FinancialReportMediaOmit
     homilyMedia?: HomilyMediaOmit
+    crunchMedia?: CrunchMediaOmit
   }
 
   /* Types for Logging */
@@ -2309,10 +2400,12 @@ export namespace Prisma {
 
   export type ChurchCountOutputType = {
     massSchedules: number
+    crunchMedias: number
   }
 
   export type ChurchCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     massSchedules?: boolean | ChurchCountOutputTypeCountMassSchedulesArgs
+    crunchMedias?: boolean | ChurchCountOutputTypeCountCrunchMediasArgs
   }
 
   // Custom InputTypes
@@ -2331,6 +2424,13 @@ export namespace Prisma {
    */
   export type ChurchCountOutputTypeCountMassSchedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MassScheduleWhereInput
+  }
+
+  /**
+   * ChurchCountOutputType without action
+   */
+  export type ChurchCountOutputTypeCountCrunchMediasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrunchMediaWhereInput
   }
 
 
@@ -2467,6 +2567,7 @@ export namespace Prisma {
     ministries: number
     financialReports: number
     homilies: number
+    crunchMedias: number
   }
 
   export type MediaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2474,6 +2575,7 @@ export namespace Prisma {
     ministries?: boolean | MediaCountOutputTypeCountMinistriesArgs
     financialReports?: boolean | MediaCountOutputTypeCountFinancialReportsArgs
     homilies?: boolean | MediaCountOutputTypeCountHomiliesArgs
+    crunchMedias?: boolean | MediaCountOutputTypeCountCrunchMediasArgs
   }
 
   // Custom InputTypes
@@ -2513,6 +2615,13 @@ export namespace Prisma {
    */
   export type MediaCountOutputTypeCountHomiliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: HomilyMediaWhereInput
+  }
+
+  /**
+   * MediaCountOutputType without action
+   */
+  export type MediaCountOutputTypeCountCrunchMediasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrunchMediaWhereInput
   }
 
 
@@ -6130,6 +6239,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     massSchedules?: boolean | Church$massSchedulesArgs<ExtArgs>
+    crunchMedias?: boolean | Church$crunchMediasArgs<ExtArgs>
     _count?: boolean | ChurchCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["church"]>
 
@@ -6169,6 +6279,7 @@ export namespace Prisma {
   export type ChurchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "description" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["church"]>
   export type ChurchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     massSchedules?: boolean | Church$massSchedulesArgs<ExtArgs>
+    crunchMedias?: boolean | Church$crunchMediasArgs<ExtArgs>
     _count?: boolean | ChurchCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChurchIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -6178,6 +6289,7 @@ export namespace Prisma {
     name: "Church"
     objects: {
       massSchedules: Prisma.$MassSchedulePayload<ExtArgs>[]
+      crunchMedias: Prisma.$CrunchMediaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6583,6 +6695,7 @@ export namespace Prisma {
   export interface Prisma__ChurchClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     massSchedules<T extends Church$massSchedulesArgs<ExtArgs> = {}>(args?: Subset<T, Church$massSchedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MassSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    crunchMedias<T extends Church$crunchMediasArgs<ExtArgs> = {}>(args?: Subset<T, Church$crunchMediasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7029,6 +7142,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MassScheduleScalarFieldEnum | MassScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Church.crunchMedias
+   */
+  export type Church$crunchMediasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    where?: CrunchMediaWhereInput
+    orderBy?: CrunchMediaOrderByWithRelationInput | CrunchMediaOrderByWithRelationInput[]
+    cursor?: CrunchMediaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CrunchMediaScalarFieldEnum | CrunchMediaScalarFieldEnum[]
   }
 
   /**
@@ -14058,6 +14195,7 @@ export namespace Prisma {
     ministries?: boolean | Media$ministriesArgs<ExtArgs>
     financialReports?: boolean | Media$financialReportsArgs<ExtArgs>
     homilies?: boolean | Media$homiliesArgs<ExtArgs>
+    crunchMedias?: boolean | Media$crunchMediasArgs<ExtArgs>
     _count?: boolean | MediaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["media"]>
 
@@ -14094,6 +14232,7 @@ export namespace Prisma {
     ministries?: boolean | Media$ministriesArgs<ExtArgs>
     financialReports?: boolean | Media$financialReportsArgs<ExtArgs>
     homilies?: boolean | Media$homiliesArgs<ExtArgs>
+    crunchMedias?: boolean | Media$crunchMediasArgs<ExtArgs>
     _count?: boolean | MediaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -14106,6 +14245,7 @@ export namespace Prisma {
       ministries: Prisma.$MinistryMediaPayload<ExtArgs>[]
       financialReports: Prisma.$FinancialReportMediaPayload<ExtArgs>[]
       homilies: Prisma.$HomilyMediaPayload<ExtArgs>[]
+      crunchMedias: Prisma.$CrunchMediaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14512,6 +14652,7 @@ export namespace Prisma {
     ministries<T extends Media$ministriesArgs<ExtArgs> = {}>(args?: Subset<T, Media$ministriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MinistryMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     financialReports<T extends Media$financialReportsArgs<ExtArgs> = {}>(args?: Subset<T, Media$financialReportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     homilies<T extends Media$homiliesArgs<ExtArgs> = {}>(args?: Subset<T, Media$homiliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomilyMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    crunchMedias<T extends Media$crunchMediasArgs<ExtArgs> = {}>(args?: Subset<T, Media$crunchMediasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15028,6 +15169,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: HomilyMediaScalarFieldEnum | HomilyMediaScalarFieldEnum[]
+  }
+
+  /**
+   * Media.crunchMedias
+   */
+  export type Media$crunchMediasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    where?: CrunchMediaWhereInput
+    orderBy?: CrunchMediaOrderByWithRelationInput | CrunchMediaOrderByWithRelationInput[]
+    cursor?: CrunchMediaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CrunchMediaScalarFieldEnum | CrunchMediaScalarFieldEnum[]
   }
 
   /**
@@ -19158,6 +19323,1033 @@ export namespace Prisma {
 
 
   /**
+   * Model CrunchMedia
+   */
+
+  export type AggregateCrunchMedia = {
+    _count: CrunchMediaCountAggregateOutputType | null
+    _min: CrunchMediaMinAggregateOutputType | null
+    _max: CrunchMediaMaxAggregateOutputType | null
+  }
+
+  export type CrunchMediaMinAggregateOutputType = {
+    crunchId: string | null
+    mediaId: string | null
+  }
+
+  export type CrunchMediaMaxAggregateOutputType = {
+    crunchId: string | null
+    mediaId: string | null
+  }
+
+  export type CrunchMediaCountAggregateOutputType = {
+    crunchId: number
+    mediaId: number
+    _all: number
+  }
+
+
+  export type CrunchMediaMinAggregateInputType = {
+    crunchId?: true
+    mediaId?: true
+  }
+
+  export type CrunchMediaMaxAggregateInputType = {
+    crunchId?: true
+    mediaId?: true
+  }
+
+  export type CrunchMediaCountAggregateInputType = {
+    crunchId?: true
+    mediaId?: true
+    _all?: true
+  }
+
+  export type CrunchMediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CrunchMedia to aggregate.
+     */
+    where?: CrunchMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrunchMedias to fetch.
+     */
+    orderBy?: CrunchMediaOrderByWithRelationInput | CrunchMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CrunchMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrunchMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrunchMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CrunchMedias
+    **/
+    _count?: true | CrunchMediaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CrunchMediaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CrunchMediaMaxAggregateInputType
+  }
+
+  export type GetCrunchMediaAggregateType<T extends CrunchMediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateCrunchMedia]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCrunchMedia[P]>
+      : GetScalarType<T[P], AggregateCrunchMedia[P]>
+  }
+
+
+
+
+  export type CrunchMediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrunchMediaWhereInput
+    orderBy?: CrunchMediaOrderByWithAggregationInput | CrunchMediaOrderByWithAggregationInput[]
+    by: CrunchMediaScalarFieldEnum[] | CrunchMediaScalarFieldEnum
+    having?: CrunchMediaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CrunchMediaCountAggregateInputType | true
+    _min?: CrunchMediaMinAggregateInputType
+    _max?: CrunchMediaMaxAggregateInputType
+  }
+
+  export type CrunchMediaGroupByOutputType = {
+    crunchId: string
+    mediaId: string
+    _count: CrunchMediaCountAggregateOutputType | null
+    _min: CrunchMediaMinAggregateOutputType | null
+    _max: CrunchMediaMaxAggregateOutputType | null
+  }
+
+  type GetCrunchMediaGroupByPayload<T extends CrunchMediaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CrunchMediaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CrunchMediaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CrunchMediaGroupByOutputType[P]>
+            : GetScalarType<T[P], CrunchMediaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CrunchMediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    crunchId?: boolean
+    mediaId?: boolean
+    crunch?: boolean | ChurchDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crunchMedia"]>
+
+  export type CrunchMediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    crunchId?: boolean
+    mediaId?: boolean
+    crunch?: boolean | ChurchDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crunchMedia"]>
+
+  export type CrunchMediaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    crunchId?: boolean
+    mediaId?: boolean
+    crunch?: boolean | ChurchDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["crunchMedia"]>
+
+  export type CrunchMediaSelectScalar = {
+    crunchId?: boolean
+    mediaId?: boolean
+  }
+
+  export type CrunchMediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"crunchId" | "mediaId", ExtArgs["result"]["crunchMedia"]>
+  export type CrunchMediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    crunch?: boolean | ChurchDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }
+  export type CrunchMediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    crunch?: boolean | ChurchDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }
+  export type CrunchMediaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    crunch?: boolean | ChurchDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
+  }
+
+  export type $CrunchMediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CrunchMedia"
+    objects: {
+      crunch: Prisma.$ChurchPayload<ExtArgs>
+      media: Prisma.$MediaPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      crunchId: string
+      mediaId: string
+    }, ExtArgs["result"]["crunchMedia"]>
+    composites: {}
+  }
+
+  type CrunchMediaGetPayload<S extends boolean | null | undefined | CrunchMediaDefaultArgs> = $Result.GetResult<Prisma.$CrunchMediaPayload, S>
+
+  type CrunchMediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CrunchMediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CrunchMediaCountAggregateInputType | true
+    }
+
+  export interface CrunchMediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CrunchMedia'], meta: { name: 'CrunchMedia' } }
+    /**
+     * Find zero or one CrunchMedia that matches the filter.
+     * @param {CrunchMediaFindUniqueArgs} args - Arguments to find a CrunchMedia
+     * @example
+     * // Get one CrunchMedia
+     * const crunchMedia = await prisma.crunchMedia.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CrunchMediaFindUniqueArgs>(args: SelectSubset<T, CrunchMediaFindUniqueArgs<ExtArgs>>): Prisma__CrunchMediaClient<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CrunchMedia that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CrunchMediaFindUniqueOrThrowArgs} args - Arguments to find a CrunchMedia
+     * @example
+     * // Get one CrunchMedia
+     * const crunchMedia = await prisma.crunchMedia.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CrunchMediaFindUniqueOrThrowArgs>(args: SelectSubset<T, CrunchMediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CrunchMediaClient<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CrunchMedia that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrunchMediaFindFirstArgs} args - Arguments to find a CrunchMedia
+     * @example
+     * // Get one CrunchMedia
+     * const crunchMedia = await prisma.crunchMedia.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CrunchMediaFindFirstArgs>(args?: SelectSubset<T, CrunchMediaFindFirstArgs<ExtArgs>>): Prisma__CrunchMediaClient<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CrunchMedia that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrunchMediaFindFirstOrThrowArgs} args - Arguments to find a CrunchMedia
+     * @example
+     * // Get one CrunchMedia
+     * const crunchMedia = await prisma.crunchMedia.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CrunchMediaFindFirstOrThrowArgs>(args?: SelectSubset<T, CrunchMediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__CrunchMediaClient<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CrunchMedias that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrunchMediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CrunchMedias
+     * const crunchMedias = await prisma.crunchMedia.findMany()
+     * 
+     * // Get first 10 CrunchMedias
+     * const crunchMedias = await prisma.crunchMedia.findMany({ take: 10 })
+     * 
+     * // Only select the `crunchId`
+     * const crunchMediaWithCrunchIdOnly = await prisma.crunchMedia.findMany({ select: { crunchId: true } })
+     * 
+     */
+    findMany<T extends CrunchMediaFindManyArgs>(args?: SelectSubset<T, CrunchMediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CrunchMedia.
+     * @param {CrunchMediaCreateArgs} args - Arguments to create a CrunchMedia.
+     * @example
+     * // Create one CrunchMedia
+     * const CrunchMedia = await prisma.crunchMedia.create({
+     *   data: {
+     *     // ... data to create a CrunchMedia
+     *   }
+     * })
+     * 
+     */
+    create<T extends CrunchMediaCreateArgs>(args: SelectSubset<T, CrunchMediaCreateArgs<ExtArgs>>): Prisma__CrunchMediaClient<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CrunchMedias.
+     * @param {CrunchMediaCreateManyArgs} args - Arguments to create many CrunchMedias.
+     * @example
+     * // Create many CrunchMedias
+     * const crunchMedia = await prisma.crunchMedia.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CrunchMediaCreateManyArgs>(args?: SelectSubset<T, CrunchMediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CrunchMedias and returns the data saved in the database.
+     * @param {CrunchMediaCreateManyAndReturnArgs} args - Arguments to create many CrunchMedias.
+     * @example
+     * // Create many CrunchMedias
+     * const crunchMedia = await prisma.crunchMedia.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CrunchMedias and only return the `crunchId`
+     * const crunchMediaWithCrunchIdOnly = await prisma.crunchMedia.createManyAndReturn({
+     *   select: { crunchId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CrunchMediaCreateManyAndReturnArgs>(args?: SelectSubset<T, CrunchMediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CrunchMedia.
+     * @param {CrunchMediaDeleteArgs} args - Arguments to delete one CrunchMedia.
+     * @example
+     * // Delete one CrunchMedia
+     * const CrunchMedia = await prisma.crunchMedia.delete({
+     *   where: {
+     *     // ... filter to delete one CrunchMedia
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CrunchMediaDeleteArgs>(args: SelectSubset<T, CrunchMediaDeleteArgs<ExtArgs>>): Prisma__CrunchMediaClient<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CrunchMedia.
+     * @param {CrunchMediaUpdateArgs} args - Arguments to update one CrunchMedia.
+     * @example
+     * // Update one CrunchMedia
+     * const crunchMedia = await prisma.crunchMedia.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CrunchMediaUpdateArgs>(args: SelectSubset<T, CrunchMediaUpdateArgs<ExtArgs>>): Prisma__CrunchMediaClient<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CrunchMedias.
+     * @param {CrunchMediaDeleteManyArgs} args - Arguments to filter CrunchMedias to delete.
+     * @example
+     * // Delete a few CrunchMedias
+     * const { count } = await prisma.crunchMedia.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CrunchMediaDeleteManyArgs>(args?: SelectSubset<T, CrunchMediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CrunchMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrunchMediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CrunchMedias
+     * const crunchMedia = await prisma.crunchMedia.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CrunchMediaUpdateManyArgs>(args: SelectSubset<T, CrunchMediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CrunchMedias and returns the data updated in the database.
+     * @param {CrunchMediaUpdateManyAndReturnArgs} args - Arguments to update many CrunchMedias.
+     * @example
+     * // Update many CrunchMedias
+     * const crunchMedia = await prisma.crunchMedia.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CrunchMedias and only return the `crunchId`
+     * const crunchMediaWithCrunchIdOnly = await prisma.crunchMedia.updateManyAndReturn({
+     *   select: { crunchId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CrunchMediaUpdateManyAndReturnArgs>(args: SelectSubset<T, CrunchMediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CrunchMedia.
+     * @param {CrunchMediaUpsertArgs} args - Arguments to update or create a CrunchMedia.
+     * @example
+     * // Update or create a CrunchMedia
+     * const crunchMedia = await prisma.crunchMedia.upsert({
+     *   create: {
+     *     // ... data to create a CrunchMedia
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CrunchMedia we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CrunchMediaUpsertArgs>(args: SelectSubset<T, CrunchMediaUpsertArgs<ExtArgs>>): Prisma__CrunchMediaClient<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CrunchMedias.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrunchMediaCountArgs} args - Arguments to filter CrunchMedias to count.
+     * @example
+     * // Count the number of CrunchMedias
+     * const count = await prisma.crunchMedia.count({
+     *   where: {
+     *     // ... the filter for the CrunchMedias we want to count
+     *   }
+     * })
+    **/
+    count<T extends CrunchMediaCountArgs>(
+      args?: Subset<T, CrunchMediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CrunchMediaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CrunchMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrunchMediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CrunchMediaAggregateArgs>(args: Subset<T, CrunchMediaAggregateArgs>): Prisma.PrismaPromise<GetCrunchMediaAggregateType<T>>
+
+    /**
+     * Group by CrunchMedia.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrunchMediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CrunchMediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CrunchMediaGroupByArgs['orderBy'] }
+        : { orderBy?: CrunchMediaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CrunchMediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCrunchMediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CrunchMedia model
+   */
+  readonly fields: CrunchMediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CrunchMedia.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CrunchMediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    crunch<T extends ChurchDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChurchDefaultArgs<ExtArgs>>): Prisma__ChurchClient<$Result.GetResult<Prisma.$ChurchPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    media<T extends MediaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MediaDefaultArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CrunchMedia model
+   */
+  interface CrunchMediaFieldRefs {
+    readonly crunchId: FieldRef<"CrunchMedia", 'String'>
+    readonly mediaId: FieldRef<"CrunchMedia", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CrunchMedia findUnique
+   */
+  export type CrunchMediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which CrunchMedia to fetch.
+     */
+    where: CrunchMediaWhereUniqueInput
+  }
+
+  /**
+   * CrunchMedia findUniqueOrThrow
+   */
+  export type CrunchMediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which CrunchMedia to fetch.
+     */
+    where: CrunchMediaWhereUniqueInput
+  }
+
+  /**
+   * CrunchMedia findFirst
+   */
+  export type CrunchMediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which CrunchMedia to fetch.
+     */
+    where?: CrunchMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrunchMedias to fetch.
+     */
+    orderBy?: CrunchMediaOrderByWithRelationInput | CrunchMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CrunchMedias.
+     */
+    cursor?: CrunchMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrunchMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrunchMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CrunchMedias.
+     */
+    distinct?: CrunchMediaScalarFieldEnum | CrunchMediaScalarFieldEnum[]
+  }
+
+  /**
+   * CrunchMedia findFirstOrThrow
+   */
+  export type CrunchMediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which CrunchMedia to fetch.
+     */
+    where?: CrunchMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrunchMedias to fetch.
+     */
+    orderBy?: CrunchMediaOrderByWithRelationInput | CrunchMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CrunchMedias.
+     */
+    cursor?: CrunchMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrunchMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrunchMedias.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CrunchMedias.
+     */
+    distinct?: CrunchMediaScalarFieldEnum | CrunchMediaScalarFieldEnum[]
+  }
+
+  /**
+   * CrunchMedia findMany
+   */
+  export type CrunchMediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * Filter, which CrunchMedias to fetch.
+     */
+    where?: CrunchMediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrunchMedias to fetch.
+     */
+    orderBy?: CrunchMediaOrderByWithRelationInput | CrunchMediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CrunchMedias.
+     */
+    cursor?: CrunchMediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrunchMedias from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrunchMedias.
+     */
+    skip?: number
+    distinct?: CrunchMediaScalarFieldEnum | CrunchMediaScalarFieldEnum[]
+  }
+
+  /**
+   * CrunchMedia create
+   */
+  export type CrunchMediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CrunchMedia.
+     */
+    data: XOR<CrunchMediaCreateInput, CrunchMediaUncheckedCreateInput>
+  }
+
+  /**
+   * CrunchMedia createMany
+   */
+  export type CrunchMediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CrunchMedias.
+     */
+    data: CrunchMediaCreateManyInput | CrunchMediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CrunchMedia createManyAndReturn
+   */
+  export type CrunchMediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * The data used to create many CrunchMedias.
+     */
+    data: CrunchMediaCreateManyInput | CrunchMediaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CrunchMedia update
+   */
+  export type CrunchMediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CrunchMedia.
+     */
+    data: XOR<CrunchMediaUpdateInput, CrunchMediaUncheckedUpdateInput>
+    /**
+     * Choose, which CrunchMedia to update.
+     */
+    where: CrunchMediaWhereUniqueInput
+  }
+
+  /**
+   * CrunchMedia updateMany
+   */
+  export type CrunchMediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CrunchMedias.
+     */
+    data: XOR<CrunchMediaUpdateManyMutationInput, CrunchMediaUncheckedUpdateManyInput>
+    /**
+     * Filter which CrunchMedias to update
+     */
+    where?: CrunchMediaWhereInput
+    /**
+     * Limit how many CrunchMedias to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CrunchMedia updateManyAndReturn
+   */
+  export type CrunchMediaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * The data used to update CrunchMedias.
+     */
+    data: XOR<CrunchMediaUpdateManyMutationInput, CrunchMediaUncheckedUpdateManyInput>
+    /**
+     * Filter which CrunchMedias to update
+     */
+    where?: CrunchMediaWhereInput
+    /**
+     * Limit how many CrunchMedias to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CrunchMedia upsert
+   */
+  export type CrunchMediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CrunchMedia to update in case it exists.
+     */
+    where: CrunchMediaWhereUniqueInput
+    /**
+     * In case the CrunchMedia found by the `where` argument doesn't exist, create a new CrunchMedia with this data.
+     */
+    create: XOR<CrunchMediaCreateInput, CrunchMediaUncheckedCreateInput>
+    /**
+     * In case the CrunchMedia was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CrunchMediaUpdateInput, CrunchMediaUncheckedUpdateInput>
+  }
+
+  /**
+   * CrunchMedia delete
+   */
+  export type CrunchMediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+    /**
+     * Filter which CrunchMedia to delete.
+     */
+    where: CrunchMediaWhereUniqueInput
+  }
+
+  /**
+   * CrunchMedia deleteMany
+   */
+  export type CrunchMediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CrunchMedias to delete
+     */
+    where?: CrunchMediaWhereInput
+    /**
+     * Limit how many CrunchMedias to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CrunchMedia without action
+   */
+  export type CrunchMediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrunchMedia
+     */
+    select?: CrunchMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CrunchMedia
+     */
+    omit?: CrunchMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrunchMediaInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19355,6 +20547,14 @@ export namespace Prisma {
   };
 
   export type HomilyMediaScalarFieldEnum = (typeof HomilyMediaScalarFieldEnum)[keyof typeof HomilyMediaScalarFieldEnum]
+
+
+  export const CrunchMediaScalarFieldEnum: {
+    crunchId: 'crunchId',
+    mediaId: 'mediaId'
+  };
+
+  export type CrunchMediaScalarFieldEnum = (typeof CrunchMediaScalarFieldEnum)[keyof typeof CrunchMediaScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -19733,6 +20933,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Church"> | Date | string
     updatedAt?: DateTimeFilter<"Church"> | Date | string
     massSchedules?: MassScheduleListRelationFilter
+    crunchMedias?: CrunchMediaListRelationFilter
   }
 
   export type ChurchOrderByWithRelationInput = {
@@ -19745,6 +20946,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     massSchedules?: MassScheduleOrderByRelationAggregateInput
+    crunchMedias?: CrunchMediaOrderByRelationAggregateInput
   }
 
   export type ChurchWhereUniqueInput = Prisma.AtLeast<{
@@ -19760,6 +20962,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Church"> | Date | string
     updatedAt?: DateTimeFilter<"Church"> | Date | string
     massSchedules?: MassScheduleListRelationFilter
+    crunchMedias?: CrunchMediaListRelationFilter
   }, "id">
 
   export type ChurchOrderByWithAggregationInput = {
@@ -20256,6 +21459,7 @@ export namespace Prisma {
     ministries?: MinistryMediaListRelationFilter
     financialReports?: FinancialReportMediaListRelationFilter
     homilies?: HomilyMediaListRelationFilter
+    crunchMedias?: CrunchMediaListRelationFilter
   }
 
   export type MediaOrderByWithRelationInput = {
@@ -20269,6 +21473,7 @@ export namespace Prisma {
     ministries?: MinistryMediaOrderByRelationAggregateInput
     financialReports?: FinancialReportMediaOrderByRelationAggregateInput
     homilies?: HomilyMediaOrderByRelationAggregateInput
+    crunchMedias?: CrunchMediaOrderByRelationAggregateInput
   }
 
   export type MediaWhereUniqueInput = Prisma.AtLeast<{
@@ -20285,6 +21490,7 @@ export namespace Prisma {
     ministries?: MinistryMediaListRelationFilter
     financialReports?: FinancialReportMediaListRelationFilter
     homilies?: HomilyMediaListRelationFilter
+    crunchMedias?: CrunchMediaListRelationFilter
   }, "id">
 
   export type MediaOrderByWithAggregationInput = {
@@ -20487,6 +21693,50 @@ export namespace Prisma {
     NOT?: HomilyMediaScalarWhereWithAggregatesInput | HomilyMediaScalarWhereWithAggregatesInput[]
     homilyId?: StringWithAggregatesFilter<"HomilyMedia"> | string
     mediaId?: StringWithAggregatesFilter<"HomilyMedia"> | string
+  }
+
+  export type CrunchMediaWhereInput = {
+    AND?: CrunchMediaWhereInput | CrunchMediaWhereInput[]
+    OR?: CrunchMediaWhereInput[]
+    NOT?: CrunchMediaWhereInput | CrunchMediaWhereInput[]
+    crunchId?: StringFilter<"CrunchMedia"> | string
+    mediaId?: StringFilter<"CrunchMedia"> | string
+    crunch?: XOR<ChurchScalarRelationFilter, ChurchWhereInput>
+    media?: XOR<MediaScalarRelationFilter, MediaWhereInput>
+  }
+
+  export type CrunchMediaOrderByWithRelationInput = {
+    crunchId?: SortOrder
+    mediaId?: SortOrder
+    crunch?: ChurchOrderByWithRelationInput
+    media?: MediaOrderByWithRelationInput
+  }
+
+  export type CrunchMediaWhereUniqueInput = Prisma.AtLeast<{
+    crunchId_mediaId?: CrunchMediaCrunchIdMediaIdCompoundUniqueInput
+    AND?: CrunchMediaWhereInput | CrunchMediaWhereInput[]
+    OR?: CrunchMediaWhereInput[]
+    NOT?: CrunchMediaWhereInput | CrunchMediaWhereInput[]
+    crunchId?: StringFilter<"CrunchMedia"> | string
+    mediaId?: StringFilter<"CrunchMedia"> | string
+    crunch?: XOR<ChurchScalarRelationFilter, ChurchWhereInput>
+    media?: XOR<MediaScalarRelationFilter, MediaWhereInput>
+  }, "crunchId_mediaId">
+
+  export type CrunchMediaOrderByWithAggregationInput = {
+    crunchId?: SortOrder
+    mediaId?: SortOrder
+    _count?: CrunchMediaCountOrderByAggregateInput
+    _max?: CrunchMediaMaxOrderByAggregateInput
+    _min?: CrunchMediaMinOrderByAggregateInput
+  }
+
+  export type CrunchMediaScalarWhereWithAggregatesInput = {
+    AND?: CrunchMediaScalarWhereWithAggregatesInput | CrunchMediaScalarWhereWithAggregatesInput[]
+    OR?: CrunchMediaScalarWhereWithAggregatesInput[]
+    NOT?: CrunchMediaScalarWhereWithAggregatesInput | CrunchMediaScalarWhereWithAggregatesInput[]
+    crunchId?: StringWithAggregatesFilter<"CrunchMedia"> | string
+    mediaId?: StringWithAggregatesFilter<"CrunchMedia"> | string
   }
 
   export type UserCreateInput = {
@@ -20734,6 +21984,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     massSchedules?: MassScheduleCreateNestedManyWithoutChurchInput
+    crunchMedias?: CrunchMediaCreateNestedManyWithoutCrunchInput
   }
 
   export type ChurchUncheckedCreateInput = {
@@ -20746,6 +21997,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     massSchedules?: MassScheduleUncheckedCreateNestedManyWithoutChurchInput
+    crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutCrunchInput
   }
 
   export type ChurchUpdateInput = {
@@ -20758,6 +22010,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     massSchedules?: MassScheduleUpdateManyWithoutChurchNestedInput
+    crunchMedias?: CrunchMediaUpdateManyWithoutCrunchNestedInput
   }
 
   export type ChurchUncheckedUpdateInput = {
@@ -20770,6 +22023,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     massSchedules?: MassScheduleUncheckedUpdateManyWithoutChurchNestedInput
+    crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutCrunchNestedInput
   }
 
   export type ChurchCreateManyInput = {
@@ -21318,6 +22572,7 @@ export namespace Prisma {
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateInput = {
@@ -21331,6 +22586,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUpdateInput = {
@@ -21344,6 +22600,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateInput = {
@@ -21357,6 +22614,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaCreateManyInput = {
@@ -21519,6 +22777,40 @@ export namespace Prisma {
 
   export type HomilyMediaUncheckedUpdateManyInput = {
     homilyId?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CrunchMediaCreateInput = {
+    crunch: ChurchCreateNestedOneWithoutCrunchMediasInput
+    media: MediaCreateNestedOneWithoutCrunchMediasInput
+  }
+
+  export type CrunchMediaUncheckedCreateInput = {
+    crunchId: string
+    mediaId: string
+  }
+
+  export type CrunchMediaUpdateInput = {
+    crunch?: ChurchUpdateOneRequiredWithoutCrunchMediasNestedInput
+    media?: MediaUpdateOneRequiredWithoutCrunchMediasNestedInput
+  }
+
+  export type CrunchMediaUncheckedUpdateInput = {
+    crunchId?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CrunchMediaCreateManyInput = {
+    crunchId: string
+    mediaId: string
+  }
+
+  export type CrunchMediaUpdateManyMutationInput = {
+
+  }
+
+  export type CrunchMediaUncheckedUpdateManyInput = {
+    crunchId?: StringFieldUpdateOperationsInput | string
     mediaId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -21833,7 +23125,17 @@ export namespace Prisma {
     none?: MassScheduleWhereInput
   }
 
+  export type CrunchMediaListRelationFilter = {
+    every?: CrunchMediaWhereInput
+    some?: CrunchMediaWhereInput
+    none?: CrunchMediaWhereInput
+  }
+
   export type MassScheduleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CrunchMediaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22423,6 +23725,26 @@ export namespace Prisma {
     mediaId?: SortOrder
   }
 
+  export type CrunchMediaCrunchIdMediaIdCompoundUniqueInput = {
+    crunchId: string
+    mediaId: string
+  }
+
+  export type CrunchMediaCountOrderByAggregateInput = {
+    crunchId?: SortOrder
+    mediaId?: SortOrder
+  }
+
+  export type CrunchMediaMaxOrderByAggregateInput = {
+    crunchId?: SortOrder
+    mediaId?: SortOrder
+  }
+
+  export type CrunchMediaMinOrderByAggregateInput = {
+    crunchId?: SortOrder
+    mediaId?: SortOrder
+  }
+
   export type NewsCreateNestedManyWithoutCreatedByInput = {
     create?: XOR<NewsCreateWithoutCreatedByInput, NewsUncheckedCreateWithoutCreatedByInput> | NewsCreateWithoutCreatedByInput[] | NewsUncheckedCreateWithoutCreatedByInput[]
     connectOrCreate?: NewsCreateOrConnectWithoutCreatedByInput | NewsCreateOrConnectWithoutCreatedByInput[]
@@ -22692,11 +24014,25 @@ export namespace Prisma {
     connect?: MassScheduleWhereUniqueInput | MassScheduleWhereUniqueInput[]
   }
 
+  export type CrunchMediaCreateNestedManyWithoutCrunchInput = {
+    create?: XOR<CrunchMediaCreateWithoutCrunchInput, CrunchMediaUncheckedCreateWithoutCrunchInput> | CrunchMediaCreateWithoutCrunchInput[] | CrunchMediaUncheckedCreateWithoutCrunchInput[]
+    connectOrCreate?: CrunchMediaCreateOrConnectWithoutCrunchInput | CrunchMediaCreateOrConnectWithoutCrunchInput[]
+    createMany?: CrunchMediaCreateManyCrunchInputEnvelope
+    connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+  }
+
   export type MassScheduleUncheckedCreateNestedManyWithoutChurchInput = {
     create?: XOR<MassScheduleCreateWithoutChurchInput, MassScheduleUncheckedCreateWithoutChurchInput> | MassScheduleCreateWithoutChurchInput[] | MassScheduleUncheckedCreateWithoutChurchInput[]
     connectOrCreate?: MassScheduleCreateOrConnectWithoutChurchInput | MassScheduleCreateOrConnectWithoutChurchInput[]
     createMany?: MassScheduleCreateManyChurchInputEnvelope
     connect?: MassScheduleWhereUniqueInput | MassScheduleWhereUniqueInput[]
+  }
+
+  export type CrunchMediaUncheckedCreateNestedManyWithoutCrunchInput = {
+    create?: XOR<CrunchMediaCreateWithoutCrunchInput, CrunchMediaUncheckedCreateWithoutCrunchInput> | CrunchMediaCreateWithoutCrunchInput[] | CrunchMediaUncheckedCreateWithoutCrunchInput[]
+    connectOrCreate?: CrunchMediaCreateOrConnectWithoutCrunchInput | CrunchMediaCreateOrConnectWithoutCrunchInput[]
+    createMany?: CrunchMediaCreateManyCrunchInputEnvelope
+    connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
   }
 
   export type FloatFieldUpdateOperationsInput = {
@@ -22721,6 +24057,20 @@ export namespace Prisma {
     deleteMany?: MassScheduleScalarWhereInput | MassScheduleScalarWhereInput[]
   }
 
+  export type CrunchMediaUpdateManyWithoutCrunchNestedInput = {
+    create?: XOR<CrunchMediaCreateWithoutCrunchInput, CrunchMediaUncheckedCreateWithoutCrunchInput> | CrunchMediaCreateWithoutCrunchInput[] | CrunchMediaUncheckedCreateWithoutCrunchInput[]
+    connectOrCreate?: CrunchMediaCreateOrConnectWithoutCrunchInput | CrunchMediaCreateOrConnectWithoutCrunchInput[]
+    upsert?: CrunchMediaUpsertWithWhereUniqueWithoutCrunchInput | CrunchMediaUpsertWithWhereUniqueWithoutCrunchInput[]
+    createMany?: CrunchMediaCreateManyCrunchInputEnvelope
+    set?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    disconnect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    delete?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    update?: CrunchMediaUpdateWithWhereUniqueWithoutCrunchInput | CrunchMediaUpdateWithWhereUniqueWithoutCrunchInput[]
+    updateMany?: CrunchMediaUpdateManyWithWhereWithoutCrunchInput | CrunchMediaUpdateManyWithWhereWithoutCrunchInput[]
+    deleteMany?: CrunchMediaScalarWhereInput | CrunchMediaScalarWhereInput[]
+  }
+
   export type MassScheduleUncheckedUpdateManyWithoutChurchNestedInput = {
     create?: XOR<MassScheduleCreateWithoutChurchInput, MassScheduleUncheckedCreateWithoutChurchInput> | MassScheduleCreateWithoutChurchInput[] | MassScheduleUncheckedCreateWithoutChurchInput[]
     connectOrCreate?: MassScheduleCreateOrConnectWithoutChurchInput | MassScheduleCreateOrConnectWithoutChurchInput[]
@@ -22733,6 +24083,20 @@ export namespace Prisma {
     update?: MassScheduleUpdateWithWhereUniqueWithoutChurchInput | MassScheduleUpdateWithWhereUniqueWithoutChurchInput[]
     updateMany?: MassScheduleUpdateManyWithWhereWithoutChurchInput | MassScheduleUpdateManyWithWhereWithoutChurchInput[]
     deleteMany?: MassScheduleScalarWhereInput | MassScheduleScalarWhereInput[]
+  }
+
+  export type CrunchMediaUncheckedUpdateManyWithoutCrunchNestedInput = {
+    create?: XOR<CrunchMediaCreateWithoutCrunchInput, CrunchMediaUncheckedCreateWithoutCrunchInput> | CrunchMediaCreateWithoutCrunchInput[] | CrunchMediaUncheckedCreateWithoutCrunchInput[]
+    connectOrCreate?: CrunchMediaCreateOrConnectWithoutCrunchInput | CrunchMediaCreateOrConnectWithoutCrunchInput[]
+    upsert?: CrunchMediaUpsertWithWhereUniqueWithoutCrunchInput | CrunchMediaUpsertWithWhereUniqueWithoutCrunchInput[]
+    createMany?: CrunchMediaCreateManyCrunchInputEnvelope
+    set?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    disconnect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    delete?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    update?: CrunchMediaUpdateWithWhereUniqueWithoutCrunchInput | CrunchMediaUpdateWithWhereUniqueWithoutCrunchInput[]
+    updateMany?: CrunchMediaUpdateManyWithWhereWithoutCrunchInput | CrunchMediaUpdateManyWithWhereWithoutCrunchInput[]
+    deleteMany?: CrunchMediaScalarWhereInput | CrunchMediaScalarWhereInput[]
   }
 
   export type ChurchCreateNestedOneWithoutMassSchedulesInput = {
@@ -23003,6 +24367,13 @@ export namespace Prisma {
     connect?: HomilyMediaWhereUniqueInput | HomilyMediaWhereUniqueInput[]
   }
 
+  export type CrunchMediaCreateNestedManyWithoutMediaInput = {
+    create?: XOR<CrunchMediaCreateWithoutMediaInput, CrunchMediaUncheckedCreateWithoutMediaInput> | CrunchMediaCreateWithoutMediaInput[] | CrunchMediaUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: CrunchMediaCreateOrConnectWithoutMediaInput | CrunchMediaCreateOrConnectWithoutMediaInput[]
+    createMany?: CrunchMediaCreateManyMediaInputEnvelope
+    connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+  }
+
   export type NewsMediaUncheckedCreateNestedManyWithoutMediaInput = {
     create?: XOR<NewsMediaCreateWithoutMediaInput, NewsMediaUncheckedCreateWithoutMediaInput> | NewsMediaCreateWithoutMediaInput[] | NewsMediaUncheckedCreateWithoutMediaInput[]
     connectOrCreate?: NewsMediaCreateOrConnectWithoutMediaInput | NewsMediaCreateOrConnectWithoutMediaInput[]
@@ -23029,6 +24400,13 @@ export namespace Prisma {
     connectOrCreate?: HomilyMediaCreateOrConnectWithoutMediaInput | HomilyMediaCreateOrConnectWithoutMediaInput[]
     createMany?: HomilyMediaCreateManyMediaInputEnvelope
     connect?: HomilyMediaWhereUniqueInput | HomilyMediaWhereUniqueInput[]
+  }
+
+  export type CrunchMediaUncheckedCreateNestedManyWithoutMediaInput = {
+    create?: XOR<CrunchMediaCreateWithoutMediaInput, CrunchMediaUncheckedCreateWithoutMediaInput> | CrunchMediaCreateWithoutMediaInput[] | CrunchMediaUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: CrunchMediaCreateOrConnectWithoutMediaInput | CrunchMediaCreateOrConnectWithoutMediaInput[]
+    createMany?: CrunchMediaCreateManyMediaInputEnvelope
+    connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
   }
 
   export type EnumMediaTypeFieldUpdateOperationsInput = {
@@ -23099,6 +24477,20 @@ export namespace Prisma {
     deleteMany?: HomilyMediaScalarWhereInput | HomilyMediaScalarWhereInput[]
   }
 
+  export type CrunchMediaUpdateManyWithoutMediaNestedInput = {
+    create?: XOR<CrunchMediaCreateWithoutMediaInput, CrunchMediaUncheckedCreateWithoutMediaInput> | CrunchMediaCreateWithoutMediaInput[] | CrunchMediaUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: CrunchMediaCreateOrConnectWithoutMediaInput | CrunchMediaCreateOrConnectWithoutMediaInput[]
+    upsert?: CrunchMediaUpsertWithWhereUniqueWithoutMediaInput | CrunchMediaUpsertWithWhereUniqueWithoutMediaInput[]
+    createMany?: CrunchMediaCreateManyMediaInputEnvelope
+    set?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    disconnect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    delete?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    update?: CrunchMediaUpdateWithWhereUniqueWithoutMediaInput | CrunchMediaUpdateWithWhereUniqueWithoutMediaInput[]
+    updateMany?: CrunchMediaUpdateManyWithWhereWithoutMediaInput | CrunchMediaUpdateManyWithWhereWithoutMediaInput[]
+    deleteMany?: CrunchMediaScalarWhereInput | CrunchMediaScalarWhereInput[]
+  }
+
   export type NewsMediaUncheckedUpdateManyWithoutMediaNestedInput = {
     create?: XOR<NewsMediaCreateWithoutMediaInput, NewsMediaUncheckedCreateWithoutMediaInput> | NewsMediaCreateWithoutMediaInput[] | NewsMediaUncheckedCreateWithoutMediaInput[]
     connectOrCreate?: NewsMediaCreateOrConnectWithoutMediaInput | NewsMediaCreateOrConnectWithoutMediaInput[]
@@ -23153,6 +24545,20 @@ export namespace Prisma {
     update?: HomilyMediaUpdateWithWhereUniqueWithoutMediaInput | HomilyMediaUpdateWithWhereUniqueWithoutMediaInput[]
     updateMany?: HomilyMediaUpdateManyWithWhereWithoutMediaInput | HomilyMediaUpdateManyWithWhereWithoutMediaInput[]
     deleteMany?: HomilyMediaScalarWhereInput | HomilyMediaScalarWhereInput[]
+  }
+
+  export type CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput = {
+    create?: XOR<CrunchMediaCreateWithoutMediaInput, CrunchMediaUncheckedCreateWithoutMediaInput> | CrunchMediaCreateWithoutMediaInput[] | CrunchMediaUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: CrunchMediaCreateOrConnectWithoutMediaInput | CrunchMediaCreateOrConnectWithoutMediaInput[]
+    upsert?: CrunchMediaUpsertWithWhereUniqueWithoutMediaInput | CrunchMediaUpsertWithWhereUniqueWithoutMediaInput[]
+    createMany?: CrunchMediaCreateManyMediaInputEnvelope
+    set?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    disconnect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    delete?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+    update?: CrunchMediaUpdateWithWhereUniqueWithoutMediaInput | CrunchMediaUpdateWithWhereUniqueWithoutMediaInput[]
+    updateMany?: CrunchMediaUpdateManyWithWhereWithoutMediaInput | CrunchMediaUpdateManyWithWhereWithoutMediaInput[]
+    deleteMany?: CrunchMediaScalarWhereInput | CrunchMediaScalarWhereInput[]
   }
 
   export type NewsCreateNestedOneWithoutMediaInput = {
@@ -23265,6 +24671,34 @@ export namespace Prisma {
     upsert?: MediaUpsertWithoutHomiliesInput
     connect?: MediaWhereUniqueInput
     update?: XOR<XOR<MediaUpdateToOneWithWhereWithoutHomiliesInput, MediaUpdateWithoutHomiliesInput>, MediaUncheckedUpdateWithoutHomiliesInput>
+  }
+
+  export type ChurchCreateNestedOneWithoutCrunchMediasInput = {
+    create?: XOR<ChurchCreateWithoutCrunchMediasInput, ChurchUncheckedCreateWithoutCrunchMediasInput>
+    connectOrCreate?: ChurchCreateOrConnectWithoutCrunchMediasInput
+    connect?: ChurchWhereUniqueInput
+  }
+
+  export type MediaCreateNestedOneWithoutCrunchMediasInput = {
+    create?: XOR<MediaCreateWithoutCrunchMediasInput, MediaUncheckedCreateWithoutCrunchMediasInput>
+    connectOrCreate?: MediaCreateOrConnectWithoutCrunchMediasInput
+    connect?: MediaWhereUniqueInput
+  }
+
+  export type ChurchUpdateOneRequiredWithoutCrunchMediasNestedInput = {
+    create?: XOR<ChurchCreateWithoutCrunchMediasInput, ChurchUncheckedCreateWithoutCrunchMediasInput>
+    connectOrCreate?: ChurchCreateOrConnectWithoutCrunchMediasInput
+    upsert?: ChurchUpsertWithoutCrunchMediasInput
+    connect?: ChurchWhereUniqueInput
+    update?: XOR<XOR<ChurchUpdateToOneWithWhereWithoutCrunchMediasInput, ChurchUpdateWithoutCrunchMediasInput>, ChurchUncheckedUpdateWithoutCrunchMediasInput>
+  }
+
+  export type MediaUpdateOneRequiredWithoutCrunchMediasNestedInput = {
+    create?: XOR<MediaCreateWithoutCrunchMediasInput, MediaUncheckedCreateWithoutCrunchMediasInput>
+    connectOrCreate?: MediaCreateOrConnectWithoutCrunchMediasInput
+    upsert?: MediaUpsertWithoutCrunchMediasInput
+    connect?: MediaWhereUniqueInput
+    update?: XOR<XOR<MediaUpdateToOneWithWhereWithoutCrunchMediasInput, MediaUpdateWithoutCrunchMediasInput>, MediaUncheckedUpdateWithoutCrunchMediasInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -23997,6 +25431,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CrunchMediaCreateWithoutCrunchInput = {
+    media: MediaCreateNestedOneWithoutCrunchMediasInput
+  }
+
+  export type CrunchMediaUncheckedCreateWithoutCrunchInput = {
+    mediaId: string
+  }
+
+  export type CrunchMediaCreateOrConnectWithoutCrunchInput = {
+    where: CrunchMediaWhereUniqueInput
+    create: XOR<CrunchMediaCreateWithoutCrunchInput, CrunchMediaUncheckedCreateWithoutCrunchInput>
+  }
+
+  export type CrunchMediaCreateManyCrunchInputEnvelope = {
+    data: CrunchMediaCreateManyCrunchInput | CrunchMediaCreateManyCrunchInput[]
+    skipDuplicates?: boolean
+  }
+
   export type MassScheduleUpsertWithWhereUniqueWithoutChurchInput = {
     where: MassScheduleWhereUniqueInput
     update: XOR<MassScheduleUpdateWithoutChurchInput, MassScheduleUncheckedUpdateWithoutChurchInput>
@@ -24026,6 +25478,30 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"MassSchedule"> | Date | string
   }
 
+  export type CrunchMediaUpsertWithWhereUniqueWithoutCrunchInput = {
+    where: CrunchMediaWhereUniqueInput
+    update: XOR<CrunchMediaUpdateWithoutCrunchInput, CrunchMediaUncheckedUpdateWithoutCrunchInput>
+    create: XOR<CrunchMediaCreateWithoutCrunchInput, CrunchMediaUncheckedCreateWithoutCrunchInput>
+  }
+
+  export type CrunchMediaUpdateWithWhereUniqueWithoutCrunchInput = {
+    where: CrunchMediaWhereUniqueInput
+    data: XOR<CrunchMediaUpdateWithoutCrunchInput, CrunchMediaUncheckedUpdateWithoutCrunchInput>
+  }
+
+  export type CrunchMediaUpdateManyWithWhereWithoutCrunchInput = {
+    where: CrunchMediaScalarWhereInput
+    data: XOR<CrunchMediaUpdateManyMutationInput, CrunchMediaUncheckedUpdateManyWithoutCrunchInput>
+  }
+
+  export type CrunchMediaScalarWhereInput = {
+    AND?: CrunchMediaScalarWhereInput | CrunchMediaScalarWhereInput[]
+    OR?: CrunchMediaScalarWhereInput[]
+    NOT?: CrunchMediaScalarWhereInput | CrunchMediaScalarWhereInput[]
+    crunchId?: StringFilter<"CrunchMedia"> | string
+    mediaId?: StringFilter<"CrunchMedia"> | string
+  }
+
   export type ChurchCreateWithoutMassSchedulesInput = {
     id?: string
     name: string
@@ -24035,6 +25511,7 @@ export namespace Prisma {
     longitude: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    crunchMedias?: CrunchMediaCreateNestedManyWithoutCrunchInput
   }
 
   export type ChurchUncheckedCreateWithoutMassSchedulesInput = {
@@ -24046,6 +25523,7 @@ export namespace Prisma {
     longitude: number
     createdAt?: Date | string
     updatedAt?: Date | string
+    crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutCrunchInput
   }
 
   export type ChurchCreateOrConnectWithoutMassSchedulesInput = {
@@ -24073,6 +25551,7 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    crunchMedias?: CrunchMediaUpdateManyWithoutCrunchNestedInput
   }
 
   export type ChurchUncheckedUpdateWithoutMassSchedulesInput = {
@@ -24084,6 +25563,7 @@ export namespace Prisma {
     longitude?: FloatFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutCrunchNestedInput
   }
 
   export type MinistryMediaCreateWithoutMinistryInput = {
@@ -24528,6 +26008,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type CrunchMediaCreateWithoutMediaInput = {
+    crunch: ChurchCreateNestedOneWithoutCrunchMediasInput
+  }
+
+  export type CrunchMediaUncheckedCreateWithoutMediaInput = {
+    crunchId: string
+  }
+
+  export type CrunchMediaCreateOrConnectWithoutMediaInput = {
+    where: CrunchMediaWhereUniqueInput
+    create: XOR<CrunchMediaCreateWithoutMediaInput, CrunchMediaUncheckedCreateWithoutMediaInput>
+  }
+
+  export type CrunchMediaCreateManyMediaInputEnvelope = {
+    data: CrunchMediaCreateManyMediaInput | CrunchMediaCreateManyMediaInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NewsMediaUpsertWithWhereUniqueWithoutMediaInput = {
     where: NewsMediaWhereUniqueInput
     update: XOR<NewsMediaUpdateWithoutMediaInput, NewsMediaUncheckedUpdateWithoutMediaInput>
@@ -24592,6 +26090,22 @@ export namespace Prisma {
     data: XOR<HomilyMediaUpdateManyMutationInput, HomilyMediaUncheckedUpdateManyWithoutMediaInput>
   }
 
+  export type CrunchMediaUpsertWithWhereUniqueWithoutMediaInput = {
+    where: CrunchMediaWhereUniqueInput
+    update: XOR<CrunchMediaUpdateWithoutMediaInput, CrunchMediaUncheckedUpdateWithoutMediaInput>
+    create: XOR<CrunchMediaCreateWithoutMediaInput, CrunchMediaUncheckedCreateWithoutMediaInput>
+  }
+
+  export type CrunchMediaUpdateWithWhereUniqueWithoutMediaInput = {
+    where: CrunchMediaWhereUniqueInput
+    data: XOR<CrunchMediaUpdateWithoutMediaInput, CrunchMediaUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type CrunchMediaUpdateManyWithWhereWithoutMediaInput = {
+    where: CrunchMediaScalarWhereInput
+    data: XOR<CrunchMediaUpdateManyMutationInput, CrunchMediaUncheckedUpdateManyWithoutMediaInput>
+  }
+
   export type NewsCreateWithoutMediaInput = {
     id?: string
     title: string
@@ -24635,6 +26149,7 @@ export namespace Prisma {
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutNewsInput = {
@@ -24647,6 +26162,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutNewsInput = {
@@ -24714,6 +26230,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutNewsInput = {
@@ -24726,6 +26243,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type MinistryCreateWithoutMediaInput = {
@@ -24767,6 +26285,7 @@ export namespace Prisma {
     news?: NewsMediaCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutMinistriesInput = {
@@ -24779,6 +26298,7 @@ export namespace Prisma {
     news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutMinistriesInput = {
@@ -24842,6 +26362,7 @@ export namespace Prisma {
     news?: NewsMediaUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutMinistriesInput = {
@@ -24854,6 +26375,7 @@ export namespace Prisma {
     news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type FinancialReportCreateWithoutMediaInput = {
@@ -24901,6 +26423,7 @@ export namespace Prisma {
     news?: NewsMediaCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutFinancialReportsInput = {
@@ -24913,6 +26436,7 @@ export namespace Prisma {
     news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutFinancialReportsInput = {
@@ -24982,6 +26506,7 @@ export namespace Prisma {
     news?: NewsMediaUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutFinancialReportsInput = {
@@ -24994,6 +26519,7 @@ export namespace Prisma {
     news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type HomilyCreateWithoutMediaInput = {
@@ -25037,6 +26563,7 @@ export namespace Prisma {
     news?: NewsMediaCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutHomiliesInput = {
@@ -25049,6 +26576,7 @@ export namespace Prisma {
     news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutHomiliesInput = {
@@ -25114,6 +26642,7 @@ export namespace Prisma {
     news?: NewsMediaUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutHomiliesInput = {
@@ -25126,6 +26655,139 @@ export namespace Prisma {
     news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
+  }
+
+  export type ChurchCreateWithoutCrunchMediasInput = {
+    id?: string
+    name: string
+    address: string
+    description?: string | null
+    latitude: number
+    longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    massSchedules?: MassScheduleCreateNestedManyWithoutChurchInput
+  }
+
+  export type ChurchUncheckedCreateWithoutCrunchMediasInput = {
+    id?: string
+    name: string
+    address: string
+    description?: string | null
+    latitude: number
+    longitude: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    massSchedules?: MassScheduleUncheckedCreateNestedManyWithoutChurchInput
+  }
+
+  export type ChurchCreateOrConnectWithoutCrunchMediasInput = {
+    where: ChurchWhereUniqueInput
+    create: XOR<ChurchCreateWithoutCrunchMediasInput, ChurchUncheckedCreateWithoutCrunchMediasInput>
+  }
+
+  export type MediaCreateWithoutCrunchMediasInput = {
+    id?: string
+    url: string
+    type: $Enums.MediaType
+    altText?: string | null
+    size?: number | null
+    createdAt?: Date | string
+    news?: NewsMediaCreateNestedManyWithoutMediaInput
+    ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
+    financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
+  }
+
+  export type MediaUncheckedCreateWithoutCrunchMediasInput = {
+    id?: string
+    url: string
+    type: $Enums.MediaType
+    altText?: string | null
+    size?: number | null
+    createdAt?: Date | string
+    news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
+    ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
+    financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
+  }
+
+  export type MediaCreateOrConnectWithoutCrunchMediasInput = {
+    where: MediaWhereUniqueInput
+    create: XOR<MediaCreateWithoutCrunchMediasInput, MediaUncheckedCreateWithoutCrunchMediasInput>
+  }
+
+  export type ChurchUpsertWithoutCrunchMediasInput = {
+    update: XOR<ChurchUpdateWithoutCrunchMediasInput, ChurchUncheckedUpdateWithoutCrunchMediasInput>
+    create: XOR<ChurchCreateWithoutCrunchMediasInput, ChurchUncheckedCreateWithoutCrunchMediasInput>
+    where?: ChurchWhereInput
+  }
+
+  export type ChurchUpdateToOneWithWhereWithoutCrunchMediasInput = {
+    where?: ChurchWhereInput
+    data: XOR<ChurchUpdateWithoutCrunchMediasInput, ChurchUncheckedUpdateWithoutCrunchMediasInput>
+  }
+
+  export type ChurchUpdateWithoutCrunchMediasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    massSchedules?: MassScheduleUpdateManyWithoutChurchNestedInput
+  }
+
+  export type ChurchUncheckedUpdateWithoutCrunchMediasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    massSchedules?: MassScheduleUncheckedUpdateManyWithoutChurchNestedInput
+  }
+
+  export type MediaUpsertWithoutCrunchMediasInput = {
+    update: XOR<MediaUpdateWithoutCrunchMediasInput, MediaUncheckedUpdateWithoutCrunchMediasInput>
+    create: XOR<MediaCreateWithoutCrunchMediasInput, MediaUncheckedCreateWithoutCrunchMediasInput>
+    where?: MediaWhereInput
+  }
+
+  export type MediaUpdateToOneWithWhereWithoutCrunchMediasInput = {
+    where?: MediaWhereInput
+    data: XOR<MediaUpdateWithoutCrunchMediasInput, MediaUncheckedUpdateWithoutCrunchMediasInput>
+  }
+
+  export type MediaUpdateWithoutCrunchMediasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    news?: NewsMediaUpdateManyWithoutMediaNestedInput
+    ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
+    financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
+  }
+
+  export type MediaUncheckedUpdateWithoutCrunchMediasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
+    ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
+    financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type NewsCreateManyCreatedByInput = {
@@ -25369,6 +27031,10 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type CrunchMediaCreateManyCrunchInput = {
+    mediaId: string
+  }
+
   export type MassScheduleUpdateWithoutChurchInput = {
     id?: StringFieldUpdateOperationsInput | string
     dayOfWeek?: IntFieldUpdateOperationsInput | number
@@ -25394,6 +27060,18 @@ export namespace Prisma {
     notes?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CrunchMediaUpdateWithoutCrunchInput = {
+    media?: MediaUpdateOneRequiredWithoutCrunchMediasNestedInput
+  }
+
+  export type CrunchMediaUncheckedUpdateWithoutCrunchInput = {
+    mediaId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CrunchMediaUncheckedUpdateManyWithoutCrunchInput = {
+    mediaId?: StringFieldUpdateOperationsInput | string
   }
 
   export type MinistryMediaCreateManyMinistryInput = {
@@ -25484,6 +27162,10 @@ export namespace Prisma {
     homilyId: string
   }
 
+  export type CrunchMediaCreateManyMediaInput = {
+    crunchId: string
+  }
+
   export type NewsMediaUpdateWithoutMediaInput = {
     news?: NewsUpdateOneRequiredWithoutMediaNestedInput
   }
@@ -25530,6 +27212,18 @@ export namespace Prisma {
 
   export type HomilyMediaUncheckedUpdateManyWithoutMediaInput = {
     homilyId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CrunchMediaUpdateWithoutMediaInput = {
+    crunch?: ChurchUpdateOneRequiredWithoutCrunchMediasNestedInput
+  }
+
+  export type CrunchMediaUncheckedUpdateWithoutMediaInput = {
+    crunchId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CrunchMediaUncheckedUpdateManyWithoutMediaInput = {
+    crunchId?: StringFieldUpdateOperationsInput | string
   }
 
 

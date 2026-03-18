@@ -261,6 +261,11 @@ exports.Prisma.HomilyMediaScalarFieldEnum = {
   mediaId: 'mediaId'
 };
 
+exports.Prisma.CrunchMediaScalarFieldEnum = {
+  crunchId: 'crunchId',
+  mediaId: 'mediaId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -314,7 +319,8 @@ exports.Prisma.ModelName = {
   NewsMedia: 'NewsMedia',
   MinistryMedia: 'MinistryMedia',
   FinancialReportMedia: 'FinancialReportMedia',
-  HomilyMedia: 'HomilyMedia'
+  HomilyMedia: 'HomilyMedia',
+  CrunchMedia: 'CrunchMedia'
 };
 
 /**
