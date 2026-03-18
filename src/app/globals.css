@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-primary: #092070;
@@ -6,4 +7,20 @@
   --color-background: #ffffff;
 
   --font-sans: "Open Sans", ui-sans-serif, system-ui;
+}
+
+img[data-align="left"] {
+  display: block;
+  margin-right: auto;
+}
+
+img[data-align="center"] {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+img[data-align="right"] {
+  display: block;
+  margin-left: auto;
 }
