@@ -1,15 +1,19 @@
 "use client"
 
-import { useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 
 type Props = {
   images: string[]
-  setImages: (urls: string[]) => void
+  setImages: Dispatch<SetStateAction<string[]>>
 }
 
 export function ImageUpload({ images, setImages }: Props) {
 
   const [previews, setPreviews] = useState<string[]>([])
+
+  useEffect(() => {
+    setPreviews(images)
+  }, [images])
 
   async function handleFiles(e: React.ChangeEvent<HTMLInputElement>) {
 
@@ -17,11 +21,10 @@ export function ImageUpload({ images, setImages }: Props) {
 
     const files = Array.from(e.target.files)
 
-    const newPreviews = files.map(file => URL.createObjectURL(file))
-
-    setPreviews([...previews, ...newPreviews])
-
     for (const file of files) {
+      const previewUrl = URL.createObjectURL(file)
+
+      setPreviews((prev) => [...prev, previewUrl])
 
       const formData = new FormData()
 
@@ -34,7 +37,7 @@ export function ImageUpload({ images, setImages }: Props) {
 
       const data = await res.json()
 
-      setImages(prev => [...prev, data.url])
+      setImages((prev) => [...prev, data.url])
 
     }
 
@@ -64,9 +67,11 @@ export function ImageUpload({ images, setImages }: Props) {
 
           {previews.map((src, index) => (
 
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               key={index}
               src={src}
+              alt=""
               className="rounded-lg object-cover h-24 w-full"
             />
 

@@ -7,12 +7,16 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { AddressAutocomplete } from "@/components/ui/address-autocomplete"
+import { ImageUpload } from "@/components/ui/image-upload"
 
 type MassSchedule = {
   dayOfWeek: number
   time: string
   notes?: string
 }
+
+type MassScheduleField = keyof MassSchedule
+type MassScheduleValue = MassSchedule[MassScheduleField]
 
 export default function NewChurchPage() {
 
@@ -23,6 +27,7 @@ export default function NewChurchPage() {
   const [latitude, setLatitude] = useState<number | null>(null)
   const [longitude, setLongitude] = useState<number | null>(null)
   const [description, setDescription] = useState("")
+  const [images, setImages] = useState<string[]>([])
 
   const [schedules, setSchedules] = useState<MassSchedule[]>([])
 
@@ -33,7 +38,7 @@ export default function NewChurchPage() {
     ])
   }
 
-  function updateSchedule(index: number, field: keyof MassSchedule, value: any) {
+  function updateSchedule(index: number, field: MassScheduleField, value: MassScheduleValue) {
     const updated = [...schedules]
     updated[index][field] = value
     setSchedules(updated)
@@ -54,6 +59,7 @@ export default function NewChurchPage() {
         latitude,
         longitude,
         description,
+        images,
         schedules
       })
     })
@@ -70,6 +76,11 @@ export default function NewChurchPage() {
       <h1 className="text-2xl font-semibold">
         Nova Igreja
       </h1>
+
+      <ImageUpload
+        images={images}
+        setImages={setImages}
+      />
 
       {/* NOME */}
       <Input
@@ -138,7 +149,8 @@ export default function NewChurchPage() {
 
             {/* HORA */}
             <Input
-              placeholder="08:00"
+              type="time"
+              step={60}
               value={schedule.time}
               onChange={(e) =>
                 updateSchedule(index, "time", e.target.value)
