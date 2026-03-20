@@ -9,8 +9,8 @@ type ChurchScheduleInput = {
 type CreateChurchBody = {
   name: string;
   address: string;
-  latitude: number;
-  longitude: number;
+  latitude: number | null;
+  longitude: number | null;
   description?: string;
   images?: string[];
   schedules: ChurchScheduleInput[];
@@ -23,8 +23,8 @@ export async function POST(req: Request) {
     data: {
       name: body.name,
       address: body.address,
-      latitude: body.latitude,
-      longitude: body.longitude,
+      latitude: body.latitude ?? 0,
+      longitude: body.longitude ?? 0,
       description: body.description,
 
       massSchedules: {
