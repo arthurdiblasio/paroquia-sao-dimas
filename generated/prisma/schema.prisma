@@ -201,6 +201,7 @@ model Appointment {
   email         String
   preferredDate DateTime?
   notes         String?
+  details       Json?
 
   status AppointmentStatus @default(PENDING)
 
@@ -214,8 +215,10 @@ model AppointmentDocument {
   id            String      @id @default(uuid())
   appointmentId String
   appointment   Appointment @relation(fields: [appointmentId], references: [id])
-
-  fileUrl String
+  mediaId       String
+  media         Media       @relation(fields: [mediaId], references: [id])
+  documentKey   String?
+  documentLabel String?
 
   createdAt DateTime @default(now())
 }
@@ -238,6 +241,7 @@ model Media {
   financialReports FinancialReportMedia[]
   homilies         HomilyMedia[]
   crunchMedias     CrunchMedia[]
+  appointments     AppointmentDocument[]
 }
 
 //////////////////////////////////////////////////////

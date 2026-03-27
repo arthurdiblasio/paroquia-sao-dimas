@@ -11,8 +11,11 @@ type ChurchRow = {
   id: string
   name: string
   address: string
-  createdAt: string
-  massSchedulesCount: number
+  massSchedules: {
+    dayOfWeek: number
+    time: string
+    notes: string
+  }[]
 }
 
 type Props = {
@@ -23,6 +26,16 @@ export function ChurchesTable({ churches: initialChurches }: Props) {
   const [churches, setChurches] = useState(initialChurches)
   const [churchToDelete, setChurchToDelete] = useState<ChurchRow | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
+
+  const weekDays = [
+    "Domingo",
+    "Segunda",
+    "Terca",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Sabado",
+  ]
 
   async function handleDelete() {
     if (!churchToDelete) {
@@ -55,58 +68,93 @@ export function ChurchesTable({ churches: initialChurches }: Props) {
             <th className="p-4 text-left">Nome</th>
             <th className="p-4 text-left">Endereco</th>
             <th className="p-4 text-left">Horarios</th>
-            <th className="p-4 text-left">Cadastro</th>
             <th className="p-4 text-right">Acoes</th>
           </tr>
         </thead>
 
         <tbody>
-          {churches.map((church) => (
-            <tr key={church.id} className="hover:bg-gray-50">
-              <td className="p-4 font-medium text-gray-800">
-                {church.name}
-              </td>
+          {churches.map((church) => {
+            const groupedSchedules = weekDays
+              .map((day, index) => ({
+                day,
+                items: church.massSchedules
+                  .filter((schedule) => schedule.dayOfWeek === index)
+                  .sort((first, second) => first.time.localeCompare(second.time)),
+              }))
+              .filter((group) => group.items.length > 0)
 
-              <td className="p-4 text-gray-600">
-                {church.address}
-              </td>
+            return (
+              <tr key={church.id} className="hover:bg-gray-50">
+                <td className="p-4 font-medium text-gray-800">
+                  {church.name}
+                </td>
 
-              <td className="p-4 text-gray-600">
-                {church.massSchedulesCount}
-              </td>
+                <td className="p-4 text-gray-600">
+                  {church.address}
+                </td>
 
-              <td className="p-4 text-gray-600">
-                {new Date(church.createdAt).toLocaleDateString("pt-BR")}
-              </td>
+                <td className="p-4">
+                  {groupedSchedules.length > 0 ? (
+                    <div className="flex flex-wrap gap-2">
+                      {groupedSchedules.map((group) => (
+                        <div
+                          key={group.day}
+                          className="min-w-[180px] rounded-xl border border-[#092070]/10 bg-[#092070]/[0.03] px-3 py-2"
+                        >
+                          <p className="text-xs font-semibold uppercase tracking-wide text-[#092070]">
+                            {group.day}
+                          </p>
 
-              <td className="p-4">
-                <div className="flex justify-end gap-2">
-                  <Link
-                    href={`/admin/igrejas/edit/${church.id}`}
-                    className="rounded-md p-2 text-[#092070] transition hover:bg-[#092070]/10"
-                    aria-label={`Editar ${church.name}`}
-                    title="Editar"
-                  >
-                    <Pencil size={16} />
-                  </Link>
+                          <div className="mt-2 flex flex-wrap gap-2">
+                            {group.items.map((schedule, index) => (
+                              <span
+                                key={`${group.day}-${schedule.time}-${index}`}
+                                className="rounded-full bg-white px-2.5 py-1 text-xs font-medium text-gray-700 ring-1 ring-gray-200"
+                              >
+                                {schedule.time}
+                                {schedule.notes ? ` - ${schedule.notes}` : ""}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="text-sm text-gray-400">
+                      Nenhum horario cadastrado
+                    </span>
+                  )}
+                </td>
 
-                  <button
-                    type="button"
-                    onClick={() => setChurchToDelete(church)}
-                    className="rounded-md p-2 text-red-500 transition hover:bg-red-50"
-                    aria-label={`Excluir ${church.name}`}
-                    title="Excluir"
-                  >
-                    <Trash2 size={16} />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
+                <td className="p-4">
+                  <div className="flex justify-end gap-2">
+                    <Link
+                      href={`/admin/igrejas/edit/${church.id}`}
+                      className="rounded-md p-2 text-[#092070] transition hover:bg-[#092070]/10"
+                      aria-label={`Editar ${church.name}`}
+                      title="Editar"
+                    >
+                      <Pencil size={16} />
+                    </Link>
+
+                    <button
+                      type="button"
+                      onClick={() => setChurchToDelete(church)}
+                      className="rounded-md p-2 text-red-500 transition hover:bg-red-50"
+                      aria-label={`Excluir ${church.name}`}
+                      title="Excluir"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
 
           {churches.length === 0 && (
             <tr>
-              <td colSpan={5} className="p-6 text-center text-gray-400">
+              <td colSpan={4} className="p-6 text-center text-gray-400">
                 Nenhuma igreja cadastrada
               </td>
             </tr>

@@ -13,6 +13,7 @@ export async function POST(req: Request) {
         .upload_stream(
           {
             folder: "paroquia-sao-dimas",
+            resource_type: "auto",
           },
           (error, result) => {
             if (error) reject(error);

@@ -2568,6 +2568,7 @@ export namespace Prisma {
     financialReports: number
     homilies: number
     crunchMedias: number
+    appointments: number
   }
 
   export type MediaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2576,6 +2577,7 @@ export namespace Prisma {
     financialReports?: boolean | MediaCountOutputTypeCountFinancialReportsArgs
     homilies?: boolean | MediaCountOutputTypeCountHomiliesArgs
     crunchMedias?: boolean | MediaCountOutputTypeCountCrunchMediasArgs
+    appointments?: boolean | MediaCountOutputTypeCountAppointmentsArgs
   }
 
   // Custom InputTypes
@@ -2622,6 +2624,13 @@ export namespace Prisma {
    */
   export type MediaCountOutputTypeCountCrunchMediasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CrunchMediaWhereInput
+  }
+
+  /**
+   * MediaCountOutputType without action
+   */
+  export type MediaCountOutputTypeCountAppointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AppointmentDocumentWhereInput
   }
 
 
@@ -11849,6 +11858,7 @@ export namespace Prisma {
     email: number
     preferredDate: number
     notes: number
+    details: number
     status: number
     createdAt: number
     updatedAt: number
@@ -11890,6 +11900,7 @@ export namespace Prisma {
     email?: true
     preferredDate?: true
     notes?: true
+    details?: true
     status?: true
     createdAt?: true
     updatedAt?: true
@@ -11976,6 +11987,7 @@ export namespace Prisma {
     email: string
     preferredDate: Date | null
     notes: string | null
+    details: JsonValue | null
     status: $Enums.AppointmentStatus
     createdAt: Date
     updatedAt: Date
@@ -12006,6 +12018,7 @@ export namespace Prisma {
     email?: boolean
     preferredDate?: boolean
     notes?: boolean
+    details?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -12021,6 +12034,7 @@ export namespace Prisma {
     email?: boolean
     preferredDate?: boolean
     notes?: boolean
+    details?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -12034,6 +12048,7 @@ export namespace Prisma {
     email?: boolean
     preferredDate?: boolean
     notes?: boolean
+    details?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -12047,12 +12062,13 @@ export namespace Prisma {
     email?: boolean
     preferredDate?: boolean
     notes?: boolean
+    details?: boolean
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AppointmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "name" | "phone" | "email" | "preferredDate" | "notes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["appointment"]>
+  export type AppointmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "type" | "name" | "phone" | "email" | "preferredDate" | "notes" | "details" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["appointment"]>
   export type AppointmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     documents?: boolean | Appointment$documentsArgs<ExtArgs>
     _count?: boolean | AppointmentCountOutputTypeDefaultArgs<ExtArgs>
@@ -12073,6 +12089,7 @@ export namespace Prisma {
       email: string
       preferredDate: Date | null
       notes: string | null
+      details: Prisma.JsonValue | null
       status: $Enums.AppointmentStatus
       createdAt: Date
       updatedAt: Date
@@ -12507,6 +12524,7 @@ export namespace Prisma {
     readonly email: FieldRef<"Appointment", 'String'>
     readonly preferredDate: FieldRef<"Appointment", 'DateTime'>
     readonly notes: FieldRef<"Appointment", 'String'>
+    readonly details: FieldRef<"Appointment", 'Json'>
     readonly status: FieldRef<"Appointment", 'AppointmentStatus'>
     readonly createdAt: FieldRef<"Appointment", 'DateTime'>
     readonly updatedAt: FieldRef<"Appointment", 'DateTime'>
@@ -12953,21 +12971,27 @@ export namespace Prisma {
   export type AppointmentDocumentMinAggregateOutputType = {
     id: string | null
     appointmentId: string | null
-    fileUrl: string | null
+    mediaId: string | null
+    documentKey: string | null
+    documentLabel: string | null
     createdAt: Date | null
   }
 
   export type AppointmentDocumentMaxAggregateOutputType = {
     id: string | null
     appointmentId: string | null
-    fileUrl: string | null
+    mediaId: string | null
+    documentKey: string | null
+    documentLabel: string | null
     createdAt: Date | null
   }
 
   export type AppointmentDocumentCountAggregateOutputType = {
     id: number
     appointmentId: number
-    fileUrl: number
+    mediaId: number
+    documentKey: number
+    documentLabel: number
     createdAt: number
     _all: number
   }
@@ -12976,21 +13000,27 @@ export namespace Prisma {
   export type AppointmentDocumentMinAggregateInputType = {
     id?: true
     appointmentId?: true
-    fileUrl?: true
+    mediaId?: true
+    documentKey?: true
+    documentLabel?: true
     createdAt?: true
   }
 
   export type AppointmentDocumentMaxAggregateInputType = {
     id?: true
     appointmentId?: true
-    fileUrl?: true
+    mediaId?: true
+    documentKey?: true
+    documentLabel?: true
     createdAt?: true
   }
 
   export type AppointmentDocumentCountAggregateInputType = {
     id?: true
     appointmentId?: true
-    fileUrl?: true
+    mediaId?: true
+    documentKey?: true
+    documentLabel?: true
     createdAt?: true
     _all?: true
   }
@@ -13070,7 +13100,9 @@ export namespace Prisma {
   export type AppointmentDocumentGroupByOutputType = {
     id: string
     appointmentId: string
-    fileUrl: string
+    mediaId: string
+    documentKey: string | null
+    documentLabel: string | null
     createdAt: Date
     _count: AppointmentDocumentCountAggregateOutputType | null
     _min: AppointmentDocumentMinAggregateOutputType | null
@@ -13094,54 +13126,71 @@ export namespace Prisma {
   export type AppointmentDocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     appointmentId?: boolean
-    fileUrl?: boolean
+    mediaId?: boolean
+    documentKey?: boolean
+    documentLabel?: boolean
     createdAt?: boolean
     appointment?: boolean | AppointmentDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["appointmentDocument"]>
 
   export type AppointmentDocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     appointmentId?: boolean
-    fileUrl?: boolean
+    mediaId?: boolean
+    documentKey?: boolean
+    documentLabel?: boolean
     createdAt?: boolean
     appointment?: boolean | AppointmentDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["appointmentDocument"]>
 
   export type AppointmentDocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     appointmentId?: boolean
-    fileUrl?: boolean
+    mediaId?: boolean
+    documentKey?: boolean
+    documentLabel?: boolean
     createdAt?: boolean
     appointment?: boolean | AppointmentDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["appointmentDocument"]>
 
   export type AppointmentDocumentSelectScalar = {
     id?: boolean
     appointmentId?: boolean
-    fileUrl?: boolean
+    mediaId?: boolean
+    documentKey?: boolean
+    documentLabel?: boolean
     createdAt?: boolean
   }
 
-  export type AppointmentDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appointmentId" | "fileUrl" | "createdAt", ExtArgs["result"]["appointmentDocument"]>
+  export type AppointmentDocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "appointmentId" | "mediaId" | "documentKey" | "documentLabel" | "createdAt", ExtArgs["result"]["appointmentDocument"]>
   export type AppointmentDocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointment?: boolean | AppointmentDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
   }
   export type AppointmentDocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointment?: boolean | AppointmentDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
   }
   export type AppointmentDocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointment?: boolean | AppointmentDefaultArgs<ExtArgs>
+    media?: boolean | MediaDefaultArgs<ExtArgs>
   }
 
   export type $AppointmentDocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AppointmentDocument"
     objects: {
       appointment: Prisma.$AppointmentPayload<ExtArgs>
+      media: Prisma.$MediaPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       appointmentId: string
-      fileUrl: string
+      mediaId: string
+      documentKey: string | null
+      documentLabel: string | null
       createdAt: Date
     }, ExtArgs["result"]["appointmentDocument"]>
     composites: {}
@@ -13538,6 +13587,7 @@ export namespace Prisma {
   export interface Prisma__AppointmentDocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     appointment<T extends AppointmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AppointmentDefaultArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    media<T extends MediaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MediaDefaultArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13569,7 +13619,9 @@ export namespace Prisma {
   interface AppointmentDocumentFieldRefs {
     readonly id: FieldRef<"AppointmentDocument", 'String'>
     readonly appointmentId: FieldRef<"AppointmentDocument", 'String'>
-    readonly fileUrl: FieldRef<"AppointmentDocument", 'String'>
+    readonly mediaId: FieldRef<"AppointmentDocument", 'String'>
+    readonly documentKey: FieldRef<"AppointmentDocument", 'String'>
+    readonly documentLabel: FieldRef<"AppointmentDocument", 'String'>
     readonly createdAt: FieldRef<"AppointmentDocument", 'DateTime'>
   }
     
@@ -14196,6 +14248,7 @@ export namespace Prisma {
     financialReports?: boolean | Media$financialReportsArgs<ExtArgs>
     homilies?: boolean | Media$homiliesArgs<ExtArgs>
     crunchMedias?: boolean | Media$crunchMediasArgs<ExtArgs>
+    appointments?: boolean | Media$appointmentsArgs<ExtArgs>
     _count?: boolean | MediaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["media"]>
 
@@ -14233,6 +14286,7 @@ export namespace Prisma {
     financialReports?: boolean | Media$financialReportsArgs<ExtArgs>
     homilies?: boolean | Media$homiliesArgs<ExtArgs>
     crunchMedias?: boolean | Media$crunchMediasArgs<ExtArgs>
+    appointments?: boolean | Media$appointmentsArgs<ExtArgs>
     _count?: boolean | MediaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -14246,6 +14300,7 @@ export namespace Prisma {
       financialReports: Prisma.$FinancialReportMediaPayload<ExtArgs>[]
       homilies: Prisma.$HomilyMediaPayload<ExtArgs>[]
       crunchMedias: Prisma.$CrunchMediaPayload<ExtArgs>[]
+      appointments: Prisma.$AppointmentDocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -14653,6 +14708,7 @@ export namespace Prisma {
     financialReports<T extends Media$financialReportsArgs<ExtArgs> = {}>(args?: Subset<T, Media$financialReportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     homilies<T extends Media$homiliesArgs<ExtArgs> = {}>(args?: Subset<T, Media$homiliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomilyMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     crunchMedias<T extends Media$crunchMediasArgs<ExtArgs> = {}>(args?: Subset<T, Media$crunchMediasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    appointments<T extends Media$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, Media$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15193,6 +15249,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CrunchMediaScalarFieldEnum | CrunchMediaScalarFieldEnum[]
+  }
+
+  /**
+   * Media.appointments
+   */
+  export type Media$appointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AppointmentDocument
+     */
+    select?: AppointmentDocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AppointmentDocument
+     */
+    omit?: AppointmentDocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AppointmentDocumentInclude<ExtArgs> | null
+    where?: AppointmentDocumentWhereInput
+    orderBy?: AppointmentDocumentOrderByWithRelationInput | AppointmentDocumentOrderByWithRelationInput[]
+    cursor?: AppointmentDocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AppointmentDocumentScalarFieldEnum | AppointmentDocumentScalarFieldEnum[]
   }
 
   /**
@@ -20487,6 +20567,7 @@ export namespace Prisma {
     email: 'email',
     preferredDate: 'preferredDate',
     notes: 'notes',
+    details: 'details',
     status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -20498,7 +20579,9 @@ export namespace Prisma {
   export const AppointmentDocumentScalarFieldEnum: {
     id: 'id',
     appointmentId: 'appointmentId',
-    fileUrl: 'fileUrl',
+    mediaId: 'mediaId',
+    documentKey: 'documentKey',
+    documentLabel: 'documentLabel',
     createdAt: 'createdAt'
   };
 
@@ -20565,6 +20648,14 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -20579,6 +20670,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -20674,6 +20774,20 @@ export namespace Prisma {
    * Reference to a field of type 'AppointmentType[]'
    */
   export type ListEnumAppointmentTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AppointmentType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -21326,6 +21440,7 @@ export namespace Prisma {
     email?: StringFilter<"Appointment"> | string
     preferredDate?: DateTimeNullableFilter<"Appointment"> | Date | string | null
     notes?: StringNullableFilter<"Appointment"> | string | null
+    details?: JsonNullableFilter<"Appointment">
     status?: EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
@@ -21340,6 +21455,7 @@ export namespace Prisma {
     email?: SortOrder
     preferredDate?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    details?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21357,6 +21473,7 @@ export namespace Prisma {
     email?: StringFilter<"Appointment"> | string
     preferredDate?: DateTimeNullableFilter<"Appointment"> | Date | string | null
     notes?: StringNullableFilter<"Appointment"> | string | null
+    details?: JsonNullableFilter<"Appointment">
     status?: EnumAppointmentStatusFilter<"Appointment"> | $Enums.AppointmentStatus
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
@@ -21371,6 +21488,7 @@ export namespace Prisma {
     email?: SortOrder
     preferredDate?: SortOrderInput | SortOrder
     notes?: SortOrderInput | SortOrder
+    details?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -21390,6 +21508,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"Appointment"> | string
     preferredDate?: DateTimeNullableWithAggregatesFilter<"Appointment"> | Date | string | null
     notes?: StringNullableWithAggregatesFilter<"Appointment"> | string | null
+    details?: JsonNullableWithAggregatesFilter<"Appointment">
     status?: EnumAppointmentStatusWithAggregatesFilter<"Appointment"> | $Enums.AppointmentStatus
     createdAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
@@ -21401,17 +21520,23 @@ export namespace Prisma {
     NOT?: AppointmentDocumentWhereInput | AppointmentDocumentWhereInput[]
     id?: StringFilter<"AppointmentDocument"> | string
     appointmentId?: StringFilter<"AppointmentDocument"> | string
-    fileUrl?: StringFilter<"AppointmentDocument"> | string
+    mediaId?: StringFilter<"AppointmentDocument"> | string
+    documentKey?: StringNullableFilter<"AppointmentDocument"> | string | null
+    documentLabel?: StringNullableFilter<"AppointmentDocument"> | string | null
     createdAt?: DateTimeFilter<"AppointmentDocument"> | Date | string
     appointment?: XOR<AppointmentScalarRelationFilter, AppointmentWhereInput>
+    media?: XOR<MediaScalarRelationFilter, MediaWhereInput>
   }
 
   export type AppointmentDocumentOrderByWithRelationInput = {
     id?: SortOrder
     appointmentId?: SortOrder
-    fileUrl?: SortOrder
+    mediaId?: SortOrder
+    documentKey?: SortOrderInput | SortOrder
+    documentLabel?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     appointment?: AppointmentOrderByWithRelationInput
+    media?: MediaOrderByWithRelationInput
   }
 
   export type AppointmentDocumentWhereUniqueInput = Prisma.AtLeast<{
@@ -21420,15 +21545,20 @@ export namespace Prisma {
     OR?: AppointmentDocumentWhereInput[]
     NOT?: AppointmentDocumentWhereInput | AppointmentDocumentWhereInput[]
     appointmentId?: StringFilter<"AppointmentDocument"> | string
-    fileUrl?: StringFilter<"AppointmentDocument"> | string
+    mediaId?: StringFilter<"AppointmentDocument"> | string
+    documentKey?: StringNullableFilter<"AppointmentDocument"> | string | null
+    documentLabel?: StringNullableFilter<"AppointmentDocument"> | string | null
     createdAt?: DateTimeFilter<"AppointmentDocument"> | Date | string
     appointment?: XOR<AppointmentScalarRelationFilter, AppointmentWhereInput>
+    media?: XOR<MediaScalarRelationFilter, MediaWhereInput>
   }, "id">
 
   export type AppointmentDocumentOrderByWithAggregationInput = {
     id?: SortOrder
     appointmentId?: SortOrder
-    fileUrl?: SortOrder
+    mediaId?: SortOrder
+    documentKey?: SortOrderInput | SortOrder
+    documentLabel?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: AppointmentDocumentCountOrderByAggregateInput
     _max?: AppointmentDocumentMaxOrderByAggregateInput
@@ -21441,7 +21571,9 @@ export namespace Prisma {
     NOT?: AppointmentDocumentScalarWhereWithAggregatesInput | AppointmentDocumentScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"AppointmentDocument"> | string
     appointmentId?: StringWithAggregatesFilter<"AppointmentDocument"> | string
-    fileUrl?: StringWithAggregatesFilter<"AppointmentDocument"> | string
+    mediaId?: StringWithAggregatesFilter<"AppointmentDocument"> | string
+    documentKey?: StringNullableWithAggregatesFilter<"AppointmentDocument"> | string | null
+    documentLabel?: StringNullableWithAggregatesFilter<"AppointmentDocument"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"AppointmentDocument"> | Date | string
   }
 
@@ -21460,6 +21592,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaListRelationFilter
     homilies?: HomilyMediaListRelationFilter
     crunchMedias?: CrunchMediaListRelationFilter
+    appointments?: AppointmentDocumentListRelationFilter
   }
 
   export type MediaOrderByWithRelationInput = {
@@ -21474,6 +21607,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaOrderByRelationAggregateInput
     homilies?: HomilyMediaOrderByRelationAggregateInput
     crunchMedias?: CrunchMediaOrderByRelationAggregateInput
+    appointments?: AppointmentDocumentOrderByRelationAggregateInput
   }
 
   export type MediaWhereUniqueInput = Prisma.AtLeast<{
@@ -21491,6 +21625,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaListRelationFilter
     homilies?: HomilyMediaListRelationFilter
     crunchMedias?: CrunchMediaListRelationFilter
+    appointments?: AppointmentDocumentListRelationFilter
   }, "id">
 
   export type MediaOrderByWithAggregationInput = {
@@ -22426,6 +22561,7 @@ export namespace Prisma {
     email: string
     preferredDate?: Date | string | null
     notes?: string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22440,6 +22576,7 @@ export namespace Prisma {
     email: string
     preferredDate?: Date | string | null
     notes?: string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22454,6 +22591,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22468,6 +22606,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22482,6 +22621,7 @@ export namespace Prisma {
     email: string
     preferredDate?: Date | string | null
     notes?: string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -22495,6 +22635,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22508,6 +22649,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22515,49 +22657,62 @@ export namespace Prisma {
 
   export type AppointmentDocumentCreateInput = {
     id?: string
-    fileUrl: string
+    documentKey?: string | null
+    documentLabel?: string | null
     createdAt?: Date | string
     appointment: AppointmentCreateNestedOneWithoutDocumentsInput
+    media: MediaCreateNestedOneWithoutAppointmentsInput
   }
 
   export type AppointmentDocumentUncheckedCreateInput = {
     id?: string
     appointmentId: string
-    fileUrl: string
+    mediaId: string
+    documentKey?: string | null
+    documentLabel?: string | null
     createdAt?: Date | string
   }
 
   export type AppointmentDocumentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     appointment?: AppointmentUpdateOneRequiredWithoutDocumentsNestedInput
+    media?: MediaUpdateOneRequiredWithoutAppointmentsNestedInput
   }
 
   export type AppointmentDocumentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     appointmentId?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AppointmentDocumentCreateManyInput = {
     id?: string
     appointmentId: string
-    fileUrl: string
+    mediaId: string
+    documentKey?: string | null
+    documentLabel?: string | null
     createdAt?: Date | string
   }
 
   export type AppointmentDocumentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AppointmentDocumentUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     appointmentId?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22573,6 +22728,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateInput = {
@@ -22587,6 +22743,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUpdateInput = {
@@ -22601,6 +22758,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateInput = {
@@ -22615,6 +22773,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaCreateManyInput = {
@@ -23438,6 +23597,29 @@ export namespace Prisma {
     notIn?: $Enums.AppointmentType[] | ListEnumAppointmentTypeFieldRefInput<$PrismaModel>
     not?: NestedEnumAppointmentTypeFilter<$PrismaModel> | $Enums.AppointmentType
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type EnumAppointmentStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
@@ -23464,6 +23646,7 @@ export namespace Prisma {
     email?: SortOrder
     preferredDate?: SortOrder
     notes?: SortOrder
+    details?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -23504,6 +23687,32 @@ export namespace Prisma {
     _min?: NestedEnumAppointmentTypeFilter<$PrismaModel>
     _max?: NestedEnumAppointmentTypeFilter<$PrismaModel>
   }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
 
   export type EnumAppointmentStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.AppointmentStatus | EnumAppointmentStatusFieldRefInput<$PrismaModel>
@@ -23520,24 +23729,35 @@ export namespace Prisma {
     isNot?: AppointmentWhereInput
   }
 
+  export type MediaScalarRelationFilter = {
+    is?: MediaWhereInput
+    isNot?: MediaWhereInput
+  }
+
   export type AppointmentDocumentCountOrderByAggregateInput = {
     id?: SortOrder
     appointmentId?: SortOrder
-    fileUrl?: SortOrder
+    mediaId?: SortOrder
+    documentKey?: SortOrder
+    documentLabel?: SortOrder
     createdAt?: SortOrder
   }
 
   export type AppointmentDocumentMaxOrderByAggregateInput = {
     id?: SortOrder
     appointmentId?: SortOrder
-    fileUrl?: SortOrder
+    mediaId?: SortOrder
+    documentKey?: SortOrder
+    documentLabel?: SortOrder
     createdAt?: SortOrder
   }
 
   export type AppointmentDocumentMinOrderByAggregateInput = {
     id?: SortOrder
     appointmentId?: SortOrder
-    fileUrl?: SortOrder
+    mediaId?: SortOrder
+    documentKey?: SortOrder
+    documentLabel?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -23623,11 +23843,6 @@ export namespace Prisma {
   export type NewsScalarRelationFilter = {
     is?: NewsWhereInput
     isNot?: NewsWhereInput
-  }
-
-  export type MediaScalarRelationFilter = {
-    is?: MediaWhereInput
-    isNot?: MediaWhereInput
   }
 
   export type NewsMediaNewsIdMediaIdCompoundUniqueInput = {
@@ -24331,12 +24546,26 @@ export namespace Prisma {
     connect?: AppointmentWhereUniqueInput
   }
 
+  export type MediaCreateNestedOneWithoutAppointmentsInput = {
+    create?: XOR<MediaCreateWithoutAppointmentsInput, MediaUncheckedCreateWithoutAppointmentsInput>
+    connectOrCreate?: MediaCreateOrConnectWithoutAppointmentsInput
+    connect?: MediaWhereUniqueInput
+  }
+
   export type AppointmentUpdateOneRequiredWithoutDocumentsNestedInput = {
     create?: XOR<AppointmentCreateWithoutDocumentsInput, AppointmentUncheckedCreateWithoutDocumentsInput>
     connectOrCreate?: AppointmentCreateOrConnectWithoutDocumentsInput
     upsert?: AppointmentUpsertWithoutDocumentsInput
     connect?: AppointmentWhereUniqueInput
     update?: XOR<XOR<AppointmentUpdateToOneWithWhereWithoutDocumentsInput, AppointmentUpdateWithoutDocumentsInput>, AppointmentUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type MediaUpdateOneRequiredWithoutAppointmentsNestedInput = {
+    create?: XOR<MediaCreateWithoutAppointmentsInput, MediaUncheckedCreateWithoutAppointmentsInput>
+    connectOrCreate?: MediaCreateOrConnectWithoutAppointmentsInput
+    upsert?: MediaUpsertWithoutAppointmentsInput
+    connect?: MediaWhereUniqueInput
+    update?: XOR<XOR<MediaUpdateToOneWithWhereWithoutAppointmentsInput, MediaUpdateWithoutAppointmentsInput>, MediaUncheckedUpdateWithoutAppointmentsInput>
   }
 
   export type NewsMediaCreateNestedManyWithoutMediaInput = {
@@ -24374,6 +24603,13 @@ export namespace Prisma {
     connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
   }
 
+  export type AppointmentDocumentCreateNestedManyWithoutMediaInput = {
+    create?: XOR<AppointmentDocumentCreateWithoutMediaInput, AppointmentDocumentUncheckedCreateWithoutMediaInput> | AppointmentDocumentCreateWithoutMediaInput[] | AppointmentDocumentUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: AppointmentDocumentCreateOrConnectWithoutMediaInput | AppointmentDocumentCreateOrConnectWithoutMediaInput[]
+    createMany?: AppointmentDocumentCreateManyMediaInputEnvelope
+    connect?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+  }
+
   export type NewsMediaUncheckedCreateNestedManyWithoutMediaInput = {
     create?: XOR<NewsMediaCreateWithoutMediaInput, NewsMediaUncheckedCreateWithoutMediaInput> | NewsMediaCreateWithoutMediaInput[] | NewsMediaUncheckedCreateWithoutMediaInput[]
     connectOrCreate?: NewsMediaCreateOrConnectWithoutMediaInput | NewsMediaCreateOrConnectWithoutMediaInput[]
@@ -24407,6 +24643,13 @@ export namespace Prisma {
     connectOrCreate?: CrunchMediaCreateOrConnectWithoutMediaInput | CrunchMediaCreateOrConnectWithoutMediaInput[]
     createMany?: CrunchMediaCreateManyMediaInputEnvelope
     connect?: CrunchMediaWhereUniqueInput | CrunchMediaWhereUniqueInput[]
+  }
+
+  export type AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput = {
+    create?: XOR<AppointmentDocumentCreateWithoutMediaInput, AppointmentDocumentUncheckedCreateWithoutMediaInput> | AppointmentDocumentCreateWithoutMediaInput[] | AppointmentDocumentUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: AppointmentDocumentCreateOrConnectWithoutMediaInput | AppointmentDocumentCreateOrConnectWithoutMediaInput[]
+    createMany?: AppointmentDocumentCreateManyMediaInputEnvelope
+    connect?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
   }
 
   export type EnumMediaTypeFieldUpdateOperationsInput = {
@@ -24491,6 +24734,20 @@ export namespace Prisma {
     deleteMany?: CrunchMediaScalarWhereInput | CrunchMediaScalarWhereInput[]
   }
 
+  export type AppointmentDocumentUpdateManyWithoutMediaNestedInput = {
+    create?: XOR<AppointmentDocumentCreateWithoutMediaInput, AppointmentDocumentUncheckedCreateWithoutMediaInput> | AppointmentDocumentCreateWithoutMediaInput[] | AppointmentDocumentUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: AppointmentDocumentCreateOrConnectWithoutMediaInput | AppointmentDocumentCreateOrConnectWithoutMediaInput[]
+    upsert?: AppointmentDocumentUpsertWithWhereUniqueWithoutMediaInput | AppointmentDocumentUpsertWithWhereUniqueWithoutMediaInput[]
+    createMany?: AppointmentDocumentCreateManyMediaInputEnvelope
+    set?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+    disconnect?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+    delete?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+    connect?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+    update?: AppointmentDocumentUpdateWithWhereUniqueWithoutMediaInput | AppointmentDocumentUpdateWithWhereUniqueWithoutMediaInput[]
+    updateMany?: AppointmentDocumentUpdateManyWithWhereWithoutMediaInput | AppointmentDocumentUpdateManyWithWhereWithoutMediaInput[]
+    deleteMany?: AppointmentDocumentScalarWhereInput | AppointmentDocumentScalarWhereInput[]
+  }
+
   export type NewsMediaUncheckedUpdateManyWithoutMediaNestedInput = {
     create?: XOR<NewsMediaCreateWithoutMediaInput, NewsMediaUncheckedCreateWithoutMediaInput> | NewsMediaCreateWithoutMediaInput[] | NewsMediaUncheckedCreateWithoutMediaInput[]
     connectOrCreate?: NewsMediaCreateOrConnectWithoutMediaInput | NewsMediaCreateOrConnectWithoutMediaInput[]
@@ -24559,6 +24816,20 @@ export namespace Prisma {
     update?: CrunchMediaUpdateWithWhereUniqueWithoutMediaInput | CrunchMediaUpdateWithWhereUniqueWithoutMediaInput[]
     updateMany?: CrunchMediaUpdateManyWithWhereWithoutMediaInput | CrunchMediaUpdateManyWithWhereWithoutMediaInput[]
     deleteMany?: CrunchMediaScalarWhereInput | CrunchMediaScalarWhereInput[]
+  }
+
+  export type AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput = {
+    create?: XOR<AppointmentDocumentCreateWithoutMediaInput, AppointmentDocumentUncheckedCreateWithoutMediaInput> | AppointmentDocumentCreateWithoutMediaInput[] | AppointmentDocumentUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: AppointmentDocumentCreateOrConnectWithoutMediaInput | AppointmentDocumentCreateOrConnectWithoutMediaInput[]
+    upsert?: AppointmentDocumentUpsertWithWhereUniqueWithoutMediaInput | AppointmentDocumentUpsertWithWhereUniqueWithoutMediaInput[]
+    createMany?: AppointmentDocumentCreateManyMediaInputEnvelope
+    set?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+    disconnect?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+    delete?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+    connect?: AppointmentDocumentWhereUniqueInput | AppointmentDocumentWhereUniqueInput[]
+    update?: AppointmentDocumentUpdateWithWhereUniqueWithoutMediaInput | AppointmentDocumentUpdateWithWhereUniqueWithoutMediaInput[]
+    updateMany?: AppointmentDocumentUpdateManyWithWhereWithoutMediaInput | AppointmentDocumentUpdateManyWithWhereWithoutMediaInput[]
+    deleteMany?: AppointmentDocumentScalarWhereInput | AppointmentDocumentScalarWhereInput[]
   }
 
   export type NewsCreateNestedOneWithoutMediaInput = {
@@ -24930,6 +25201,29 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumAppointmentTypeFilter<$PrismaModel>
     _max?: NestedEnumAppointmentTypeFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedEnumAppointmentStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -25822,13 +26116,17 @@ export namespace Prisma {
 
   export type AppointmentDocumentCreateWithoutAppointmentInput = {
     id?: string
-    fileUrl: string
+    documentKey?: string | null
+    documentLabel?: string | null
     createdAt?: Date | string
+    media: MediaCreateNestedOneWithoutAppointmentsInput
   }
 
   export type AppointmentDocumentUncheckedCreateWithoutAppointmentInput = {
     id?: string
-    fileUrl: string
+    mediaId: string
+    documentKey?: string | null
+    documentLabel?: string | null
     createdAt?: Date | string
   }
 
@@ -25864,7 +26162,9 @@ export namespace Prisma {
     NOT?: AppointmentDocumentScalarWhereInput | AppointmentDocumentScalarWhereInput[]
     id?: StringFilter<"AppointmentDocument"> | string
     appointmentId?: StringFilter<"AppointmentDocument"> | string
-    fileUrl?: StringFilter<"AppointmentDocument"> | string
+    mediaId?: StringFilter<"AppointmentDocument"> | string
+    documentKey?: StringNullableFilter<"AppointmentDocument"> | string | null
+    documentLabel?: StringNullableFilter<"AppointmentDocument"> | string | null
     createdAt?: DateTimeFilter<"AppointmentDocument"> | Date | string
   }
 
@@ -25876,6 +26176,7 @@ export namespace Prisma {
     email: string
     preferredDate?: Date | string | null
     notes?: string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25889,6 +26190,7 @@ export namespace Prisma {
     email: string
     preferredDate?: Date | string | null
     notes?: string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.AppointmentStatus
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25897,6 +26199,39 @@ export namespace Prisma {
   export type AppointmentCreateOrConnectWithoutDocumentsInput = {
     where: AppointmentWhereUniqueInput
     create: XOR<AppointmentCreateWithoutDocumentsInput, AppointmentUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type MediaCreateWithoutAppointmentsInput = {
+    id?: string
+    url: string
+    type: $Enums.MediaType
+    altText?: string | null
+    size?: number | null
+    createdAt?: Date | string
+    news?: NewsMediaCreateNestedManyWithoutMediaInput
+    ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
+    financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
+  }
+
+  export type MediaUncheckedCreateWithoutAppointmentsInput = {
+    id?: string
+    url: string
+    type: $Enums.MediaType
+    altText?: string | null
+    size?: number | null
+    createdAt?: Date | string
+    news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
+    ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
+    financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
+    crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
+  }
+
+  export type MediaCreateOrConnectWithoutAppointmentsInput = {
+    where: MediaWhereUniqueInput
+    create: XOR<MediaCreateWithoutAppointmentsInput, MediaUncheckedCreateWithoutAppointmentsInput>
   }
 
   export type AppointmentUpsertWithoutDocumentsInput = {
@@ -25918,6 +26253,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25931,9 +26267,49 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferredDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notes?: NullableStringFieldUpdateOperationsInput | string | null
+    details?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumAppointmentStatusFieldUpdateOperationsInput | $Enums.AppointmentStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MediaUpsertWithoutAppointmentsInput = {
+    update: XOR<MediaUpdateWithoutAppointmentsInput, MediaUncheckedUpdateWithoutAppointmentsInput>
+    create: XOR<MediaCreateWithoutAppointmentsInput, MediaUncheckedCreateWithoutAppointmentsInput>
+    where?: MediaWhereInput
+  }
+
+  export type MediaUpdateToOneWithWhereWithoutAppointmentsInput = {
+    where?: MediaWhereInput
+    data: XOR<MediaUpdateWithoutAppointmentsInput, MediaUncheckedUpdateWithoutAppointmentsInput>
+  }
+
+  export type MediaUpdateWithoutAppointmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    news?: NewsMediaUpdateManyWithoutMediaNestedInput
+    ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
+    financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
+  }
+
+  export type MediaUncheckedUpdateWithoutAppointmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
+    altText?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
+    ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
+    financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
+    crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type NewsMediaCreateWithoutMediaInput = {
@@ -26026,6 +26402,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AppointmentDocumentCreateWithoutMediaInput = {
+    id?: string
+    documentKey?: string | null
+    documentLabel?: string | null
+    createdAt?: Date | string
+    appointment: AppointmentCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type AppointmentDocumentUncheckedCreateWithoutMediaInput = {
+    id?: string
+    appointmentId: string
+    documentKey?: string | null
+    documentLabel?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AppointmentDocumentCreateOrConnectWithoutMediaInput = {
+    where: AppointmentDocumentWhereUniqueInput
+    create: XOR<AppointmentDocumentCreateWithoutMediaInput, AppointmentDocumentUncheckedCreateWithoutMediaInput>
+  }
+
+  export type AppointmentDocumentCreateManyMediaInputEnvelope = {
+    data: AppointmentDocumentCreateManyMediaInput | AppointmentDocumentCreateManyMediaInput[]
+    skipDuplicates?: boolean
+  }
+
   export type NewsMediaUpsertWithWhereUniqueWithoutMediaInput = {
     where: NewsMediaWhereUniqueInput
     update: XOR<NewsMediaUpdateWithoutMediaInput, NewsMediaUncheckedUpdateWithoutMediaInput>
@@ -26106,6 +26508,22 @@ export namespace Prisma {
     data: XOR<CrunchMediaUpdateManyMutationInput, CrunchMediaUncheckedUpdateManyWithoutMediaInput>
   }
 
+  export type AppointmentDocumentUpsertWithWhereUniqueWithoutMediaInput = {
+    where: AppointmentDocumentWhereUniqueInput
+    update: XOR<AppointmentDocumentUpdateWithoutMediaInput, AppointmentDocumentUncheckedUpdateWithoutMediaInput>
+    create: XOR<AppointmentDocumentCreateWithoutMediaInput, AppointmentDocumentUncheckedCreateWithoutMediaInput>
+  }
+
+  export type AppointmentDocumentUpdateWithWhereUniqueWithoutMediaInput = {
+    where: AppointmentDocumentWhereUniqueInput
+    data: XOR<AppointmentDocumentUpdateWithoutMediaInput, AppointmentDocumentUncheckedUpdateWithoutMediaInput>
+  }
+
+  export type AppointmentDocumentUpdateManyWithWhereWithoutMediaInput = {
+    where: AppointmentDocumentScalarWhereInput
+    data: XOR<AppointmentDocumentUpdateManyMutationInput, AppointmentDocumentUncheckedUpdateManyWithoutMediaInput>
+  }
+
   export type NewsCreateWithoutMediaInput = {
     id?: string
     title: string
@@ -26150,6 +26568,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutNewsInput = {
@@ -26163,6 +26582,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutNewsInput = {
@@ -26231,6 +26651,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutNewsInput = {
@@ -26244,6 +26665,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type MinistryCreateWithoutMediaInput = {
@@ -26286,6 +26708,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutMinistriesInput = {
@@ -26299,6 +26722,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutMinistriesInput = {
@@ -26363,6 +26787,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutMinistriesInput = {
@@ -26376,6 +26801,7 @@ export namespace Prisma {
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type FinancialReportCreateWithoutMediaInput = {
@@ -26424,6 +26850,7 @@ export namespace Prisma {
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutFinancialReportsInput = {
@@ -26437,6 +26864,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutFinancialReportsInput = {
@@ -26507,6 +26935,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutFinancialReportsInput = {
@@ -26520,6 +26949,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type HomilyCreateWithoutMediaInput = {
@@ -26564,6 +26994,7 @@ export namespace Prisma {
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutHomiliesInput = {
@@ -26577,6 +27008,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutHomiliesInput = {
@@ -26643,6 +27075,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutHomiliesInput = {
@@ -26656,6 +27089,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type ChurchCreateWithoutCrunchMediasInput = {
@@ -26698,6 +27132,7 @@ export namespace Prisma {
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
 
   export type MediaUncheckedCreateWithoutCrunchMediasInput = {
@@ -26711,6 +27146,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
     financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
+    appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
 
   export type MediaCreateOrConnectWithoutCrunchMediasInput = {
@@ -26775,6 +27211,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
 
   export type MediaUncheckedUpdateWithoutCrunchMediasInput = {
@@ -26788,6 +27225,7 @@ export namespace Prisma {
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
     financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
+    appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
 
   export type NewsCreateManyCreatedByInput = {
@@ -27124,25 +27562,33 @@ export namespace Prisma {
 
   export type AppointmentDocumentCreateManyAppointmentInput = {
     id?: string
-    fileUrl: string
+    mediaId: string
+    documentKey?: string | null
+    documentLabel?: string | null
     createdAt?: Date | string
   }
 
   export type AppointmentDocumentUpdateWithoutAppointmentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    media?: MediaUpdateOneRequiredWithoutAppointmentsNestedInput
   }
 
   export type AppointmentDocumentUncheckedUpdateWithoutAppointmentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AppointmentDocumentUncheckedUpdateManyWithoutAppointmentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    fileUrl?: StringFieldUpdateOperationsInput | string
+    mediaId?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -27164,6 +27610,14 @@ export namespace Prisma {
 
   export type CrunchMediaCreateManyMediaInput = {
     crunchId: string
+  }
+
+  export type AppointmentDocumentCreateManyMediaInput = {
+    id?: string
+    appointmentId: string
+    documentKey?: string | null
+    documentLabel?: string | null
+    createdAt?: Date | string
   }
 
   export type NewsMediaUpdateWithoutMediaInput = {
@@ -27224,6 +27678,30 @@ export namespace Prisma {
 
   export type CrunchMediaUncheckedUpdateManyWithoutMediaInput = {
     crunchId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AppointmentDocumentUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointment?: AppointmentUpdateOneRequiredWithoutDocumentsNestedInput
+  }
+
+  export type AppointmentDocumentUncheckedUpdateWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appointmentId?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AppointmentDocumentUncheckedUpdateManyWithoutMediaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    appointmentId?: StringFieldUpdateOperationsInput | string
+    documentKey?: NullableStringFieldUpdateOperationsInput | string | null
+    documentLabel?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

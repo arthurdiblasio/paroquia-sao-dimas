@@ -40,8 +40,11 @@ export default async function ChurchesPage() {
             id: church.id,
             name: church.name,
             address: church.address,
-            createdAt: church.createdAt.toISOString(),
-            massSchedulesCount: church.massSchedules.length,
+            massSchedules: church.massSchedules.map((schedule) => ({
+              dayOfWeek: schedule.dayOfWeek,
+              time: schedule.time,
+              notes: schedule.notes ?? "",
+            })),
           }))}
         />
       </div>
