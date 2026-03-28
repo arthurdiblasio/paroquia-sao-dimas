@@ -158,6 +158,7 @@ exports.Prisma.ChurchScalarFieldEnum = {
   description: 'description',
   latitude: 'latitude',
   longitude: 'longitude',
+  isMainChurch: 'isMainChurch',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -306,10 +307,8 @@ exports.AppointmentType = exports.$Enums.AppointmentType = {
 
 exports.AppointmentStatus = exports.$Enums.AppointmentStatus = {
   PENDING: 'PENDING',
-  IN_REVIEW: 'IN_REVIEW',
   APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  COMPLETED: 'COMPLETED'
+  CANCELLED: 'CANCELLED'
 };
 
 exports.MediaType = exports.$Enums.MediaType = {

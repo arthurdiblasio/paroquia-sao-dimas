@@ -116,10 +116,8 @@ export type AppointmentType = (typeof AppointmentType)[keyof typeof AppointmentT
 
 export const AppointmentStatus: {
   PENDING: 'PENDING',
-  IN_REVIEW: 'IN_REVIEW',
   APPROVED: 'APPROVED',
-  REJECTED: 'REJECTED',
-  COMPLETED: 'COMPLETED'
+  CANCELLED: 'CANCELLED'
 };
 
 export type AppointmentStatus = (typeof AppointmentStatus)[keyof typeof AppointmentStatus]
@@ -6050,6 +6048,7 @@ export namespace Prisma {
     description: string | null
     latitude: number | null
     longitude: number | null
+    isMainChurch: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6061,6 +6060,7 @@ export namespace Prisma {
     description: string | null
     latitude: number | null
     longitude: number | null
+    isMainChurch: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -6072,6 +6072,7 @@ export namespace Prisma {
     description: number
     latitude: number
     longitude: number
+    isMainChurch: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -6095,6 +6096,7 @@ export namespace Prisma {
     description?: true
     latitude?: true
     longitude?: true
+    isMainChurch?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6106,6 +6108,7 @@ export namespace Prisma {
     description?: true
     latitude?: true
     longitude?: true
+    isMainChurch?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -6117,6 +6120,7 @@ export namespace Prisma {
     description?: true
     latitude?: true
     longitude?: true
+    isMainChurch?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -6215,6 +6219,7 @@ export namespace Prisma {
     description: string | null
     latitude: number
     longitude: number
+    isMainChurch: boolean
     createdAt: Date
     updatedAt: Date
     _count: ChurchCountAggregateOutputType | null
@@ -6245,6 +6250,7 @@ export namespace Prisma {
     description?: boolean
     latitude?: boolean
     longitude?: boolean
+    isMainChurch?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     massSchedules?: boolean | Church$massSchedulesArgs<ExtArgs>
@@ -6259,6 +6265,7 @@ export namespace Prisma {
     description?: boolean
     latitude?: boolean
     longitude?: boolean
+    isMainChurch?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["church"]>
@@ -6270,6 +6277,7 @@ export namespace Prisma {
     description?: boolean
     latitude?: boolean
     longitude?: boolean
+    isMainChurch?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["church"]>
@@ -6281,11 +6289,12 @@ export namespace Prisma {
     description?: boolean
     latitude?: boolean
     longitude?: boolean
+    isMainChurch?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ChurchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "description" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["church"]>
+  export type ChurchOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "description" | "latitude" | "longitude" | "isMainChurch" | "createdAt" | "updatedAt", ExtArgs["result"]["church"]>
   export type ChurchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     massSchedules?: boolean | Church$massSchedulesArgs<ExtArgs>
     crunchMedias?: boolean | Church$crunchMediasArgs<ExtArgs>
@@ -6307,6 +6316,7 @@ export namespace Prisma {
       description: string | null
       latitude: number
       longitude: number
+      isMainChurch: boolean
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["church"]>
@@ -6740,6 +6750,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Church", 'String'>
     readonly latitude: FieldRef<"Church", 'Float'>
     readonly longitude: FieldRef<"Church", 'Float'>
+    readonly isMainChurch: FieldRef<"Church", 'Boolean'>
     readonly createdAt: FieldRef<"Church", 'DateTime'>
     readonly updatedAt: FieldRef<"Church", 'DateTime'>
   }
@@ -20490,6 +20501,7 @@ export namespace Prisma {
     description: 'description',
     latitude: 'latitude',
     longitude: 'longitude',
+    isMainChurch: 'isMainChurch',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -21044,6 +21056,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Church"> | string | null
     latitude?: FloatFilter<"Church"> | number
     longitude?: FloatFilter<"Church"> | number
+    isMainChurch?: BoolFilter<"Church"> | boolean
     createdAt?: DateTimeFilter<"Church"> | Date | string
     updatedAt?: DateTimeFilter<"Church"> | Date | string
     massSchedules?: MassScheduleListRelationFilter
@@ -21057,6 +21070,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    isMainChurch?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     massSchedules?: MassScheduleOrderByRelationAggregateInput
@@ -21073,6 +21087,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Church"> | string | null
     latitude?: FloatFilter<"Church"> | number
     longitude?: FloatFilter<"Church"> | number
+    isMainChurch?: BoolFilter<"Church"> | boolean
     createdAt?: DateTimeFilter<"Church"> | Date | string
     updatedAt?: DateTimeFilter<"Church"> | Date | string
     massSchedules?: MassScheduleListRelationFilter
@@ -21086,6 +21101,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    isMainChurch?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ChurchCountOrderByAggregateInput
@@ -21105,6 +21121,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Church"> | string | null
     latitude?: FloatWithAggregatesFilter<"Church"> | number
     longitude?: FloatWithAggregatesFilter<"Church"> | number
+    isMainChurch?: BoolWithAggregatesFilter<"Church"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Church"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Church"> | Date | string
   }
@@ -22116,6 +22133,7 @@ export namespace Prisma {
     description?: string | null
     latitude: number
     longitude: number
+    isMainChurch?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     massSchedules?: MassScheduleCreateNestedManyWithoutChurchInput
@@ -22129,6 +22147,7 @@ export namespace Prisma {
     description?: string | null
     latitude: number
     longitude: number
+    isMainChurch?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     massSchedules?: MassScheduleUncheckedCreateNestedManyWithoutChurchInput
@@ -22142,6 +22161,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    isMainChurch?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     massSchedules?: MassScheduleUpdateManyWithoutChurchNestedInput
@@ -22155,6 +22175,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    isMainChurch?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     massSchedules?: MassScheduleUncheckedUpdateManyWithoutChurchNestedInput
@@ -22168,6 +22189,7 @@ export namespace Prisma {
     description?: string | null
     latitude: number
     longitude: number
+    isMainChurch?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -22179,6 +22201,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    isMainChurch?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22190,6 +22213,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    isMainChurch?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23305,6 +23329,7 @@ export namespace Prisma {
     description?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    isMainChurch?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -23321,6 +23346,7 @@ export namespace Prisma {
     description?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    isMainChurch?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -23332,6 +23358,7 @@ export namespace Prisma {
     description?: SortOrder
     latitude?: SortOrder
     longitude?: SortOrder
+    isMainChurch?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -25803,6 +25830,7 @@ export namespace Prisma {
     description?: string | null
     latitude: number
     longitude: number
+    isMainChurch?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     crunchMedias?: CrunchMediaCreateNestedManyWithoutCrunchInput
@@ -25815,6 +25843,7 @@ export namespace Prisma {
     description?: string | null
     latitude: number
     longitude: number
+    isMainChurch?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutCrunchInput
@@ -25843,6 +25872,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    isMainChurch?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     crunchMedias?: CrunchMediaUpdateManyWithoutCrunchNestedInput
@@ -25855,6 +25885,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    isMainChurch?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutCrunchNestedInput
@@ -27099,6 +27130,7 @@ export namespace Prisma {
     description?: string | null
     latitude: number
     longitude: number
+    isMainChurch?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     massSchedules?: MassScheduleCreateNestedManyWithoutChurchInput
@@ -27111,6 +27143,7 @@ export namespace Prisma {
     description?: string | null
     latitude: number
     longitude: number
+    isMainChurch?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     massSchedules?: MassScheduleUncheckedCreateNestedManyWithoutChurchInput
@@ -27172,6 +27205,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    isMainChurch?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     massSchedules?: MassScheduleUpdateManyWithoutChurchNestedInput
@@ -27184,6 +27218,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     latitude?: FloatFieldUpdateOperationsInput | number
     longitude?: FloatFieldUpdateOperationsInput | number
+    isMainChurch?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     massSchedules?: MassScheduleUncheckedUpdateManyWithoutChurchNestedInput

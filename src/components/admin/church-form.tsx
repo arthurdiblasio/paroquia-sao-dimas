@@ -7,6 +7,7 @@ import { AddressAutocomplete } from "@/components/ui/address-autocomplete"
 import { Button } from "@/components/ui/button"
 import { ImageUpload } from "@/components/ui/image-upload"
 import { Input } from "@/components/ui/input"
+import { Modal } from "@/components/ui/modal"
 import { Textarea } from "@/components/ui/textarea"
 
 type MassSchedule = {
@@ -24,14 +25,21 @@ type ChurchFormValues = {
   latitude: number | null
   longitude: number | null
   description: string
+  isMainChurch: boolean
   images: string[]
   schedules: MassSchedule[]
+}
+
+type MainChurchInfo = {
+  id: string
+  name: string
 }
 
 type Props = {
   mode: "create" | "edit"
   initialValues?: ChurchFormValues
   churchId?: string
+  currentMainChurch?: MainChurchInfo | null
 }
 
 const defaultValues: ChurchFormValues = {
@@ -40,6 +48,7 @@ const defaultValues: ChurchFormValues = {
   latitude: null,
   longitude: null,
   description: "",
+  isMainChurch: false,
   images: [],
   schedules: [],
 }
@@ -54,7 +63,12 @@ const weekDays = [
   "Sabado",
 ]
 
-export function ChurchForm({ mode, initialValues = defaultValues, churchId }: Props) {
+export function ChurchForm({
+  mode,
+  initialValues = defaultValues,
+  churchId,
+  currentMainChurch = null,
+}: Props) {
   const router = useRouter()
 
   const [name, setName] = useState(initialValues.name)
@@ -62,9 +76,11 @@ export function ChurchForm({ mode, initialValues = defaultValues, churchId }: Pr
   const [latitude, setLatitude] = useState<number | null>(initialValues.latitude)
   const [longitude, setLongitude] = useState<number | null>(initialValues.longitude)
   const [description, setDescription] = useState(initialValues.description)
+  const [isMainChurch, setIsMainChurch] = useState(initialValues.isMainChurch)
   const [images, setImages] = useState<string[]>(initialValues.images)
   const [schedules, setSchedules] = useState<MassSchedule[]>(initialValues.schedules)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [mainChurchToReplace, setMainChurchToReplace] = useState<MainChurchInfo | null>(null)
 
   function addSchedule() {
     setSchedules((prev) => [...prev, { dayOfWeek: 0, time: "" }])
@@ -82,6 +98,21 @@ export function ChurchForm({ mode, initialValues = defaultValues, churchId }: Pr
 
   function removeSchedule(index: number) {
     setSchedules((prev) => prev.filter((_, currentIndex) => currentIndex !== index))
+  }
+
+  function handleMainChurchChange(checked: boolean) {
+    if (!checked) {
+      setIsMainChurch(false)
+      setMainChurchToReplace(null)
+      return
+    }
+
+    if (currentMainChurch && currentMainChurch.id !== churchId) {
+      setMainChurchToReplace(currentMainChurch)
+      return
+    }
+
+    setIsMainChurch(true)
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -103,6 +134,7 @@ export function ChurchForm({ mode, initialValues = defaultValues, churchId }: Pr
         latitude,
         longitude,
         description,
+        isMainChurch,
         images,
         schedules,
       }),
@@ -129,7 +161,9 @@ export function ChurchForm({ mode, initialValues = defaultValues, churchId }: Pr
 
       <ImageUpload
         images={images}
+        multiple={false}
         setImages={setImages}
+
       />
 
       <Input
@@ -153,6 +187,25 @@ export function ChurchForm({ mode, initialValues = defaultValues, churchId }: Pr
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
+
+      <label className="flex items-start gap-3 rounded-xl border border-gray-200 px-4 py-3">
+        <input
+          type="checkbox"
+          checked={isMainChurch}
+          onChange={(e) => handleMainChurchChange(e.target.checked)}
+          className="mt-1 h-4 w-4 rounded border-gray-300 text-[#092070] focus:ring-[#092070]"
+        />
+
+        <div>
+          <p className="text-sm font-medium text-gray-900">
+            Igreja Matriz
+          </p>
+
+          <p className="text-sm text-gray-500">
+            Marque esta opcao para definir esta igreja como a matriz principal da paroquia.
+          </p>
+        </div>
+      </label>
 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
@@ -217,6 +270,50 @@ export function ChurchForm({ mode, initialValues = defaultValues, churchId }: Pr
           {isSubmitting ? "Salvando..." : "Salvar"}
         </Button>
       </div>
+
+      <Modal
+        open={mainChurchToReplace !== null}
+        onClose={() => {
+          if (!isSubmitting) {
+            setMainChurchToReplace(null)
+          }
+        }}
+      >
+        <div className="max-w-lg">
+          <h2 className="text-xl font-semibold text-gray-900">
+            Alterar Igreja Matriz
+          </h2>
+
+          <p className="mt-3 text-sm text-gray-600">
+            Ao marcar esta igreja como matriz, a igreja{" "}
+            <span className="font-medium text-gray-900">
+              {mainChurchToReplace?.name}
+            </span>{" "}
+            deixara de ser a Igreja Matriz.
+          </p>
+
+          <div className="mt-6 flex justify-end gap-3">
+            <button
+              type="button"
+              onClick={() => setMainChurchToReplace(null)}
+              className="rounded-lg border border-gray-200 px-4 py-2 text-sm text-gray-700 transition hover:bg-gray-50"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setIsMainChurch(true)
+                setMainChurchToReplace(null)
+              }}
+              className="rounded-lg bg-[#092070] px-4 py-2 text-sm text-white transition hover:opacity-90"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </Modal>
     </form>
   )
 }

@@ -8,9 +8,14 @@ export default async function ChurchesPage() {
     include: {
       massSchedules: true,
     },
-    orderBy: {
-      createdAt: "desc",
-    },
+    orderBy: [
+      {
+        isMainChurch: "desc",
+      },
+      {
+        createdAt: "desc",
+      },
+    ],
   })
 
   return (
@@ -40,6 +45,7 @@ export default async function ChurchesPage() {
             id: church.id,
             name: church.name,
             address: church.address,
+            isMainChurch: church.isMainChurch,
             massSchedules: church.massSchedules.map((schedule) => ({
               dayOfWeek: schedule.dayOfWeek,
               time: schedule.time,

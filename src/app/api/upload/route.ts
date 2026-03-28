@@ -1,5 +1,6 @@
 import { cloudinary } from "@/lib/cloudinary";
 import { UploadApiResponse } from "cloudinary";
+import { fileTypeFromBuffer } from "file-type";
 
 export async function POST(req: Request) {
   const formData = await req.formData();
@@ -7,13 +8,20 @@ export async function POST(req: Request) {
 
   const buffer = Buffer.from(await file.arrayBuffer());
 
+  const isPdf =
+    file.type === "application/pdf" ||
+    buffer.toString("utf-8", 0, 4) === "%PDF";
+
+  // Define dinamicamente
+  const resourceType = isPdf ? "raw" : "auto";
+
   const result = await new Promise<UploadApiResponse | undefined>(
     (resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
             folder: "paroquia-sao-dimas",
-            resource_type: "auto",
+            resource_type: resourceType,
           },
           (error, result) => {
             if (error) reject(error);

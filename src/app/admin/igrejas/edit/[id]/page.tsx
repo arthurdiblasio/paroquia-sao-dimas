@@ -28,6 +28,15 @@ export default async function EditChurchPage({ params }: Props) {
       },
     },
   })
+  const currentMainChurch = await prisma.church.findFirst({
+    where: {
+      isMainChurch: true,
+    },
+    select: {
+      id: true,
+      name: true,
+    },
+  })
 
   if (!church) {
     notFound()
@@ -43,6 +52,7 @@ export default async function EditChurchPage({ params }: Props) {
         latitude: church.latitude,
         longitude: church.longitude,
         description: church.description ?? "",
+        isMainChurch: church.isMainChurch,
         images: church.crunchMedias.map((item) => item.media.url),
         schedules: church.massSchedules.map((schedule) => ({
           dayOfWeek: schedule.dayOfWeek,
@@ -50,6 +60,7 @@ export default async function EditChurchPage({ params }: Props) {
           notes: schedule.notes ?? "",
         })),
       }}
+      currentMainChurch={currentMainChurch}
     />
   )
 }

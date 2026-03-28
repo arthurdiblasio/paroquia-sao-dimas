@@ -12,6 +12,7 @@ type UpdateChurchBody = {
   latitude: number | null
   longitude: number | null
   description?: string
+  isMainChurch?: boolean
   images?: string[]
   schedules: ChurchScheduleInput[]
 }
@@ -40,6 +41,20 @@ export async function PUT(req: Request, { params }: Props) {
   const mediaIds = currentChurch.crunchMedias.map((item) => item.mediaId)
 
   const church = await prisma.$transaction(async (tx) => {
+    if (body.isMainChurch) {
+      await tx.church.updateMany({
+        where: {
+          isMainChurch: true,
+          id: {
+            not: id,
+          },
+        },
+        data: {
+          isMainChurch: false,
+        },
+      })
+    }
+
     await tx.massSchedule.deleteMany({
       where: { churchId: id },
     })
@@ -66,6 +81,7 @@ export async function PUT(req: Request, { params }: Props) {
         latitude: body.latitude ?? 0,
         longitude: body.longitude ?? 0,
         description: body.description,
+        isMainChurch: body.isMainChurch ?? false,
         massSchedules: {
           create: body.schedules.map((schedule) => ({
             dayOfWeek: schedule.dayOfWeek,

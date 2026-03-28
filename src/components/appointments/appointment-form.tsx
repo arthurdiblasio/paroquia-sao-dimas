@@ -393,14 +393,14 @@ export function AppointmentForm() {
 
       const details = type === "BATISMO"
         ? {
-            motherPhone: baptismDetails.motherPhone.trim(),
-            fatherPhone: baptismDetails.fatherPhone.trim(),
-            godmotherPhone: baptismDetails.godmotherPhone.trim(),
-            godfatherPhone: baptismDetails.godfatherPhone.trim(),
-            motherEmail: baptismDetails.motherEmail.trim(),
-            fatherEmail: baptismDetails.fatherEmail.trim(),
-            godparentsConfirmed: baptismDetails.godparentsConfirmed,
-          }
+          motherPhone: baptismDetails.motherPhone.trim(),
+          fatherPhone: baptismDetails.fatherPhone.trim(),
+          godmotherPhone: baptismDetails.godmotherPhone.trim(),
+          godfatherPhone: baptismDetails.godfatherPhone.trim(),
+          motherEmail: baptismDetails.motherEmail.trim(),
+          fatherEmail: baptismDetails.fatherEmail.trim(),
+          godparentsConfirmed: baptismDetails.godparentsConfirmed,
+        }
         : null
 
       const response = await fetch("/api/appointments", {
@@ -454,8 +454,8 @@ export function AppointmentForm() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-      <div className="space-y-6">
+    <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+      <div className="space-y-12">
         <Card>
           <div className="flex items-start gap-3">
             <div className="rounded-2xl bg-[#092070]/8 p-3 text-[#092070]">
@@ -483,11 +483,10 @@ export function AppointmentForm() {
                   key={option.value}
                   type="button"
                   onClick={() => setType(option.value)}
-                  className={`rounded-2xl border p-4 text-left transition ${
-                    isActive
-                      ? "border-[#092070] bg-[#092070] text-white shadow-sm"
-                      : "border-gray-200 bg-white text-gray-800 hover:border-[#092070]/30 hover:bg-gray-50"
-                  }`}
+                  className={`rounded-2xl border p-4 text-left transition ${isActive
+                    ? "border-[#092070] bg-[#092070] text-white shadow-sm"
+                    : "border-gray-200 bg-white text-gray-800 hover:border-[#092070]/30 hover:bg-gray-50"
+                    }`}
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div>
@@ -496,9 +495,8 @@ export function AppointmentForm() {
                       </p>
 
                       <p
-                        className={`mt-1 text-sm leading-6 ${
-                          isActive ? "text-white/85" : "text-gray-600"
-                        }`}
+                        className={`mt-1 text-sm leading-6 ${isActive ? "text-white/85" : "text-gray-600"
+                          }`}
                       >
                         {option.description}
                       </p>

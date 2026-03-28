@@ -23,10 +23,8 @@ enum AppointmentType {
 
 enum AppointmentStatus {
   PENDING
-  IN_REVIEW
   APPROVED
-  REJECTED
-  COMPLETED
+  CANCELLED
 }
 
 enum MediaType {
@@ -100,6 +98,7 @@ model Church {
   description String?
   latitude    Float
   longitude   Float
+  isMainChurch Boolean @default(false)
 
   massSchedules MassSchedule[]
 

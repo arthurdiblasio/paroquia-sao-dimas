@@ -11,6 +11,7 @@ type ChurchRow = {
   id: string
   name: string
   address: string
+  isMainChurch: boolean
   massSchedules: {
     dayOfWeek: number
     time: string
@@ -86,7 +87,15 @@ export function ChurchesTable({ churches: initialChurches }: Props) {
             return (
               <tr key={church.id} className="hover:bg-gray-50">
                 <td className="p-4 font-medium text-gray-800">
-                  {church.name}
+                  <div className="flex items-center gap-2">
+                    <span>{church.name}</span>
+
+                    {church.isMainChurch && (
+                      <span className="rounded-full bg-[#092070]/10 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-[#092070]">
+                        Matriz
+                      </span>
+                    )}
+                  </div>
                 </td>
 
                 <td className="p-4 text-gray-600">
