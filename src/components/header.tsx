@@ -9,7 +9,7 @@ export default function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="w-full border-b border-gray-200 bg-white">
+    <header className="w-full border-b border-gray-200 bg-primary">
       <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
 
         {/* Logo */}
@@ -23,24 +23,27 @@ export default function Header() {
         </Link>
 
         {/* Desktop menu */}
-        <nav className="hidden items-center gap-8 md:flex">
-          <Link href="/" className="hover:text-primary">Início</Link>
-          <Link href="/igrejas" className="hover:text-primary">Igrejas</Link>
-          <Link href="/noticias" className="hover:text-primary">Notícias</Link>
-          <Link href="/missas" className="hover:text-primary">Missas</Link>
-          <Link href="/pastorais" className="hover:text-primary">Pastorais</Link>
-          <Link href="/prestacao-contas" className="hover:text-primary">
+        <nav className="hidden items-center gap-8 md:flex text-white font-bold">
+          <Link href="/" className="hover:text-secondary">Início</Link>
+          <Link href="/igrejas" className="hover:text-secondary">Igrejas</Link>
+          <Link href="/noticias" className="hover:text-secondary">Notícias</Link>
+          <Link href="/missas" className="hover:text-secondary">Missas</Link>
+          <Link href="/pastorais" className="hover:text-secondary">Pastorais</Link>
+          <Link href="/prestacao-contas" className="hover:text-secondary">
             Prestação de Contas
           </Link>
-          <Link href="/agendamentos" className="hover:text-primary">
+          <Link href="/agendamentos" className="hover:text-secondary">
             Agendamentos
           </Link>
 
           <Link
             href="/login"
-            className="rounded-md bg-primary px-4 py-2 text-white hover:bg-primary/90"
+            className="rounded-md bg-secondary px-4 py-2 text-white hover:bg-secondary/90"
           >
-            Acesso Restrito
+            <div className="text-primary">
+              Acesso Restrito
+
+            </div>
           </Link>
         </nav>
 

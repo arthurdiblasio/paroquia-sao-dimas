@@ -1,5 +1,7 @@
 import "./globals.css"
 
+import { PublicShell } from "@/components/layout/public-shell"
+
 export default function RootLayout({
   children,
 }: {
@@ -12,7 +14,7 @@ export default function RootLayout({
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`}
           async
         />
-        {children}
+        <PublicShell>{children}</PublicShell>
       </body>
     </html>
   )
