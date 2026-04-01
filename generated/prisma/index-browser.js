@@ -205,6 +205,7 @@ exports.Prisma.HomilyScalarFieldEnum = {
   title: 'title',
   description: 'description',
   content: 'content',
+  videoUrl: 'videoUrl',
   date: 'date',
   published: 'published',
   publishedAt: 'publishedAt',

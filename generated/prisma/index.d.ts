@@ -10687,6 +10687,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     content: string | null
+    videoUrl: string | null
     date: Date | null
     published: boolean | null
     publishedAt: Date | null
@@ -10700,6 +10701,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     content: string | null
+    videoUrl: string | null
     date: Date | null
     published: boolean | null
     publishedAt: Date | null
@@ -10713,6 +10715,7 @@ export namespace Prisma {
     title: number
     description: number
     content: number
+    videoUrl: number
     date: number
     published: number
     publishedAt: number
@@ -10728,6 +10731,7 @@ export namespace Prisma {
     title?: true
     description?: true
     content?: true
+    videoUrl?: true
     date?: true
     published?: true
     publishedAt?: true
@@ -10741,6 +10745,7 @@ export namespace Prisma {
     title?: true
     description?: true
     content?: true
+    videoUrl?: true
     date?: true
     published?: true
     publishedAt?: true
@@ -10754,6 +10759,7 @@ export namespace Prisma {
     title?: true
     description?: true
     content?: true
+    videoUrl?: true
     date?: true
     published?: true
     publishedAt?: true
@@ -10840,6 +10846,7 @@ export namespace Prisma {
     title: string
     description: string | null
     content: string | null
+    videoUrl: string | null
     date: Date
     published: boolean
     publishedAt: Date | null
@@ -10870,6 +10877,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     content?: boolean
+    videoUrl?: boolean
     date?: boolean
     published?: boolean
     publishedAt?: boolean
@@ -10886,6 +10894,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     content?: boolean
+    videoUrl?: boolean
     date?: boolean
     published?: boolean
     publishedAt?: boolean
@@ -10900,6 +10909,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     content?: boolean
+    videoUrl?: boolean
     date?: boolean
     published?: boolean
     publishedAt?: boolean
@@ -10914,6 +10924,7 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     content?: boolean
+    videoUrl?: boolean
     date?: boolean
     published?: boolean
     publishedAt?: boolean
@@ -10922,7 +10933,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type HomilyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "content" | "date" | "published" | "publishedAt" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["homily"]>
+  export type HomilyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "content" | "videoUrl" | "date" | "published" | "publishedAt" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["homily"]>
   export type HomilyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
     media?: boolean | Homily$mediaArgs<ExtArgs>
@@ -10946,6 +10957,7 @@ export namespace Prisma {
       title: string
       description: string | null
       content: string | null
+      videoUrl: string | null
       date: Date
       published: boolean
       publishedAt: Date | null
@@ -11381,6 +11393,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Homily", 'String'>
     readonly description: FieldRef<"Homily", 'String'>
     readonly content: FieldRef<"Homily", 'String'>
+    readonly videoUrl: FieldRef<"Homily", 'String'>
     readonly date: FieldRef<"Homily", 'DateTime'>
     readonly published: FieldRef<"Homily", 'Boolean'>
     readonly publishedAt: FieldRef<"Homily", 'DateTime'>
@@ -20560,6 +20573,7 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     content: 'content',
+    videoUrl: 'videoUrl',
     date: 'date',
     published: 'published',
     publishedAt: 'publishedAt',
@@ -21371,6 +21385,7 @@ export namespace Prisma {
     title?: StringFilter<"Homily"> | string
     description?: StringNullableFilter<"Homily"> | string | null
     content?: StringNullableFilter<"Homily"> | string | null
+    videoUrl?: StringNullableFilter<"Homily"> | string | null
     date?: DateTimeFilter<"Homily"> | Date | string
     published?: BoolFilter<"Homily"> | boolean
     publishedAt?: DateTimeNullableFilter<"Homily"> | Date | string | null
@@ -21386,6 +21401,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     content?: SortOrderInput | SortOrder
+    videoUrl?: SortOrderInput | SortOrder
     date?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
@@ -21404,6 +21420,7 @@ export namespace Prisma {
     title?: StringFilter<"Homily"> | string
     description?: StringNullableFilter<"Homily"> | string | null
     content?: StringNullableFilter<"Homily"> | string | null
+    videoUrl?: StringNullableFilter<"Homily"> | string | null
     date?: DateTimeFilter<"Homily"> | Date | string
     published?: BoolFilter<"Homily"> | boolean
     publishedAt?: DateTimeNullableFilter<"Homily"> | Date | string | null
@@ -21419,6 +21436,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     content?: SortOrderInput | SortOrder
+    videoUrl?: SortOrderInput | SortOrder
     date?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
@@ -21438,6 +21456,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Homily"> | string
     description?: StringNullableWithAggregatesFilter<"Homily"> | string | null
     content?: StringNullableWithAggregatesFilter<"Homily"> | string | null
+    videoUrl?: StringNullableWithAggregatesFilter<"Homily"> | string | null
     date?: DateTimeWithAggregatesFilter<"Homily"> | Date | string
     published?: BoolWithAggregatesFilter<"Homily"> | boolean
     publishedAt?: DateTimeNullableWithAggregatesFilter<"Homily"> | Date | string | null
@@ -22488,6 +22507,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     content?: string | null
+    videoUrl?: string | null
     date: Date | string
     published?: boolean
     publishedAt?: Date | string | null
@@ -22502,6 +22522,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     content?: string | null
+    videoUrl?: string | null
     date: Date | string
     published?: boolean
     publishedAt?: Date | string | null
@@ -22516,6 +22537,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22530,6 +22552,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22544,6 +22567,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     content?: string | null
+    videoUrl?: string | null
     date: Date | string
     published?: boolean
     publishedAt?: Date | string | null
@@ -22557,6 +22581,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22569,6 +22594,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23584,6 +23610,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     content?: SortOrder
+    videoUrl?: SortOrder
     date?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrder
@@ -23597,6 +23624,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     content?: SortOrder
+    videoUrl?: SortOrder
     date?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrder
@@ -23610,6 +23638,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     content?: SortOrder
+    videoUrl?: SortOrder
     date?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrder
@@ -25390,6 +25419,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     content?: string | null
+    videoUrl?: string | null
     date: Date | string
     published?: boolean
     publishedAt?: Date | string | null
@@ -25403,6 +25433,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     content?: string | null
+    videoUrl?: string | null
     date: Date | string
     published?: boolean
     publishedAt?: Date | string | null
@@ -25512,6 +25543,7 @@ export namespace Prisma {
     title?: StringFilter<"Homily"> | string
     description?: StringNullableFilter<"Homily"> | string | null
     content?: StringNullableFilter<"Homily"> | string | null
+    videoUrl?: StringNullableFilter<"Homily"> | string | null
     date?: DateTimeFilter<"Homily"> | Date | string
     published?: BoolFilter<"Homily"> | boolean
     publishedAt?: DateTimeNullableFilter<"Homily"> | Date | string | null
@@ -26988,6 +27020,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     content?: string | null
+    videoUrl?: string | null
     date: Date | string
     published?: boolean
     publishedAt?: Date | string | null
@@ -27001,6 +27034,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     content?: string | null
+    videoUrl?: string | null
     date: Date | string
     published?: boolean
     publishedAt?: Date | string | null
@@ -27063,6 +27097,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27076,6 +27111,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27295,6 +27331,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     content?: string | null
+    videoUrl?: string | null
     date: Date | string
     published?: boolean
     publishedAt?: Date | string | null
@@ -27392,6 +27429,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27405,6 +27443,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -27418,6 +27457,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    videoUrl?: NullableStringFieldUpdateOperationsInput | string | null
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
