@@ -52,7 +52,7 @@ export default function AdminLayout({
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition
                 ${active
-                    ? "bg-white text-primary"
+                    ? "text-secondary border-0 border-l-4 border-secondary bg-secondary/10"
                     : "bg-primary text-white hover:text-secondary"
                   }`}
               >
