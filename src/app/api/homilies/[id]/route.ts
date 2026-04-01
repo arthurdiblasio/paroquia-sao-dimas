@@ -1,4 +1,8 @@
 import { prisma } from "lib/prisma"
+import {
+  getPublishedStateFromStatus,
+  normalizePublicationStatus,
+} from "@/lib/publication-status"
 
 type UpdateHomilyBody = {
   title: string
@@ -6,6 +10,7 @@ type UpdateHomilyBody = {
   content?: string | null
   videoUrl?: string | null
   date: string
+  status?: string
 }
 
 type Props = {
@@ -56,6 +61,7 @@ export async function GET(_req: Request, { params }: Props) {
 export async function PUT(req: Request, { params }: Props) {
   const { id } = await params
   const body = (await req.json()) as UpdateHomilyBody
+  const status = normalizePublicationStatus(body.status)
 
   const currentHomily = await prisma.homily.findUnique({
     where: { id },
@@ -100,8 +106,7 @@ export async function PUT(req: Request, { params }: Props) {
         content: normalizeString(body.content),
         videoUrl,
         date,
-        published: true,
-        publishedAt: currentHomily.publishedAt ?? new Date(),
+        ...getPublishedStateFromStatus(status),
         media: videoUrl
           ? {
               create: [
@@ -174,4 +179,26 @@ export async function DELETE(_req: Request, { params }: Props) {
   })
 
   return Response.json({ success: true })
+}
+
+export async function PATCH(req: Request, { params }: Props) {
+  const { id } = await params
+  const body = (await req.json()) as { status?: string }
+  const status = normalizePublicationStatus(body.status)
+
+  const currentHomily = await prisma.homily.findUnique({
+    where: { id },
+    select: { id: true },
+  })
+
+  if (!currentHomily) {
+    return Response.json({ error: "Homilia nao encontrada." }, { status: 404 })
+  }
+
+  const homily = await prisma.homily.update({
+    where: { id },
+    data: getPublishedStateFromStatus(status),
+  })
+
+  return Response.json(homily)
 }

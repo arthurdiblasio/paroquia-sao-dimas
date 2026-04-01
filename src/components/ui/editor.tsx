@@ -1,20 +1,43 @@
 "use client"
 
 import { useEditor, EditorContent } from "@tiptap/react"
+import type { MouseEvent, ReactNode } from "react"
 import StarterKit from "@tiptap/starter-kit"
 import Link from "@tiptap/extension-link"
 import { TextStyle } from "@tiptap/extension-text-style"
 import Color from "@tiptap/extension-color"
-import { ResizableImage } from "../editor/extensions/image-resize"
 
+import { ResizableImage } from "../editor/extensions/image-resize"
 
 type Props = {
   value: string
   onChange: (value: string) => void
 }
 
-export function Editor({ value, onChange }: Props) {
+type ToolbarButtonProps = {
+  children: ReactNode
+  onClick: () => void | Promise<void>
+}
 
+function ToolbarButton({ children, onClick }: ToolbarButtonProps) {
+  async function handleClick(event: MouseEvent<HTMLButtonElement>) {
+    event.preventDefault()
+    await onClick()
+  }
+
+  return (
+    <button
+      type="button"
+      onMouseDown={(event) => event.preventDefault()}
+      onClick={handleClick}
+      className="rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700 transition hover:bg-gray-100"
+    >
+      {children}
+    </button>
+  )
+}
+
+export function Editor({ value, onChange }: Props) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -30,7 +53,7 @@ export function Editor({ value, onChange }: Props) {
       }),
       TextStyle,
       Color,
-      ResizableImage
+      ResizableImage,
     ],
     content: value,
     immediatelyRender: false,
@@ -39,112 +62,109 @@ export function Editor({ value, onChange }: Props) {
         class: "prose prose-lg max-w-none focus:outline-none",
       },
     },
-    onUpdate: ({ editor }) => {
-      onChange(editor.getHTML())
-    }
+    onUpdate: ({ editor: currentEditor }) => {
+      onChange(currentEditor.getHTML())
+    },
   })
 
-  if (!editor) return null
+  if (!editor) {
+    return null
+  }
 
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-
-      {/* TOOLBAR */}
-      <div className="flex flex-wrap gap-2 border-b p-2 bg-gray-50">
-
-        <button onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+    <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
+      <div className="flex flex-wrap gap-2 border-b bg-gray-50 p-2">
+        <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
           H2
-        </button>
+        </ToolbarButton>
 
-        <button onClick={() => editor.chain().focus().toggleBold().run()}>
+        <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()}>
           <b>B</b>
-        </button>
+        </ToolbarButton>
 
-        <button onClick={() => editor.chain().focus().toggleItalic().run()}>
+        <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()}>
           <i>I</i>
-        </button>
+        </ToolbarButton>
 
-        <button onClick={() => editor.chain().focus().toggleBulletList().run()}>
-          • Lista
-        </button>
+        <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()}>
+          Lista
+        </ToolbarButton>
 
-        <button onClick={() => editor.chain().focus().toggleBlockquote().run()}>
-          Citação
-        </button>
-
-        {/* LINK */}
-        <button
+        {/* <ToolbarButton onClick={() => editor.chain().focus().toggleBlockquote().run()}>
+          Citacao
+        </ToolbarButton> */}
+        {/* 
+        <ToolbarButton
           onClick={() => {
-            const url = prompt("URL")
-            if (url) editor.chain().focus().setLink({ href: url }).run()
+            const url = window.prompt("URL")
+
+            if (url) {
+              editor.chain().focus().setLink({ href: url }).run()
+            }
           }}
         >
           Link
-        </button>
-
-        {/* COR */}
-        <button onClick={() => editor.chain().focus().setColor("#DF9822").run()}>
+        </ToolbarButton> */}
+        {/* 
+        <ToolbarButton onClick={() => editor.chain().focus().setColor("#DF9822").run()}>
           Cor
-        </button>
+        </ToolbarButton> */}
 
-        {/* IMAGEM UPLOAD */}
-        <button
+        {/* <ToolbarButton
           onClick={async () => {
-
             const input = document.createElement("input")
             input.type = "file"
             input.accept = "image/*"
 
             input.onchange = async () => {
-
-              if (!input.files?.length) return
+              if (!input.files?.length) {
+                return
+              }
 
               const file = input.files[0]
-
               const formData = new FormData()
               formData.append("file", file)
 
               const res = await fetch("/api/upload", {
                 method: "POST",
-                body: formData
+                body: formData,
               })
+
+              if (!res.ok) {
+                return
+              }
 
               const data = await res.json()
 
-              editor.chain().focus().setImage({
-                src: data.url,
-              })
-                .updateAttributes("image", { align: "center" })
-                .run()
+              if (!data.url) {
+                return
+              }
+
+              editor.chain().focus().setImage({ src: data.url }).updateAttributes("image", {
+                align: "center",
+              }).run()
             }
 
             input.click()
           }}
         >
           Imagem
-        </button>
+        </ToolbarButton>
 
-        {/* ALIGN */}
-        <button onClick={() => editor.chain().focus().updateAttributes("image", { align: "left" }).run()}>
-          ⬅
-        </button>
+        <ToolbarButton onClick={() => editor.chain().focus().updateAttributes("image", { align: "left" }).run()}>
+          Esq
+        </ToolbarButton>
 
-        <button onClick={() => editor.chain().focus().updateAttributes("image", { align: "center" }).run()}>
-          ⬍
-        </button>
+        <ToolbarButton onClick={() => editor.chain().focus().updateAttributes("image", { align: "center" }).run()}>
+          Centro
+        </ToolbarButton>
 
-        <button onClick={() => editor.chain().focus().updateAttributes("image", { align: "right" }).run()}>
-          ➡
-        </button>
-
+        <ToolbarButton onClick={() => editor.chain().focus().updateAttributes("image", { align: "right" }).run()}>
+          Dir
+        </ToolbarButton> */}
       </div>
 
-      {/* EDITOR */}
-      <EditorContent
-        editor={editor}
-        className="p-4 min-h-[300px]"
-      />
-
+      <EditorContent editor={editor} className="min-h-[300px] p-4" />
     </div>
   )
 }

@@ -5,7 +5,9 @@ import { useRouter } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Select } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
+import { PublicationStatus } from "@/lib/publication-status"
 
 type HomilyFormValues = {
   title: string
@@ -13,6 +15,7 @@ type HomilyFormValues = {
   content: string
   videoUrl: string
   date: string
+  status: PublicationStatus
 }
 
 type Props = {
@@ -27,6 +30,7 @@ const defaultValues: HomilyFormValues = {
   content: "",
   videoUrl: "",
   date: "",
+  status: "DRAFT",
 }
 
 export function HomilyForm({
@@ -41,6 +45,7 @@ export function HomilyForm({
   const [content, setContent] = useState(initialValues.content)
   const [videoUrl, setVideoUrl] = useState(initialValues.videoUrl)
   const [date, setDate] = useState(initialValues.date)
+  const [status, setStatus] = useState<PublicationStatus>(initialValues.status)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -62,6 +67,7 @@ export function HomilyForm({
         content,
         videoUrl,
         date,
+        status,
       }),
     })
 
@@ -96,6 +102,14 @@ export function HomilyForm({
           required
         />
       </div>
+
+      <Select
+        value={status}
+        onChange={(e) => setStatus(e.target.value as PublicationStatus)}
+      >
+        <option value="DRAFT">Rascunho</option>
+        <option value="PUBLISHED">Publicada</option>
+      </Select>
 
       <Textarea
         placeholder="Descricao"

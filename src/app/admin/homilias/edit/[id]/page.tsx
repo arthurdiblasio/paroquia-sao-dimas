@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 
 import { HomilyForm } from "@/components/admin/homily-form"
+import { getPublicationStatusFromPublished } from "@/lib/publication-status"
 import { prisma } from "lib/prisma"
 
 type Props = {
@@ -34,6 +35,7 @@ export default async function EditHomilyPage({ params }: Props) {
         content: homily.content ?? "",
         videoUrl: homily.videoUrl ?? "",
         date: formatDateToInput(homily.date),
+        status: getPublicationStatusFromPublished(homily.published),
       }}
     />
   )

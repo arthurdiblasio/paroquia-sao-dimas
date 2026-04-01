@@ -140,6 +140,7 @@ exports.Prisma.NewsCategoryScalarFieldEnum = {
 exports.Prisma.NewsScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  subtitle: 'subtitle',
   slug: 'slug',
   content: 'content',
   imageUrl: 'imageUrl',

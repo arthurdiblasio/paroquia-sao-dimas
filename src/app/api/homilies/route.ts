@@ -1,6 +1,10 @@
 import { prisma } from "lib/prisma"
 
 import { getAuthenticatedUserIdOrFallback } from "@/lib/auth"
+import {
+  getPublishedStateFromStatus,
+  normalizePublicationStatus,
+} from "@/lib/publication-status"
 
 type CreateHomilyBody = {
   title: string
@@ -8,6 +12,7 @@ type CreateHomilyBody = {
   content?: string | null
   videoUrl?: string | null
   date: string
+  status?: string
 }
 
 function normalizeString(value?: string | null) {
@@ -48,6 +53,7 @@ export async function GET() {
 export async function POST(req: Request) {
   const body = (await req.json()) as CreateHomilyBody
   const createdById = await getAuthenticatedUserIdOrFallback()
+  const status = normalizePublicationStatus(body.status)
 
   if (!createdById) {
     return Response.json({ error: "Nenhum usuario encontrado para vincular a homilia." }, { status: 400 })
@@ -68,8 +74,7 @@ export async function POST(req: Request) {
       content: normalizeString(body.content),
       videoUrl,
       date,
-      published: true,
-      publishedAt: new Date(),
+      ...getPublishedStateFromStatus(status),
       createdById,
       media: videoUrl
         ? {

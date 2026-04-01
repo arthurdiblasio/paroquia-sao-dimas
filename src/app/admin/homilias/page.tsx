@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { HomiliesTable } from "@/components/admin/homilies-table"
+import { getPublicationStatusFromPublished } from "@/lib/publication-status"
 import { prisma } from "lib/prisma"
 
 export default async function HomiliesPage() {
@@ -46,7 +47,7 @@ export default async function HomiliesPage() {
             description: homily.description,
             videoUrl: homily.videoUrl,
             date: homily.date.toISOString(),
-            published: homily.published,
+            status: getPublicationStatusFromPublished(homily.published),
             createdByName: homily.createdBy.name,
           }))}
         />

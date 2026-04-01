@@ -69,6 +69,7 @@ model NewsCategory {
 model News {
   id          String    @id @default(uuid())
   title       String
+  subtitle    String?
   slug        String    @unique
   content     String
   imageUrl    String?

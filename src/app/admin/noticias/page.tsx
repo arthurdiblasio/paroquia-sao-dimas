@@ -6,6 +6,7 @@ import { Pencil, Trash } from "lucide-react"
 import { SearchInput } from "@/components/ui/search-input"
 import { Select } from "@/components/ui/select"
 import { Table } from "@/components/ui/table"
+import { PublicationStatus } from "@/lib/publication-status"
 
 type News = {
   id: string
@@ -22,6 +23,7 @@ export default function NoticiasPage() {
   const [news, setNews] = useState<News[]>([])
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("all")
+  const [updatingId, setUpdatingId] = useState<string | null>(null)
 
   async function loadNews() {
     const res = await fetch("/api/news")
@@ -43,8 +45,39 @@ export default function NoticiasPage() {
     loadNews()
   }
 
+  async function updateStatus(id: string, status: PublicationStatus) {
+    setUpdatingId(id)
+
+    const response = await fetch(`/api/news/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    })
+
+    setUpdatingId(null)
+
+    if (!response.ok) {
+      return
+    }
+
+    setNews((currentNews) =>
+      currentNews.map((item) =>
+        item.id === id ? { ...item, published: status === "PUBLISHED" } : item
+      )
+    )
+  }
+
   useEffect(() => {
-    loadNews()
+    async function fetchNews() {
+      const res = await fetch("/api/news")
+      const data: News[] = await res.json()
+
+      setNews(data)
+    }
+
+    void fetchNews()
   }, [])
 
   const filteredNews = news
@@ -130,17 +163,14 @@ export default function NoticiasPage() {
               </td>
 
               <td className="p-4">
-
-                {item.published ? (
-                  <span className="text-green-600">
-                    Publicado
-                  </span>
-                ) : (
-                  <span className="text-gray-400">
-                    Rascunho
-                  </span>
-                )}
-
+                <Select
+                  value={item.published ? "PUBLISHED" : "DRAFT"}
+                  onChange={(e) => updateStatus(item.id, e.target.value as PublicationStatus)}
+                  disabled={updatingId === item.id}
+                >
+                  <option value="DRAFT">Rascunho</option>
+                  <option value="PUBLISHED">Publicado</option>
+                </Select>
               </td>
 
               <td className="p-4 text-gray-600">

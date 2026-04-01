@@ -5,7 +5,9 @@ import Link from "next/link"
 import { Pencil, Trash2, Video } from "lucide-react"
 
 import { Modal } from "@/components/ui/modal"
+import { Select } from "@/components/ui/select"
 import { Table } from "@/components/ui/table"
+import { PublicationStatus } from "@/lib/publication-status"
 
 type HomilyRow = {
   id: string
@@ -13,7 +15,7 @@ type HomilyRow = {
   description: string | null
   videoUrl: string | null
   date: string
-  published: boolean
+  status: PublicationStatus
   createdByName: string
 }
 
@@ -34,6 +36,7 @@ export function HomiliesTable({ homilies: initialHomilies }: Props) {
   const [homilies, setHomilies] = useState(initialHomilies)
   const [homilyToDelete, setHomilyToDelete] = useState<HomilyRow | null>(null)
   const [isDeleting, setIsDeleting] = useState(false)
+  const [updatingId, setUpdatingId] = useState<string | null>(null)
 
   async function handleDelete() {
     if (!homilyToDelete) {
@@ -56,6 +59,30 @@ export function HomiliesTable({ homilies: initialHomilies }: Props) {
       currentHomilies.filter((homily) => homily.id !== homilyToDelete.id)
     )
     setHomilyToDelete(null)
+  }
+
+  async function handleStatusChange(id: string, status: PublicationStatus) {
+    setUpdatingId(id)
+
+    const response = await fetch(`/api/homilies/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status }),
+    })
+
+    setUpdatingId(null)
+
+    if (!response.ok) {
+      return
+    }
+
+    setHomilies((currentHomilies) =>
+      currentHomilies.map((homily) =>
+        homily.id === id ? { ...homily, status } : homily
+      )
+    )
   }
 
   return (
@@ -108,15 +135,14 @@ export function HomiliesTable({ homilies: initialHomilies }: Props) {
               </td>
 
               <td className="p-4">
-                <span
-                  className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${
-                    homily.published
-                      ? "bg-green-50 text-green-700"
-                      : "bg-gray-100 text-gray-600"
-                  }`}
+                <Select
+                  value={homily.status}
+                  onChange={(e) => handleStatusChange(homily.id, e.target.value as PublicationStatus)}
+                  disabled={updatingId === homily.id}
                 >
-                  {homily.published ? "Publicada" : "Rascunho"}
-                </span>
+                  <option value="DRAFT">Rascunho</option>
+                  <option value="PUBLISHED">Publicada</option>
+                </Select>
               </td>
 
               <td className="p-4 text-gray-600">

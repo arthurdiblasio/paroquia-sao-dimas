@@ -4858,6 +4858,7 @@ export namespace Prisma {
   export type NewsMinAggregateOutputType = {
     id: string | null
     title: string | null
+    subtitle: string | null
     slug: string | null
     content: string | null
     imageUrl: string | null
@@ -4872,6 +4873,7 @@ export namespace Prisma {
   export type NewsMaxAggregateOutputType = {
     id: string | null
     title: string | null
+    subtitle: string | null
     slug: string | null
     content: string | null
     imageUrl: string | null
@@ -4886,6 +4888,7 @@ export namespace Prisma {
   export type NewsCountAggregateOutputType = {
     id: number
     title: number
+    subtitle: number
     slug: number
     content: number
     imageUrl: number
@@ -4902,6 +4905,7 @@ export namespace Prisma {
   export type NewsMinAggregateInputType = {
     id?: true
     title?: true
+    subtitle?: true
     slug?: true
     content?: true
     imageUrl?: true
@@ -4916,6 +4920,7 @@ export namespace Prisma {
   export type NewsMaxAggregateInputType = {
     id?: true
     title?: true
+    subtitle?: true
     slug?: true
     content?: true
     imageUrl?: true
@@ -4930,6 +4935,7 @@ export namespace Prisma {
   export type NewsCountAggregateInputType = {
     id?: true
     title?: true
+    subtitle?: true
     slug?: true
     content?: true
     imageUrl?: true
@@ -5017,6 +5023,7 @@ export namespace Prisma {
   export type NewsGroupByOutputType = {
     id: string
     title: string
+    subtitle: string | null
     slug: string
     content: string
     imageUrl: string | null
@@ -5048,6 +5055,7 @@ export namespace Prisma {
   export type NewsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    subtitle?: boolean
     slug?: boolean
     content?: boolean
     imageUrl?: boolean
@@ -5066,6 +5074,7 @@ export namespace Prisma {
   export type NewsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    subtitle?: boolean
     slug?: boolean
     content?: boolean
     imageUrl?: boolean
@@ -5082,6 +5091,7 @@ export namespace Prisma {
   export type NewsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    subtitle?: boolean
     slug?: boolean
     content?: boolean
     imageUrl?: boolean
@@ -5098,6 +5108,7 @@ export namespace Prisma {
   export type NewsSelectScalar = {
     id?: boolean
     title?: boolean
+    subtitle?: boolean
     slug?: boolean
     content?: boolean
     imageUrl?: boolean
@@ -5109,7 +5120,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type NewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "slug" | "content" | "imageUrl" | "published" | "publishedAt" | "categoryId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["news"]>
+  export type NewsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "subtitle" | "slug" | "content" | "imageUrl" | "published" | "publishedAt" | "categoryId" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["news"]>
   export type NewsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     category?: boolean | NewsCategoryDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
@@ -5135,6 +5146,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
+      subtitle: string | null
       slug: string
       content: string
       imageUrl: string | null
@@ -5572,6 +5584,7 @@ export namespace Prisma {
   interface NewsFieldRefs {
     readonly id: FieldRef<"News", 'String'>
     readonly title: FieldRef<"News", 'String'>
+    readonly subtitle: FieldRef<"News", 'String'>
     readonly slug: FieldRef<"News", 'String'>
     readonly content: FieldRef<"News", 'String'>
     readonly imageUrl: FieldRef<"News", 'String'>
@@ -20493,6 +20506,7 @@ export namespace Prisma {
   export const NewsScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    subtitle: 'subtitle',
     slug: 'slug',
     content: 'content',
     imageUrl: 'imageUrl',
@@ -20975,6 +20989,7 @@ export namespace Prisma {
     NOT?: NewsWhereInput | NewsWhereInput[]
     id?: StringFilter<"News"> | string
     title?: StringFilter<"News"> | string
+    subtitle?: StringNullableFilter<"News"> | string | null
     slug?: StringFilter<"News"> | string
     content?: StringFilter<"News"> | string
     imageUrl?: StringNullableFilter<"News"> | string | null
@@ -20992,6 +21007,7 @@ export namespace Prisma {
   export type NewsOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    subtitle?: SortOrderInput | SortOrder
     slug?: SortOrder
     content?: SortOrder
     imageUrl?: SortOrderInput | SortOrder
@@ -21013,6 +21029,7 @@ export namespace Prisma {
     OR?: NewsWhereInput[]
     NOT?: NewsWhereInput | NewsWhereInput[]
     title?: StringFilter<"News"> | string
+    subtitle?: StringNullableFilter<"News"> | string | null
     content?: StringFilter<"News"> | string
     imageUrl?: StringNullableFilter<"News"> | string | null
     published?: BoolFilter<"News"> | boolean
@@ -21029,6 +21046,7 @@ export namespace Prisma {
   export type NewsOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    subtitle?: SortOrderInput | SortOrder
     slug?: SortOrder
     content?: SortOrder
     imageUrl?: SortOrderInput | SortOrder
@@ -21049,6 +21067,7 @@ export namespace Prisma {
     NOT?: NewsScalarWhereWithAggregatesInput | NewsScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"News"> | string
     title?: StringWithAggregatesFilter<"News"> | string
+    subtitle?: StringNullableWithAggregatesFilter<"News"> | string | null
     slug?: StringWithAggregatesFilter<"News"> | string
     content?: StringWithAggregatesFilter<"News"> | string
     imageUrl?: StringNullableWithAggregatesFilter<"News"> | string | null
@@ -22048,6 +22067,7 @@ export namespace Prisma {
   export type NewsCreateInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -22063,6 +22083,7 @@ export namespace Prisma {
   export type NewsUncheckedCreateInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -22078,6 +22099,7 @@ export namespace Prisma {
   export type NewsUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22093,6 +22115,7 @@ export namespace Prisma {
   export type NewsUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22108,6 +22131,7 @@ export namespace Prisma {
   export type NewsCreateManyInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -22122,6 +22146,7 @@ export namespace Prisma {
   export type NewsUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22134,6 +22159,7 @@ export namespace Prisma {
   export type NewsUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23238,6 +23264,7 @@ export namespace Prisma {
   export type NewsCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    subtitle?: SortOrder
     slug?: SortOrder
     content?: SortOrder
     imageUrl?: SortOrder
@@ -23252,6 +23279,7 @@ export namespace Prisma {
   export type NewsMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    subtitle?: SortOrder
     slug?: SortOrder
     content?: SortOrder
     imageUrl?: SortOrder
@@ -23266,6 +23294,7 @@ export namespace Prisma {
   export type NewsMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    subtitle?: SortOrder
     slug?: SortOrder
     content?: SortOrder
     imageUrl?: SortOrder
@@ -25339,6 +25368,7 @@ export namespace Prisma {
   export type NewsCreateWithoutCreatedByInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -25353,6 +25383,7 @@ export namespace Prisma {
   export type NewsUncheckedCreateWithoutCreatedByInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -25474,6 +25505,7 @@ export namespace Prisma {
     NOT?: NewsScalarWhereInput | NewsScalarWhereInput[]
     id?: StringFilter<"News"> | string
     title?: StringFilter<"News"> | string
+    subtitle?: StringNullableFilter<"News"> | string | null
     slug?: StringFilter<"News"> | string
     content?: StringFilter<"News"> | string
     imageUrl?: StringNullableFilter<"News"> | string | null
@@ -25555,6 +25587,7 @@ export namespace Prisma {
   export type NewsCreateWithoutCategoryInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -25569,6 +25602,7 @@ export namespace Prisma {
   export type NewsUncheckedCreateWithoutCategoryInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -26590,6 +26624,7 @@ export namespace Prisma {
   export type NewsCreateWithoutMediaInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -26604,6 +26639,7 @@ export namespace Prisma {
   export type NewsUncheckedCreateWithoutMediaInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -26667,6 +26703,7 @@ export namespace Prisma {
   export type NewsUpdateWithoutMediaInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26681,6 +26718,7 @@ export namespace Prisma {
   export type NewsUncheckedUpdateWithoutMediaInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27302,6 +27340,7 @@ export namespace Prisma {
   export type NewsCreateManyCreatedByInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -27342,6 +27381,7 @@ export namespace Prisma {
   export type NewsUpdateWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27356,6 +27396,7 @@ export namespace Prisma {
   export type NewsUncheckedUpdateWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27370,6 +27411,7 @@ export namespace Prisma {
   export type NewsUncheckedUpdateManyWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27468,6 +27510,7 @@ export namespace Prisma {
   export type NewsCreateManyCategoryInput = {
     id?: string
     title: string
+    subtitle?: string | null
     slug: string
     content: string
     imageUrl?: string | null
@@ -27481,6 +27524,7 @@ export namespace Prisma {
   export type NewsUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27495,6 +27539,7 @@ export namespace Prisma {
   export type NewsUncheckedUpdateWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27509,6 +27554,7 @@ export namespace Prisma {
   export type NewsUncheckedUpdateManyWithoutCategoryInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    subtitle?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
