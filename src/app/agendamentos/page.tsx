@@ -5,8 +5,6 @@ import { AppointmentForm } from "@/components/appointments/appointment-form"
 export default function AppointmentsPage() {
   return (
     <>
-      <Header />
-
       <main className="min-h-screen bg-[linear-gradient(180deg,_#f8fafc_0%,_#ffffff_24%,_#f8fafc_100%)]">
         <section className="border-b border-[#092070]/10 bg-white/90">
           <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">

@@ -55,7 +55,7 @@ export async function NewsPage() {
               Notícias da paróquia
             </div>
 
-            <h1 className="font-serif text-5xl leading-tight sm:text-6xl">
+            <h1 className="text-5xl font-extrabold leading-[0.92] tracking-[-0.05em] sm:text-6xl">
               Acompanhe tudo o que acontece na vida da comunidade.
             </h1>
 
@@ -108,7 +108,7 @@ export async function NewsPage() {
                   </div>
 
                   <div>
-                    <h2 className="text-4xl font-semibold leading-tight text-slate-900">
+                    <h2 className="text-4xl font-bold leading-tight tracking-[-0.04em] text-slate-900">
                       {featuredNews.title}
                     </h2>
 
@@ -144,7 +144,7 @@ export async function NewsPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
               Arquivo de notícias
             </p>
-            <h2 className="mt-3 text-3xl font-semibold">Todas as publicações</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Todas as publicações</h2>
           </div>
 
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -178,7 +178,7 @@ export async function NewsPage() {
                   </div>
 
                   <div>
-                    <h3 className="text-2xl font-semibold leading-tight text-slate-900">
+                    <h3 className="text-2xl font-bold leading-tight tracking-[-0.03em] text-slate-900">
                       {item.title}
                     </h3>
 

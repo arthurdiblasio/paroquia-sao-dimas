@@ -1,5 +1,6 @@
-import Image from "next/image"
+﻿import Image from "next/image"
 import Link from "next/link"
+import { ChevronRight, Clock3, Cross } from "lucide-react"
 
 import { getDailyLiturgy } from "@/lib/daily-liturgy"
 import { prisma } from "lib/prisma"
@@ -97,145 +98,66 @@ export async function HomePage() {
   ])
 
   const heroImage = mainChurch?.crunchMedias[0]?.media.url ?? "/logo.png"
-  const massHighlights = (mainChurch?.massSchedules ?? []).slice(0, 3)
 
   return (
-    <div className="bg-[#f7f1e6] text-slate-900">
-      <section className="relative overflow-hidden bg-[#092070] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(223,152,34,0.28),_transparent_32%),linear-gradient(120deg,_rgba(255,255,255,0.06),_transparent_42%)]" />
-        <div className="relative mx-auto grid min-h-[78vh] max-w-[1240px] gap-12 px-6 py-16 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-10 lg:py-24">
-          <div className="space-y-8">
-            <div className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm tracking-[0.24em] uppercase">
-              Paróquia São Dimas
-            </div>
+    <div className="bg-white text-slate-900">
+      <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-[#091c63] text-white">
+        <div className="absolute inset-0">
+          <Image
+            src={heroImage}
+            alt={mainChurch?.name ?? "Paróquia São Dimas"}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
 
-            <div className="space-y-5">
-              <h1 className="max-w-3xl font-serif text-5xl leading-tight sm:text-6xl">
-                Fé, comunidade e serviço reunidos em um só lugar.
-              </h1>
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,28,99,0.78),rgba(9,28,99,0.68)),linear-gradient(90deg,rgba(9,28,99,0.72),rgba(12,26,86,0.35),rgba(12,26,86,0.72))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.12),transparent_30%),radial-gradient(circle_at_bottom,rgba(223,152,34,0.18),transparent_24%)]" />
 
-              <p className="max-w-2xl text-lg leading-8 text-white/80">
-                Acompanhe notícias, homilias, horários de missa e a vida pastoral
-                da paróquia com conteúdo atualizado diretamente pela equipe
-                administrativa.
-              </p>
-            </div>
 
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/agendamentos"
-                className="rounded-full bg-[#df9822] px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-[#ebb45a]"
-              >
-                Solicitar sacramento
-              </Link>
-
-              <Link
-                href="/noticias"
-                className="rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/15"
-              >
-                Ver notícias
-              </Link>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-3xl border border-white/10 bg-white/8 p-5 backdrop-blur-sm">
-                <p className="text-sm uppercase tracking-[0.2em] text-white/55">
-                  Notícias
-                </p>
-                <p className="mt-3 text-3xl font-semibold">{news.length}</p>
-                <p className="mt-2 text-sm text-white/70">
-                  publicadas no portal
-                </p>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/8 p-5 backdrop-blur-sm">
-                <p className="text-sm uppercase tracking-[0.2em] text-white/55">
-                  Pastorais
-                </p>
-                <p className="mt-3 text-3xl font-semibold">{ministries.length}</p>
-                <p className="mt-2 text-sm text-white/70">
-                  frentes de atuação ativas
-                </p>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/8 p-5 backdrop-blur-sm">
-                <p className="text-sm uppercase tracking-[0.2em] text-white/55">
-                  Igrejas
-                </p>
-                <p className="mt-3 text-3xl font-semibold">{churches.length}</p>
-                <p className="mt-2 text-sm text-white/70">
-                  locais cadastrados
-                </p>
-              </div>
-            </div>
+        <div className="relative mx-auto flex w-full max-w-full flex-col items-center px-6 py-16 text-center lg:px-10">
+          <div className="inline-flex items-center gap-3 rounded-full border border-secondary/55 bg-white/10 px-5 py-3 text-sm font-semibold text-secondary shadow-[0_18px_50px_-30px_rgba(223,152,34,0.9)] backdrop-blur-md">
+            <Cross className="h-4 w-4" />
+            <span>Bem-vindo à nossa comunidade</span>
           </div>
 
-          <div className="relative">
-            <div className="absolute -left-6 -top-6 h-32 w-32 rounded-full bg-[#df9822]/20 blur-2xl" />
-            <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/8 shadow-2xl backdrop-blur-sm">
-              <div className="relative h-[420px] w-full overflow-hidden">
-                <Image
-                  src={heroImage}
-                  alt={mainChurch?.name ?? "Paróquia São Dimas"}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#092070] via-[#092070]/25 to-transparent" />
-              </div>
+          <div className="mt-10 max-w-5xl">
+            <h1 className="text-7xl font-extrabold leading-[0.92] tracking-[-0.05em] text-white">
+              <span className="block font-bold text-white">
+                Paróquia
+              </span>
+              <span className="mt-3 block font-bold text-secondary">
+                São Dimas
+              </span>
+            </h1>
 
-              <div className="space-y-4 p-6">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.22em] text-white/55">
-                    Igreja em destaque
-                  </p>
-                  <h2 className="mt-2 text-2xl font-semibold">
-                    {mainChurch?.name ?? "Comunidade paroquial"}
-                  </h2>
-                </div>
-
-                <p className="text-sm leading-7 text-white/75">
-                  {mainChurch?.address ??
-                    "Cadastre a igreja principal no painel para exibir endereço e horários nesta seção."}
-                </p>
-
-                <div className="rounded-2xl border border-white/10 bg-slate-950/20 p-4">
-                  <p className="text-sm font-semibold text-white/85">
-                    Próximos horários
-                  </p>
-
-                  <div className="mt-3 space-y-3">
-                    {massHighlights.length > 0 ? (
-                      massHighlights.map((schedule) => (
-                        <div
-                          key={`${schedule.dayOfWeek}-${schedule.time}-${schedule.notes ?? ""}`}
-                          className="flex items-center justify-between gap-3 border-b border-white/10 pb-3 text-sm last:border-b-0 last:pb-0"
-                        >
-                          <div>
-                            <p className="font-medium text-white">
-                              {getDayLabel(schedule.dayOfWeek)}
-                            </p>
-                            <p className="text-white/60">
-                              {schedule.notes?.trim() || "Celebração paroquial"}
-                            </p>
-                          </div>
-
-                          <span className="rounded-full bg-[#df9822] px-3 py-1 font-semibold text-slate-950">
-                            {schedule.time}
-                          </span>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-sm text-white/65">
-                        Os horários de missa aparecerão aqui assim que forem
-                        cadastrados.
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p className="mx-auto mt-8 max-w-4xl text-xl leading-9 text-white/88  md:leading-[1.7]">
+              Uma comunidade de fé, esperança e amor. Venha fazer parte da nossa
+              família paroquial e crescer na vida espiritual.
+            </p>
           </div>
+
+          <div className="mt-12 flex w-full max-w-3xl flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href="/igrejas"
+              className="inline-flex min-h-18 w-full items-center justify-center gap-3 rounded-[1.4rem] border-0 bg-secondary px-8 py-5 text-lg font-bold text-primary shadow-[0_25px_60px_-28px_rgba(223,152,34,0.95)] outline-none transition hover:-translate-y-0.5 hover:bg-secondary sm:w-auto"
+            >
+              <Clock3 className="h-5 w-5" />
+              <span>Horários de Missa</span>
+            </Link>
+
+            <Link
+              href="/agendamentos"
+              className="inline-flex min-h-18 w-full items-center justify-center gap-3 rounded-[1.4rem] border border-white/30 bg-white/12 px-8 py-5 text-lg font-bold text-white backdrop-blur-md transition hover:-translate-y-0.5 hover:bg-white/18 sm:w-auto"
+            >
+              <span>Agendar Sacramento</span>
+              <ChevronRight className="h-5 w-5" />
+            </Link>
+          </div>
+          <div data-loc="client/src/pages/Home.tsx:86" className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce"><div data-loc="client/src/pages/Home.tsx:87" className="w-6 h-10 rounded-full border-2 border-white/40 flex items-start justify-center pt-2"><div data-loc="client/src/pages/Home.tsx:88" className="w-1 h-3 rounded-full bg-white/60"></div></div></div>
+
         </div>
       </section>
 
@@ -282,7 +204,7 @@ export async function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
               Notícias
             </p>
-            <h2 className="mt-3 text-3xl font-semibold">Últimas publicações</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Últimas publicações</h2>
           </div>
 
           <Link href="/noticias" className="text-sm font-semibold text-[#092070]">
@@ -352,7 +274,7 @@ export async function HomePage() {
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
                 Liturgia do dia
               </p>
-              <h2 className="mt-3 text-3xl font-semibold">
+              <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">
                 Homilia diária e leituras de hoje
               </h2>
             </div>
@@ -449,7 +371,7 @@ export async function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
               Homilias
             </p>
-            <h2 className="mt-4 text-3xl font-semibold">Palavra que continua ecoando</h2>
+            <h2 className="mt-4 text-3xl font-bold tracking-[-0.03em]">Palavra que continua ecoando</h2>
             <p className="mt-4 text-sm leading-7 text-white/72">
               As homilias mais recentes publicadas pela equipe ficam disponíveis
               para consulta com data e link do vídeo.
@@ -509,7 +431,7 @@ export async function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
               Igrejas
             </p>
-            <h2 className="mt-3 text-3xl font-semibold">Comunidades e celebrações</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Comunidades e celebrações</h2>
           </div>
         </div>
 
@@ -568,7 +490,7 @@ export async function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
               Pastorais
             </p>
-            <h2 className="mt-3 text-3xl font-semibold">Serviços e frentes missionárias</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Serviços e frentes missionárias</h2>
           </div>
         </div>
 
@@ -627,3 +549,4 @@ export async function HomePage() {
     </div>
   )
 }
+

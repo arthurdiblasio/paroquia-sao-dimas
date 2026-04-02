@@ -6,7 +6,11 @@
   --color-secondary: #df9822;
   --color-background: #ffffff;
 
-  --font-sans: "Open Sans", ui-sans-serif, system-ui;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
+}
+
+body {
+  font-family: var(--font-sans);
 }
 
 img[data-align="left"] {

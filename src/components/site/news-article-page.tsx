@@ -67,7 +67,7 @@ export async function NewsArticlePage({ slug }: Props) {
               <span>{formatDate(article.publishedAt ?? article.createdAt)}</span>
             </div>
 
-            <h1 className="font-serif text-4xl leading-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-extrabold leading-[0.95] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
               {article.title}
             </h1>
 
@@ -113,7 +113,7 @@ export async function NewsArticlePage({ slug }: Props) {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
               Continue lendo
             </p>
-            <h2 className="mt-3 text-3xl font-semibold">Outras notícias</h2>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Outras notícias</h2>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
@@ -144,7 +144,7 @@ export async function NewsArticlePage({ slug }: Props) {
                     {formatDate(item.publishedAt ?? item.createdAt)}
                   </div>
 
-                  <h3 className="text-xl font-semibold leading-tight text-slate-900">
+                  <h3 className="text-xl font-bold leading-tight tracking-[-0.03em] text-slate-900">
                     {item.title}
                   </h3>
 

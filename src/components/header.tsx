@@ -9,36 +9,37 @@ export default function Header() {
   const [open, setOpen] = useState(false)
 
   return (
-    <header className="w-full border-b border-gray-200 bg-primary">
-      <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4">
-
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/logo.png"
-            alt="Paróquia São Dimas"
-            width={40}
-            height={40}
-          />
-        </Link>
-
+    <header className="w-full bg-primary">
+      <div className="flex w-full items-center justify-between px-6 py-4">
         {/* Desktop menu */}
-        <nav className="hidden items-center gap-8 md:flex text-white font-bold">
-          <Link href="/" className="hover:text-secondary">Início</Link>
-          <Link href="/igrejas" className="hover:text-secondary">Igrejas</Link>
-          <Link href="/noticias" className="hover:text-secondary">Notícias</Link>
-          <Link href="/missas" className="hover:text-secondary">Missas</Link>
-          <Link href="/pastorais" className="hover:text-secondary">Pastorais</Link>
-          <Link href="/prestacao-contas" className="hover:text-secondary">
-            Prestação de Contas
+        <nav className="hidden w-full items-center gap-8 text-white font-bold md:flex">
+          {/* Logo */}
+          <Link href="/" className="flex shrink-0 items-center gap-2">
+            <Image
+              src="/logo.png"
+              alt="Paróquia São Dimas"
+              width={40}
+              height={40}
+            />
           </Link>
-          <Link href="/agendamentos" className="hover:text-secondary">
-            Agendamentos
-          </Link>
+
+          <div className="flex flex-1 items-center justify-center gap-8 xl:gap-10">
+            <Link href="/" className="whitespace-nowrap hover:text-secondary">Início</Link>
+            <Link href="/igrejas" className="whitespace-nowrap hover:text-secondary">Igrejas</Link>
+            <Link href="/noticias" className="whitespace-nowrap hover:text-secondary">Notícias</Link>
+            <Link href="/missas" className="whitespace-nowrap hover:text-secondary">Missas</Link>
+            <Link href="/pastorais" className="whitespace-nowrap hover:text-secondary">Pastorais</Link>
+            <Link href="/prestacao-contas" className="whitespace-nowrap hover:text-secondary">
+              Prestação de Contas
+            </Link>
+            <Link href="/agendamentos" className="whitespace-nowrap hover:text-secondary">
+              Agendamentos
+            </Link>
+          </div>
 
           <Link
             href="/login"
-            className="rounded-md bg-secondary px-4 py-2 text-white hover:bg-secondary/90"
+            className="shrink-0 rounded-md bg-secondary px-4 py-2 text-white hover:bg-secondary/90"
           >
             <div className="text-primary">
               Acesso Restrito
@@ -49,7 +50,7 @@ export default function Header() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden"
+          className="text-white md:hidden"
           onClick={() => setOpen(!open)}
         >
           {open ? <X size={28} /> : <Menu size={28} />}
