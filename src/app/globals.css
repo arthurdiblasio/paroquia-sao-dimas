@@ -5,6 +5,7 @@
   --color-primary: #092070;
   --color-secondary: #df9822;
   --color-background: #ffffff;
+  --color-terciary: #f7f1e6;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui;
 }

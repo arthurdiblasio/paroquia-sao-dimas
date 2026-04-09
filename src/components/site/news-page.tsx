@@ -46,41 +46,13 @@ export async function NewsPage() {
   const remainingNews = news.slice(1)
 
   return (
-    <div className="bg-[#f7f1e6] text-slate-900">
-      {/* <section className="relative overflow-hidden bg-[#092070] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(223,152,34,0.32),_transparent_28%),linear-gradient(135deg,_rgba(255,255,255,0.05),_transparent_40%)]" />
-        <div className="relative mx-auto max-w-[1240px] px-6 py-18 lg:px-10 lg:py-24">
-          <div className="max-w-4xl space-y-6">
-            <div className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1 text-sm tracking-[0.24em] uppercase">
-              Notícias da paróquia
-            </div>
-
-            <h1 className="text-5xl font-extrabold leading-[0.92] tracking-[-0.05em] sm:text-6xl">
-              Acompanhe tudo o que acontece na vida da comunidade.
-            </h1>
-
-            <p className="max-w-2xl text-lg leading-8 text-white/80">
-              Nesta página você encontra todas as notícias publicadas pela equipe
-              administrativa, organizadas em ordem de atualização.
-            </p>
-
-            <div className="inline-flex rounded-3xl border border-white/10 bg-white/8 px-6 py-4 backdrop-blur-sm">
-              <div>
-                <p className="text-sm uppercase tracking-[0.2em] text-white/55">
-                  Publicações disponíveis
-                </p>
-                <p className="mt-2 text-3xl font-semibold">{news.length}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
+    <div className=" text-slate-900">
 
       <section className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
         {featuredNews ? (
           <Link
             href={`/noticias/${featuredNews.slug}`}
-            className="block overflow-hidden rounded-[2rem] bg-white shadow-[0_24px_60px_-32px_rgba(15,23,42,0.35)] ring-1 ring-slate-200/70 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-34px_rgba(15,23,42,0.38)]"
+            className="block overflow-hidden ring-1 ring-slate-200/70 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-34px_rgba(15,23,42,0.38)]"
           >
             <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
               <div className="relative min-h-[320px] bg-slate-200">
@@ -124,14 +96,14 @@ export async function NewsPage() {
                   </p>
                 </div>
 
-                <div className="inline-flex w-fit rounded-full bg-[#df9822]/18 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#7a4f00]">
+                <div className="inline-flex w-fit rounded-full bg-secondary/18 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#7a4f00]">
                   Última publicação em destaque
                 </div>
               </div>
             </div>
           </Link>
         ) : (
-          <div className="rounded-[2rem] border border-dashed border-slate-300 bg-white/70 p-12 text-center text-slate-500">
+          <div className="rounded-4xl  bg-white/70 p-12 text-center text-slate-500">
             Nenhuma notícia publicada ainda. Assim que você publicar no admin,
             elas aparecerão aqui.
           </div>

@@ -49,47 +49,30 @@ export async function NewsArticlePage({ slug }: Props) {
   })
 
   return (
-    <div className="bg-[#f7f1e6] text-slate-900">
-      <section className="relative overflow-hidden bg-[#092070] text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(223,152,34,0.28),_transparent_28%),linear-gradient(135deg,_rgba(255,255,255,0.05),_transparent_40%)]" />
-        <div className="relative mx-auto max-w-[1080px] px-6 py-16 lg:px-10 lg:py-22">
-          <Link
-            href="/noticias"
-            className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:bg-white/15"
-          >
-            Voltar para notícias
-          </Link>
-
-          <div className="mt-8 max-w-4xl space-y-5">
-            <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-white/65">
-              <span>{article.category?.name ?? "Paróquia"}</span>
-              <span className="h-1 w-1 rounded-full bg-white/35" />
-              <span>{formatDate(article.publishedAt ?? article.createdAt)}</span>
-            </div>
-
-            <h1 className="text-4xl font-extrabold leading-[0.95] tracking-[-0.05em] sm:text-5xl lg:text-6xl">
-              {article.title}
-            </h1>
-
-            {article.subtitle && (
-              <p className="max-w-3xl text-lg leading-8 text-white/80">
-                {article.subtitle}
-              </p>
-            )}
-          </div>
-        </div>
-      </section>
+    <div className=" text-slate-900">
 
       <section className="mx-auto max-w-[1080px] px-6 py-12 lg:px-10">
-        <article className="overflow-hidden rounded-[2rem] bg-white shadow-[0_24px_60px_-32px_rgba(15,23,42,0.32)] ring-1 ring-slate-200/70">
-          <div className="relative min-h-[300px] bg-slate-200 sm:min-h-[420px]">
+        <Link
+          href="/noticias"
+          className="inline-flex rounded-full border border-primary/20 bg-white/10 px-4 py-2 mb-10 text-xs font-semibold uppercase tracking-[0.2em] text-primary/80 transition hover:bg-white/15"
+        >
+          Voltar para notícias
+        </Link>
+        <article className="overflow-hidden  bg-white ">
+          <div className="relative min-h-75 bg-slate-200  sm:min-h-105">
             {article.imageUrl ? (
               <Image
                 src={article.imageUrl}
                 alt={article.title}
                 fill
+
                 sizes="100vw"
                 className="object-cover"
+                priority
+                style={{
+                  borderRadius: "1rem",
+                  objectFit: "cover"
+                }}
               />
             ) : (
               <div className="flex h-full items-center justify-center bg-[linear-gradient(135deg,#092070,#1d4ed8)] px-8 text-center text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
@@ -98,7 +81,7 @@ export async function NewsArticlePage({ slug }: Props) {
             )}
           </div>
 
-          <div className="px-6 py-10 sm:px-10">
+          <div className="px-4 py-10 sm:px-2">
             <div
               className="prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 prose-a:text-[#092070] prose-strong:text-slate-900"
               dangerouslySetInnerHTML={{ __html: article.content }}
@@ -108,9 +91,11 @@ export async function NewsArticlePage({ slug }: Props) {
       </section>
 
       {relatedNews.length > 0 && (
-        <section className="mx-auto max-w-[1080px] px-6 pb-18 lg:px-10">
+        <section className="mx-auto max-w-270 px-6 pb-5 lg:px-10">
           <div className="mb-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary 
+            
+            ">
               Continue lendo
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Outras notícias</h2>
@@ -121,7 +106,8 @@ export async function NewsArticlePage({ slug }: Props) {
               <Link
                 key={item.id}
                 href={`/noticias/${item.slug}`}
-                className="overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_60px_-32px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-34px_rgba(15,23,42,0.38)]"
+
+                className="overflow-hidden  transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-34px_rgba(15,23,42,0.38)] rounded-[.8rem] bg-white shadow-[0_24px_60px_-32px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70"
               >
                 <div className="h-48 bg-slate-100">
                   {item.imageUrl ? (

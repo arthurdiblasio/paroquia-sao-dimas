@@ -1,42 +1,48 @@
-type LiturgyReading = {
-  referencia: string
-  titulo: string
-  texto: string
-  refrao?: string
-}
+export type LiturgyReading = {
+  referencia: string;
+  titulo: string;
+  texto: string;
+  refrao?: string;
+};
 
-type DailyLiturgyResponse = {
-  data: string
-  liturgia: string
-  cor: string
+export type DailyLiturgyResponse = {
+  data: string;
+  liturgia: string;
+  cor: string;
   oracoes: {
-    coleta?: string
-    oferendas?: string
-    comunhao?: string
-  }
+    coleta?: string;
+    oferendas?: string;
+    comunhao?: string;
+  };
   leituras: {
-    primeiraLeitura?: LiturgyReading[]
-    salmo?: LiturgyReading[]
-    evangelho?: LiturgyReading[]
-  }
-}
+    primeiraLeitura?: LiturgyReading[];
+    salmo?: LiturgyReading[];
+    segundaLeitura?: LiturgyReading[];
+    evangelho?: LiturgyReading[];
+  };
+};
 
 export async function getDailyLiturgy() {
+  const liturgyUrl = process.env.LITURGY_API_URL;
+
+  if (!liturgyUrl) {
+    return null;
+  }
   try {
-    const response = await fetch("https://liturgia.up.railway.app/v2/", {
+    const response = await fetch(liturgyUrl, {
       next: {
         revalidate: 3600,
       },
-    })
+    });
 
     if (!response.ok) {
-      return null
+      return null;
     }
 
-    const data = (await response.json()) as DailyLiturgyResponse
+    const data = (await response.json()) as DailyLiturgyResponse;
 
-    return data
+    return data;
   } catch {
-    return null
+    return null;
   }
 }

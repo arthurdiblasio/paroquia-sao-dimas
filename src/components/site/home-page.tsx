@@ -2,6 +2,7 @@
 import Link from "next/link"
 import { ChevronRight, Clock3, Cross } from "lucide-react"
 
+import { DailyLiturgySection } from "@/components/site/daily-liturgy-section"
 import { getDailyLiturgy } from "@/lib/daily-liturgy"
 import { prisma } from "lib/prisma"
 
@@ -267,103 +268,7 @@ export async function HomePage() {
         </div>
       </section>
 
-      {dailyLiturgy && (
-        <section className="mx-auto max-w-[1240px] px-6 py-10 lg:px-10">
-          <div className="mb-8 flex items-end justify-between gap-6">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
-                Liturgia do dia
-              </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">
-                Homilia diária e leituras de hoje
-              </h2>
-            </div>
-
-            <div className="rounded-full bg-[#092070]/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#092070]">
-              {dailyLiturgy.data}
-            </div>
-          </div>
-
-          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-            <article className="rounded-[2rem] bg-[#092070] p-8 text-white shadow-[0_24px_60px_-32px_rgba(9,32,112,0.7)]">
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
-                Celebração
-              </p>
-
-              <h3 className="mt-4 text-3xl font-semibold leading-tight">
-                {dailyLiturgy.liturgia}
-              </h3>
-
-              <div className="mt-5 inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white/80">
-                Cor litúrgica: {dailyLiturgy.cor}
-              </div>
-
-              {dailyLiturgy.oracoes.coleta && (
-                <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/8 p-6">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-white/60">
-                    Oração de coleta
-                  </p>
-                  <p className="mt-4 text-sm leading-8 text-white/82">
-                    {dailyLiturgy.oracoes.coleta}
-                  </p>
-                </div>
-              )}
-            </article>
-
-            <div className="grid gap-5">
-              {dailyLiturgy.leituras.primeiraLeitura?.[0] && (
-                <article className="rounded-[1.75rem] bg-white p-6 shadow-[0_24px_60px_-32px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70">
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#092070]">
-                    Primeira leitura
-                  </p>
-                  <h3 className="mt-3 text-xl font-semibold text-slate-900">
-                    {dailyLiturgy.leituras.primeiraLeitura[0].referencia}
-                  </h3>
-                  <p className="mt-2 text-sm font-medium text-slate-500">
-                    {dailyLiturgy.leituras.primeiraLeitura[0].titulo}
-                  </p>
-                  <p className="mt-4 text-sm leading-7 text-slate-600">
-                    {truncate(dailyLiturgy.leituras.primeiraLeitura[0].texto, 280)}
-                  </p>
-                </article>
-              )}
-
-              <div className="grid gap-5 md:grid-cols-2">
-                {dailyLiturgy.leituras.salmo?.[0] && (
-                  <article className="rounded-[1.75rem] bg-white p-6 shadow-[0_24px_60px_-32px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7a4f00]">
-                      Salmo
-                    </p>
-                    <h3 className="mt-3 text-lg font-semibold text-slate-900">
-                      {dailyLiturgy.leituras.salmo[0].referencia}
-                    </h3>
-                    <p className="mt-4 text-sm leading-7 text-slate-600">
-                      {truncate(dailyLiturgy.leituras.salmo[0].refrao || dailyLiturgy.leituras.salmo[0].texto, 180)}
-                    </p>
-                  </article>
-                )}
-
-                {dailyLiturgy.leituras.evangelho?.[0] && (
-                  <article className="rounded-[1.75rem] bg-[#df9822] p-6 text-slate-950 shadow-[0_24px_60px_-32px_rgba(223,152,34,0.6)]">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-900/65">
-                      Evangelho
-                    </p>
-                    <h3 className="mt-3 text-lg font-semibold">
-                      {dailyLiturgy.leituras.evangelho[0].referencia}
-                    </h3>
-                    <p className="mt-2 text-sm font-medium text-slate-900/75">
-                      {dailyLiturgy.leituras.evangelho[0].titulo}
-                    </p>
-                    <p className="mt-4 text-sm leading-7 text-slate-900/80">
-                      {truncate(dailyLiturgy.leituras.evangelho[0].texto, 220)}
-                    </p>
-                  </article>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
+      {dailyLiturgy && <DailyLiturgySection dailyLiturgy={dailyLiturgy} />}
 
       <section className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
@@ -450,7 +355,18 @@ export async function HomePage() {
                 )}
               </div>
 
-              <p className="mt-3 text-sm leading-7 text-slate-600">{church.address}</p>
+              <div className="mt-3 flex-col flex items-start justify-between gap-4">
+                <p className="text-sm leading-7 text-slate-600">{church.address}</p>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(church.address)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#092070]/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092070] transition hover:bg-[#092070]/14"
+                >
+                  Ver no mapa
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
 
               <div className="mt-6 space-y-3">
                 {church.massSchedules.length > 0 ? (
