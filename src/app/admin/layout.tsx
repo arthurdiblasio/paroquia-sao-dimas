@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   Newspaper,
   FileText,
+  ReceiptText,
   Users,
   Church,
   Calendar,
@@ -15,6 +16,7 @@ import {
 const menu = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { name: "Notícias", href: "/admin/noticias", icon: Newspaper },
+  { name: "PrestaÃ§Ãµes", href: "/admin/prestacoes-contas", icon: ReceiptText },
   { name: "Homilias", href: "/admin/homilias", icon: FileText },
   { name: "Pastorais", href: "/admin/pastorais", icon: Users },
   { name: "Igrejas", href: "/admin/igrejas", icon: Church },
@@ -44,7 +46,9 @@ export default function AdminLayout({
           {menu.map((item) => {
 
             const Icon = item.icon
-            const active = pathname === item.href
+            const active = item.href === "/admin"
+              ? pathname === item.href
+              : pathname === item.href || pathname.startsWith(`${item.href}/`)
 
             return (
               <Link

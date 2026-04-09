@@ -49,6 +49,11 @@ export type Ministry = $Result.DefaultSelection<Prisma.$MinistryPayload>
  */
 export type FinancialReport = $Result.DefaultSelection<Prisma.$FinancialReportPayload>
 /**
+ * Model FinancialReportPhase
+ * 
+ */
+export type FinancialReportPhase = $Result.DefaultSelection<Prisma.$FinancialReportPhasePayload>
+/**
  * Model Homily
  * 
  */
@@ -79,10 +84,10 @@ export type NewsMedia = $Result.DefaultSelection<Prisma.$NewsMediaPayload>
  */
 export type MinistryMedia = $Result.DefaultSelection<Prisma.$MinistryMediaPayload>
 /**
- * Model FinancialReportMedia
+ * Model FinancialReportPhaseMedia
  * 
  */
-export type FinancialReportMedia = $Result.DefaultSelection<Prisma.$FinancialReportMediaPayload>
+export type FinancialReportPhaseMedia = $Result.DefaultSelection<Prisma.$FinancialReportPhaseMediaPayload>
 /**
  * Model HomilyMedia
  * 
@@ -131,6 +136,15 @@ export const MediaType: {
 
 export type MediaType = (typeof MediaType)[keyof typeof MediaType]
 
+
+export const FinancialReportStatus: {
+  STARTED: 'STARTED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  FINISHED: 'FINISHED'
+};
+
+export type FinancialReportStatus = (typeof FinancialReportStatus)[keyof typeof FinancialReportStatus]
+
 }
 
 export type Role = $Enums.Role
@@ -148,6 +162,10 @@ export const AppointmentStatus: typeof $Enums.AppointmentStatus
 export type MediaType = $Enums.MediaType
 
 export const MediaType: typeof $Enums.MediaType
+
+export type FinancialReportStatus = $Enums.FinancialReportStatus
+
+export const FinancialReportStatus: typeof $Enums.FinancialReportStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -341,6 +359,16 @@ export class PrismaClient<
   get financialReport(): Prisma.FinancialReportDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.financialReportPhase`: Exposes CRUD operations for the **FinancialReportPhase** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FinancialReportPhases
+    * const financialReportPhases = await prisma.financialReportPhase.findMany()
+    * ```
+    */
+  get financialReportPhase(): Prisma.FinancialReportPhaseDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.homily`: Exposes CRUD operations for the **Homily** model.
     * Example usage:
     * ```ts
@@ -401,14 +429,14 @@ export class PrismaClient<
   get ministryMedia(): Prisma.MinistryMediaDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.financialReportMedia`: Exposes CRUD operations for the **FinancialReportMedia** model.
+   * `prisma.financialReportPhaseMedia`: Exposes CRUD operations for the **FinancialReportPhaseMedia** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more FinancialReportMedias
-    * const financialReportMedias = await prisma.financialReportMedia.findMany()
+    * // Fetch zero or more FinancialReportPhaseMedias
+    * const financialReportPhaseMedias = await prisma.financialReportPhaseMedia.findMany()
     * ```
     */
-  get financialReportMedia(): Prisma.FinancialReportMediaDelegate<ExtArgs, ClientOptions>;
+  get financialReportPhaseMedia(): Prisma.FinancialReportPhaseMediaDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.homilyMedia`: Exposes CRUD operations for the **HomilyMedia** model.
@@ -870,13 +898,14 @@ export namespace Prisma {
     MassSchedule: 'MassSchedule',
     Ministry: 'Ministry',
     FinancialReport: 'FinancialReport',
+    FinancialReportPhase: 'FinancialReportPhase',
     Homily: 'Homily',
     Appointment: 'Appointment',
     AppointmentDocument: 'AppointmentDocument',
     Media: 'Media',
     NewsMedia: 'NewsMedia',
     MinistryMedia: 'MinistryMedia',
-    FinancialReportMedia: 'FinancialReportMedia',
+    FinancialReportPhaseMedia: 'FinancialReportPhaseMedia',
     HomilyMedia: 'HomilyMedia',
     CrunchMedia: 'CrunchMedia'
   };
@@ -894,7 +923,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "newsCategory" | "news" | "church" | "massSchedule" | "ministry" | "financialReport" | "homily" | "appointment" | "appointmentDocument" | "media" | "newsMedia" | "ministryMedia" | "financialReportMedia" | "homilyMedia" | "crunchMedia"
+      modelProps: "user" | "newsCategory" | "news" | "church" | "massSchedule" | "ministry" | "financialReport" | "financialReportPhase" | "homily" | "appointment" | "appointmentDocument" | "media" | "newsMedia" | "ministryMedia" | "financialReportPhaseMedia" | "homilyMedia" | "crunchMedia"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1416,6 +1445,80 @@ export namespace Prisma {
           }
         }
       }
+      FinancialReportPhase: {
+        payload: Prisma.$FinancialReportPhasePayload<ExtArgs>
+        fields: Prisma.FinancialReportPhaseFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FinancialReportPhaseFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FinancialReportPhaseFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>
+          }
+          findFirst: {
+            args: Prisma.FinancialReportPhaseFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FinancialReportPhaseFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>
+          }
+          findMany: {
+            args: Prisma.FinancialReportPhaseFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>[]
+          }
+          create: {
+            args: Prisma.FinancialReportPhaseCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>
+          }
+          createMany: {
+            args: Prisma.FinancialReportPhaseCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FinancialReportPhaseCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>[]
+          }
+          delete: {
+            args: Prisma.FinancialReportPhaseDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>
+          }
+          update: {
+            args: Prisma.FinancialReportPhaseUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>
+          }
+          deleteMany: {
+            args: Prisma.FinancialReportPhaseDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FinancialReportPhaseUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FinancialReportPhaseUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>[]
+          }
+          upsert: {
+            args: Prisma.FinancialReportPhaseUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhasePayload>
+          }
+          aggregate: {
+            args: Prisma.FinancialReportPhaseAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFinancialReportPhase>
+          }
+          groupBy: {
+            args: Prisma.FinancialReportPhaseGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FinancialReportPhaseGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FinancialReportPhaseCountArgs<ExtArgs>
+            result: $Utils.Optional<FinancialReportPhaseCountAggregateOutputType> | number
+          }
+        }
+      }
       Homily: {
         payload: Prisma.$HomilyPayload<ExtArgs>
         fields: Prisma.HomilyFieldRefs
@@ -1860,77 +1963,77 @@ export namespace Prisma {
           }
         }
       }
-      FinancialReportMedia: {
-        payload: Prisma.$FinancialReportMediaPayload<ExtArgs>
-        fields: Prisma.FinancialReportMediaFieldRefs
+      FinancialReportPhaseMedia: {
+        payload: Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>
+        fields: Prisma.FinancialReportPhaseMediaFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.FinancialReportMediaFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload> | null
+            args: Prisma.FinancialReportPhaseMediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.FinancialReportMediaFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>
+            args: Prisma.FinancialReportPhaseMediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>
           }
           findFirst: {
-            args: Prisma.FinancialReportMediaFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload> | null
+            args: Prisma.FinancialReportPhaseMediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.FinancialReportMediaFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>
+            args: Prisma.FinancialReportPhaseMediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>
           }
           findMany: {
-            args: Prisma.FinancialReportMediaFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>[]
+            args: Prisma.FinancialReportPhaseMediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>[]
           }
           create: {
-            args: Prisma.FinancialReportMediaCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>
+            args: Prisma.FinancialReportPhaseMediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>
           }
           createMany: {
-            args: Prisma.FinancialReportMediaCreateManyArgs<ExtArgs>
+            args: Prisma.FinancialReportPhaseMediaCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.FinancialReportMediaCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>[]
+            args: Prisma.FinancialReportPhaseMediaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>[]
           }
           delete: {
-            args: Prisma.FinancialReportMediaDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>
+            args: Prisma.FinancialReportPhaseMediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>
           }
           update: {
-            args: Prisma.FinancialReportMediaUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>
+            args: Prisma.FinancialReportPhaseMediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>
           }
           deleteMany: {
-            args: Prisma.FinancialReportMediaDeleteManyArgs<ExtArgs>
+            args: Prisma.FinancialReportPhaseMediaDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.FinancialReportMediaUpdateManyArgs<ExtArgs>
+            args: Prisma.FinancialReportPhaseMediaUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.FinancialReportMediaUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>[]
+            args: Prisma.FinancialReportPhaseMediaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>[]
           }
           upsert: {
-            args: Prisma.FinancialReportMediaUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$FinancialReportMediaPayload>
+            args: Prisma.FinancialReportPhaseMediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FinancialReportPhaseMediaPayload>
           }
           aggregate: {
-            args: Prisma.FinancialReportMediaAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateFinancialReportMedia>
+            args: Prisma.FinancialReportPhaseMediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFinancialReportPhaseMedia>
           }
           groupBy: {
-            args: Prisma.FinancialReportMediaGroupByArgs<ExtArgs>
-            result: $Utils.Optional<FinancialReportMediaGroupByOutputType>[]
+            args: Prisma.FinancialReportPhaseMediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FinancialReportPhaseMediaGroupByOutputType>[]
           }
           count: {
-            args: Prisma.FinancialReportMediaCountArgs<ExtArgs>
-            result: $Utils.Optional<FinancialReportMediaCountAggregateOutputType> | number
+            args: Prisma.FinancialReportPhaseMediaCountArgs<ExtArgs>
+            result: $Utils.Optional<FinancialReportPhaseMediaCountAggregateOutputType> | number
           }
         }
       }
@@ -2197,13 +2300,14 @@ export namespace Prisma {
     massSchedule?: MassScheduleOmit
     ministry?: MinistryOmit
     financialReport?: FinancialReportOmit
+    financialReportPhase?: FinancialReportPhaseOmit
     homily?: HomilyOmit
     appointment?: AppointmentOmit
     appointmentDocument?: AppointmentDocumentOmit
     media?: MediaOmit
     newsMedia?: NewsMediaOmit
     ministryMedia?: MinistryMediaOmit
-    financialReportMedia?: FinancialReportMediaOmit
+    financialReportPhaseMedia?: FinancialReportPhaseMediaOmit
     homilyMedia?: HomilyMediaOmit
     crunchMedia?: CrunchMediaOmit
   }
@@ -2468,11 +2572,11 @@ export namespace Prisma {
    */
 
   export type FinancialReportCountOutputType = {
-    media: number
+    phases: number
   }
 
   export type FinancialReportCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    media?: boolean | FinancialReportCountOutputTypeCountMediaArgs
+    phases?: boolean | FinancialReportCountOutputTypeCountPhasesArgs
   }
 
   // Custom InputTypes
@@ -2489,8 +2593,39 @@ export namespace Prisma {
   /**
    * FinancialReportCountOutputType without action
    */
-  export type FinancialReportCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FinancialReportMediaWhereInput
+  export type FinancialReportCountOutputTypeCountPhasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReportPhaseWhereInput
+  }
+
+
+  /**
+   * Count Type FinancialReportPhaseCountOutputType
+   */
+
+  export type FinancialReportPhaseCountOutputType = {
+    media: number
+  }
+
+  export type FinancialReportPhaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    media?: boolean | FinancialReportPhaseCountOutputTypeCountMediaArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * FinancialReportPhaseCountOutputType without action
+   */
+  export type FinancialReportPhaseCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhaseCountOutputType
+     */
+    select?: FinancialReportPhaseCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * FinancialReportPhaseCountOutputType without action
+   */
+  export type FinancialReportPhaseCountOutputTypeCountMediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReportPhaseMediaWhereInput
   }
 
 
@@ -2563,7 +2698,7 @@ export namespace Prisma {
   export type MediaCountOutputType = {
     news: number
     ministries: number
-    financialReports: number
+    financialReportPhases: number
     homilies: number
     crunchMedias: number
     appointments: number
@@ -2572,7 +2707,7 @@ export namespace Prisma {
   export type MediaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     news?: boolean | MediaCountOutputTypeCountNewsArgs
     ministries?: boolean | MediaCountOutputTypeCountMinistriesArgs
-    financialReports?: boolean | MediaCountOutputTypeCountFinancialReportsArgs
+    financialReportPhases?: boolean | MediaCountOutputTypeCountFinancialReportPhasesArgs
     homilies?: boolean | MediaCountOutputTypeCountHomiliesArgs
     crunchMedias?: boolean | MediaCountOutputTypeCountCrunchMediasArgs
     appointments?: boolean | MediaCountOutputTypeCountAppointmentsArgs
@@ -2606,8 +2741,8 @@ export namespace Prisma {
   /**
    * MediaCountOutputType without action
    */
-  export type MediaCountOutputTypeCountFinancialReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FinancialReportMediaWhereInput
+  export type MediaCountOutputTypeCountFinancialReportPhasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReportPhaseMediaWhereInput
   }
 
   /**
@@ -9474,26 +9609,18 @@ export namespace Prisma {
 
   export type FinancialReportAvgAggregateOutputType = {
     progressPercentage: number | null
-    totalCost: number | null
-    amountRaised: number | null
-    amountRemaining: number | null
   }
 
   export type FinancialReportSumAggregateOutputType = {
     progressPercentage: number | null
-    totalCost: number | null
-    amountRaised: number | null
-    amountRemaining: number | null
   }
 
   export type FinancialReportMinAggregateOutputType = {
     id: string | null
     title: string | null
     description: string | null
+    status: $Enums.FinancialReportStatus | null
     progressPercentage: number | null
-    totalCost: number | null
-    amountRaised: number | null
-    amountRemaining: number | null
     published: boolean | null
     publishedAt: Date | null
     createdById: string | null
@@ -9505,10 +9632,8 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
+    status: $Enums.FinancialReportStatus | null
     progressPercentage: number | null
-    totalCost: number | null
-    amountRaised: number | null
-    amountRemaining: number | null
     published: boolean | null
     publishedAt: Date | null
     createdById: string | null
@@ -9520,10 +9645,8 @@ export namespace Prisma {
     id: number
     title: number
     description: number
+    status: number
     progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
     published: number
     publishedAt: number
     createdById: number
@@ -9535,26 +9658,18 @@ export namespace Prisma {
 
   export type FinancialReportAvgAggregateInputType = {
     progressPercentage?: true
-    totalCost?: true
-    amountRaised?: true
-    amountRemaining?: true
   }
 
   export type FinancialReportSumAggregateInputType = {
     progressPercentage?: true
-    totalCost?: true
-    amountRaised?: true
-    amountRemaining?: true
   }
 
   export type FinancialReportMinAggregateInputType = {
     id?: true
     title?: true
     description?: true
+    status?: true
     progressPercentage?: true
-    totalCost?: true
-    amountRaised?: true
-    amountRemaining?: true
     published?: true
     publishedAt?: true
     createdById?: true
@@ -9566,10 +9681,8 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
+    status?: true
     progressPercentage?: true
-    totalCost?: true
-    amountRaised?: true
-    amountRemaining?: true
     published?: true
     publishedAt?: true
     createdById?: true
@@ -9581,10 +9694,8 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
+    status?: true
     progressPercentage?: true
-    totalCost?: true
-    amountRaised?: true
-    amountRemaining?: true
     published?: true
     publishedAt?: true
     createdById?: true
@@ -9683,10 +9794,8 @@ export namespace Prisma {
     id: string
     title: string
     description: string
+    status: $Enums.FinancialReportStatus
     progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
     published: boolean
     publishedAt: Date | null
     createdById: string
@@ -9717,17 +9826,15 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    status?: boolean
     progressPercentage?: boolean
-    totalCost?: boolean
-    amountRaised?: boolean
-    amountRemaining?: boolean
     published?: boolean
     publishedAt?: boolean
     createdById?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
-    media?: boolean | FinancialReport$mediaArgs<ExtArgs>
+    phases?: boolean | FinancialReport$phasesArgs<ExtArgs>
     _count?: boolean | FinancialReportCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["financialReport"]>
 
@@ -9735,10 +9842,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    status?: boolean
     progressPercentage?: boolean
-    totalCost?: boolean
-    amountRaised?: boolean
-    amountRemaining?: boolean
     published?: boolean
     publishedAt?: boolean
     createdById?: boolean
@@ -9751,10 +9856,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    status?: boolean
     progressPercentage?: boolean
-    totalCost?: boolean
-    amountRaised?: boolean
-    amountRemaining?: boolean
     published?: boolean
     publishedAt?: boolean
     createdById?: boolean
@@ -9767,10 +9870,8 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
+    status?: boolean
     progressPercentage?: boolean
-    totalCost?: boolean
-    amountRaised?: boolean
-    amountRemaining?: boolean
     published?: boolean
     publishedAt?: boolean
     createdById?: boolean
@@ -9778,10 +9879,10 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type FinancialReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "progressPercentage" | "totalCost" | "amountRaised" | "amountRemaining" | "published" | "publishedAt" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["financialReport"]>
+  export type FinancialReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "status" | "progressPercentage" | "published" | "publishedAt" | "createdById" | "createdAt" | "updatedAt", ExtArgs["result"]["financialReport"]>
   export type FinancialReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
-    media?: boolean | FinancialReport$mediaArgs<ExtArgs>
+    phases?: boolean | FinancialReport$phasesArgs<ExtArgs>
     _count?: boolean | FinancialReportCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FinancialReportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -9795,16 +9896,14 @@ export namespace Prisma {
     name: "FinancialReport"
     objects: {
       createdBy: Prisma.$UserPayload<ExtArgs>
-      media: Prisma.$FinancialReportMediaPayload<ExtArgs>[]
+      phases: Prisma.$FinancialReportPhasePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
       description: string
+      status: $Enums.FinancialReportStatus
       progressPercentage: number
-      totalCost: number
-      amountRaised: number
-      amountRemaining: number
       published: boolean
       publishedAt: Date | null
       createdById: string
@@ -10205,7 +10304,7 @@ export namespace Prisma {
   export interface Prisma__FinancialReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    media<T extends FinancialReport$mediaArgs<ExtArgs> = {}>(args?: Subset<T, FinancialReport$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    phases<T extends FinancialReport$phasesArgs<ExtArgs> = {}>(args?: Subset<T, FinancialReport$phasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10238,10 +10337,8 @@ export namespace Prisma {
     readonly id: FieldRef<"FinancialReport", 'String'>
     readonly title: FieldRef<"FinancialReport", 'String'>
     readonly description: FieldRef<"FinancialReport", 'String'>
+    readonly status: FieldRef<"FinancialReport", 'FinancialReportStatus'>
     readonly progressPercentage: FieldRef<"FinancialReport", 'Int'>
-    readonly totalCost: FieldRef<"FinancialReport", 'Float'>
-    readonly amountRaised: FieldRef<"FinancialReport", 'Float'>
-    readonly amountRemaining: FieldRef<"FinancialReport", 'Float'>
     readonly published: FieldRef<"FinancialReport", 'Boolean'>
     readonly publishedAt: FieldRef<"FinancialReport", 'DateTime'>
     readonly createdById: FieldRef<"FinancialReport", 'String'>
@@ -10643,27 +10740,27 @@ export namespace Prisma {
   }
 
   /**
-   * FinancialReport.media
+   * FinancialReport.phases
    */
-  export type FinancialReport$mediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReport$phasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhase
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhase
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
-    where?: FinancialReportMediaWhereInput
-    orderBy?: FinancialReportMediaOrderByWithRelationInput | FinancialReportMediaOrderByWithRelationInput[]
-    cursor?: FinancialReportMediaWhereUniqueInput
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    where?: FinancialReportPhaseWhereInput
+    orderBy?: FinancialReportPhaseOrderByWithRelationInput | FinancialReportPhaseOrderByWithRelationInput[]
+    cursor?: FinancialReportPhaseWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: FinancialReportMediaScalarFieldEnum | FinancialReportMediaScalarFieldEnum[]
+    distinct?: FinancialReportPhaseScalarFieldEnum | FinancialReportPhaseScalarFieldEnum[]
   }
 
   /**
@@ -10682,6 +10779,1167 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: FinancialReportInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FinancialReportPhase
+   */
+
+  export type AggregateFinancialReportPhase = {
+    _count: FinancialReportPhaseCountAggregateOutputType | null
+    _avg: FinancialReportPhaseAvgAggregateOutputType | null
+    _sum: FinancialReportPhaseSumAggregateOutputType | null
+    _min: FinancialReportPhaseMinAggregateOutputType | null
+    _max: FinancialReportPhaseMaxAggregateOutputType | null
+  }
+
+  export type FinancialReportPhaseAvgAggregateOutputType = {
+    phaseOrder: number | null
+  }
+
+  export type FinancialReportPhaseSumAggregateOutputType = {
+    phaseOrder: number | null
+  }
+
+  export type FinancialReportPhaseMinAggregateOutputType = {
+    id: string | null
+    reportId: string | null
+    title: string | null
+    phaseOrder: number | null
+    doneDetails: string | null
+    nextDetails: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FinancialReportPhaseMaxAggregateOutputType = {
+    id: string | null
+    reportId: string | null
+    title: string | null
+    phaseOrder: number | null
+    doneDetails: string | null
+    nextDetails: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type FinancialReportPhaseCountAggregateOutputType = {
+    id: number
+    reportId: number
+    title: number
+    phaseOrder: number
+    doneDetails: number
+    nextDetails: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type FinancialReportPhaseAvgAggregateInputType = {
+    phaseOrder?: true
+  }
+
+  export type FinancialReportPhaseSumAggregateInputType = {
+    phaseOrder?: true
+  }
+
+  export type FinancialReportPhaseMinAggregateInputType = {
+    id?: true
+    reportId?: true
+    title?: true
+    phaseOrder?: true
+    doneDetails?: true
+    nextDetails?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FinancialReportPhaseMaxAggregateInputType = {
+    id?: true
+    reportId?: true
+    title?: true
+    phaseOrder?: true
+    doneDetails?: true
+    nextDetails?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type FinancialReportPhaseCountAggregateInputType = {
+    id?: true
+    reportId?: true
+    title?: true
+    phaseOrder?: true
+    doneDetails?: true
+    nextDetails?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type FinancialReportPhaseAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialReportPhase to aggregate.
+     */
+    where?: FinancialReportPhaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialReportPhases to fetch.
+     */
+    orderBy?: FinancialReportPhaseOrderByWithRelationInput | FinancialReportPhaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FinancialReportPhaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialReportPhases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialReportPhases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FinancialReportPhases
+    **/
+    _count?: true | FinancialReportPhaseCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: FinancialReportPhaseAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FinancialReportPhaseSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FinancialReportPhaseMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FinancialReportPhaseMaxAggregateInputType
+  }
+
+  export type GetFinancialReportPhaseAggregateType<T extends FinancialReportPhaseAggregateArgs> = {
+        [P in keyof T & keyof AggregateFinancialReportPhase]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFinancialReportPhase[P]>
+      : GetScalarType<T[P], AggregateFinancialReportPhase[P]>
+  }
+
+
+
+
+  export type FinancialReportPhaseGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReportPhaseWhereInput
+    orderBy?: FinancialReportPhaseOrderByWithAggregationInput | FinancialReportPhaseOrderByWithAggregationInput[]
+    by: FinancialReportPhaseScalarFieldEnum[] | FinancialReportPhaseScalarFieldEnum
+    having?: FinancialReportPhaseScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FinancialReportPhaseCountAggregateInputType | true
+    _avg?: FinancialReportPhaseAvgAggregateInputType
+    _sum?: FinancialReportPhaseSumAggregateInputType
+    _min?: FinancialReportPhaseMinAggregateInputType
+    _max?: FinancialReportPhaseMaxAggregateInputType
+  }
+
+  export type FinancialReportPhaseGroupByOutputType = {
+    id: string
+    reportId: string
+    title: string
+    phaseOrder: number
+    doneDetails: string | null
+    nextDetails: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: FinancialReportPhaseCountAggregateOutputType | null
+    _avg: FinancialReportPhaseAvgAggregateOutputType | null
+    _sum: FinancialReportPhaseSumAggregateOutputType | null
+    _min: FinancialReportPhaseMinAggregateOutputType | null
+    _max: FinancialReportPhaseMaxAggregateOutputType | null
+  }
+
+  type GetFinancialReportPhaseGroupByPayload<T extends FinancialReportPhaseGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FinancialReportPhaseGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FinancialReportPhaseGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FinancialReportPhaseGroupByOutputType[P]>
+            : GetScalarType<T[P], FinancialReportPhaseGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FinancialReportPhaseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reportId?: boolean
+    title?: boolean
+    phaseOrder?: boolean
+    doneDetails?: boolean
+    nextDetails?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+    media?: boolean | FinancialReportPhase$mediaArgs<ExtArgs>
+    _count?: boolean | FinancialReportPhaseCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialReportPhase"]>
+
+  export type FinancialReportPhaseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reportId?: boolean
+    title?: boolean
+    phaseOrder?: boolean
+    doneDetails?: boolean
+    nextDetails?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialReportPhase"]>
+
+  export type FinancialReportPhaseSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    reportId?: boolean
+    title?: boolean
+    phaseOrder?: boolean
+    doneDetails?: boolean
+    nextDetails?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["financialReportPhase"]>
+
+  export type FinancialReportPhaseSelectScalar = {
+    id?: boolean
+    reportId?: boolean
+    title?: boolean
+    phaseOrder?: boolean
+    doneDetails?: boolean
+    nextDetails?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type FinancialReportPhaseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reportId" | "title" | "phaseOrder" | "doneDetails" | "nextDetails" | "createdAt" | "updatedAt", ExtArgs["result"]["financialReportPhase"]>
+  export type FinancialReportPhaseInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+    media?: boolean | FinancialReportPhase$mediaArgs<ExtArgs>
+    _count?: boolean | FinancialReportPhaseCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type FinancialReportPhaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+  }
+  export type FinancialReportPhaseIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+  }
+
+  export type $FinancialReportPhasePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FinancialReportPhase"
+    objects: {
+      report: Prisma.$FinancialReportPayload<ExtArgs>
+      media: Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      reportId: string
+      title: string
+      phaseOrder: number
+      doneDetails: string | null
+      nextDetails: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["financialReportPhase"]>
+    composites: {}
+  }
+
+  type FinancialReportPhaseGetPayload<S extends boolean | null | undefined | FinancialReportPhaseDefaultArgs> = $Result.GetResult<Prisma.$FinancialReportPhasePayload, S>
+
+  type FinancialReportPhaseCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FinancialReportPhaseFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FinancialReportPhaseCountAggregateInputType | true
+    }
+
+  export interface FinancialReportPhaseDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FinancialReportPhase'], meta: { name: 'FinancialReportPhase' } }
+    /**
+     * Find zero or one FinancialReportPhase that matches the filter.
+     * @param {FinancialReportPhaseFindUniqueArgs} args - Arguments to find a FinancialReportPhase
+     * @example
+     * // Get one FinancialReportPhase
+     * const financialReportPhase = await prisma.financialReportPhase.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FinancialReportPhaseFindUniqueArgs>(args: SelectSubset<T, FinancialReportPhaseFindUniqueArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FinancialReportPhase that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FinancialReportPhaseFindUniqueOrThrowArgs} args - Arguments to find a FinancialReportPhase
+     * @example
+     * // Get one FinancialReportPhase
+     * const financialReportPhase = await prisma.financialReportPhase.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FinancialReportPhaseFindUniqueOrThrowArgs>(args: SelectSubset<T, FinancialReportPhaseFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FinancialReportPhase that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReportPhaseFindFirstArgs} args - Arguments to find a FinancialReportPhase
+     * @example
+     * // Get one FinancialReportPhase
+     * const financialReportPhase = await prisma.financialReportPhase.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FinancialReportPhaseFindFirstArgs>(args?: SelectSubset<T, FinancialReportPhaseFindFirstArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FinancialReportPhase that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReportPhaseFindFirstOrThrowArgs} args - Arguments to find a FinancialReportPhase
+     * @example
+     * // Get one FinancialReportPhase
+     * const financialReportPhase = await prisma.financialReportPhase.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FinancialReportPhaseFindFirstOrThrowArgs>(args?: SelectSubset<T, FinancialReportPhaseFindFirstOrThrowArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FinancialReportPhases that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReportPhaseFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FinancialReportPhases
+     * const financialReportPhases = await prisma.financialReportPhase.findMany()
+     * 
+     * // Get first 10 FinancialReportPhases
+     * const financialReportPhases = await prisma.financialReportPhase.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const financialReportPhaseWithIdOnly = await prisma.financialReportPhase.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FinancialReportPhaseFindManyArgs>(args?: SelectSubset<T, FinancialReportPhaseFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FinancialReportPhase.
+     * @param {FinancialReportPhaseCreateArgs} args - Arguments to create a FinancialReportPhase.
+     * @example
+     * // Create one FinancialReportPhase
+     * const FinancialReportPhase = await prisma.financialReportPhase.create({
+     *   data: {
+     *     // ... data to create a FinancialReportPhase
+     *   }
+     * })
+     * 
+     */
+    create<T extends FinancialReportPhaseCreateArgs>(args: SelectSubset<T, FinancialReportPhaseCreateArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FinancialReportPhases.
+     * @param {FinancialReportPhaseCreateManyArgs} args - Arguments to create many FinancialReportPhases.
+     * @example
+     * // Create many FinancialReportPhases
+     * const financialReportPhase = await prisma.financialReportPhase.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FinancialReportPhaseCreateManyArgs>(args?: SelectSubset<T, FinancialReportPhaseCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FinancialReportPhases and returns the data saved in the database.
+     * @param {FinancialReportPhaseCreateManyAndReturnArgs} args - Arguments to create many FinancialReportPhases.
+     * @example
+     * // Create many FinancialReportPhases
+     * const financialReportPhase = await prisma.financialReportPhase.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FinancialReportPhases and only return the `id`
+     * const financialReportPhaseWithIdOnly = await prisma.financialReportPhase.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FinancialReportPhaseCreateManyAndReturnArgs>(args?: SelectSubset<T, FinancialReportPhaseCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FinancialReportPhase.
+     * @param {FinancialReportPhaseDeleteArgs} args - Arguments to delete one FinancialReportPhase.
+     * @example
+     * // Delete one FinancialReportPhase
+     * const FinancialReportPhase = await prisma.financialReportPhase.delete({
+     *   where: {
+     *     // ... filter to delete one FinancialReportPhase
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FinancialReportPhaseDeleteArgs>(args: SelectSubset<T, FinancialReportPhaseDeleteArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FinancialReportPhase.
+     * @param {FinancialReportPhaseUpdateArgs} args - Arguments to update one FinancialReportPhase.
+     * @example
+     * // Update one FinancialReportPhase
+     * const financialReportPhase = await prisma.financialReportPhase.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FinancialReportPhaseUpdateArgs>(args: SelectSubset<T, FinancialReportPhaseUpdateArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FinancialReportPhases.
+     * @param {FinancialReportPhaseDeleteManyArgs} args - Arguments to filter FinancialReportPhases to delete.
+     * @example
+     * // Delete a few FinancialReportPhases
+     * const { count } = await prisma.financialReportPhase.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FinancialReportPhaseDeleteManyArgs>(args?: SelectSubset<T, FinancialReportPhaseDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FinancialReportPhases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReportPhaseUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FinancialReportPhases
+     * const financialReportPhase = await prisma.financialReportPhase.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FinancialReportPhaseUpdateManyArgs>(args: SelectSubset<T, FinancialReportPhaseUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FinancialReportPhases and returns the data updated in the database.
+     * @param {FinancialReportPhaseUpdateManyAndReturnArgs} args - Arguments to update many FinancialReportPhases.
+     * @example
+     * // Update many FinancialReportPhases
+     * const financialReportPhase = await prisma.financialReportPhase.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FinancialReportPhases and only return the `id`
+     * const financialReportPhaseWithIdOnly = await prisma.financialReportPhase.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FinancialReportPhaseUpdateManyAndReturnArgs>(args: SelectSubset<T, FinancialReportPhaseUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FinancialReportPhase.
+     * @param {FinancialReportPhaseUpsertArgs} args - Arguments to update or create a FinancialReportPhase.
+     * @example
+     * // Update or create a FinancialReportPhase
+     * const financialReportPhase = await prisma.financialReportPhase.upsert({
+     *   create: {
+     *     // ... data to create a FinancialReportPhase
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FinancialReportPhase we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FinancialReportPhaseUpsertArgs>(args: SelectSubset<T, FinancialReportPhaseUpsertArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FinancialReportPhases.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReportPhaseCountArgs} args - Arguments to filter FinancialReportPhases to count.
+     * @example
+     * // Count the number of FinancialReportPhases
+     * const count = await prisma.financialReportPhase.count({
+     *   where: {
+     *     // ... the filter for the FinancialReportPhases we want to count
+     *   }
+     * })
+    **/
+    count<T extends FinancialReportPhaseCountArgs>(
+      args?: Subset<T, FinancialReportPhaseCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FinancialReportPhaseCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FinancialReportPhase.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReportPhaseAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FinancialReportPhaseAggregateArgs>(args: Subset<T, FinancialReportPhaseAggregateArgs>): Prisma.PrismaPromise<GetFinancialReportPhaseAggregateType<T>>
+
+    /**
+     * Group by FinancialReportPhase.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FinancialReportPhaseGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FinancialReportPhaseGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FinancialReportPhaseGroupByArgs['orderBy'] }
+        : { orderBy?: FinancialReportPhaseGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FinancialReportPhaseGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFinancialReportPhaseGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FinancialReportPhase model
+   */
+  readonly fields: FinancialReportPhaseFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FinancialReportPhase.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FinancialReportPhaseClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    report<T extends FinancialReportDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FinancialReportDefaultArgs<ExtArgs>>): Prisma__FinancialReportClient<$Result.GetResult<Prisma.$FinancialReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    media<T extends FinancialReportPhase$mediaArgs<ExtArgs> = {}>(args?: Subset<T, FinancialReportPhase$mediaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FinancialReportPhase model
+   */
+  interface FinancialReportPhaseFieldRefs {
+    readonly id: FieldRef<"FinancialReportPhase", 'String'>
+    readonly reportId: FieldRef<"FinancialReportPhase", 'String'>
+    readonly title: FieldRef<"FinancialReportPhase", 'String'>
+    readonly phaseOrder: FieldRef<"FinancialReportPhase", 'Int'>
+    readonly doneDetails: FieldRef<"FinancialReportPhase", 'String'>
+    readonly nextDetails: FieldRef<"FinancialReportPhase", 'String'>
+    readonly createdAt: FieldRef<"FinancialReportPhase", 'DateTime'>
+    readonly updatedAt: FieldRef<"FinancialReportPhase", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FinancialReportPhase findUnique
+   */
+  export type FinancialReportPhaseFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReportPhase to fetch.
+     */
+    where: FinancialReportPhaseWhereUniqueInput
+  }
+
+  /**
+   * FinancialReportPhase findUniqueOrThrow
+   */
+  export type FinancialReportPhaseFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReportPhase to fetch.
+     */
+    where: FinancialReportPhaseWhereUniqueInput
+  }
+
+  /**
+   * FinancialReportPhase findFirst
+   */
+  export type FinancialReportPhaseFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReportPhase to fetch.
+     */
+    where?: FinancialReportPhaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialReportPhases to fetch.
+     */
+    orderBy?: FinancialReportPhaseOrderByWithRelationInput | FinancialReportPhaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialReportPhases.
+     */
+    cursor?: FinancialReportPhaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialReportPhases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialReportPhases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialReportPhases.
+     */
+    distinct?: FinancialReportPhaseScalarFieldEnum | FinancialReportPhaseScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialReportPhase findFirstOrThrow
+   */
+  export type FinancialReportPhaseFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReportPhase to fetch.
+     */
+    where?: FinancialReportPhaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialReportPhases to fetch.
+     */
+    orderBy?: FinancialReportPhaseOrderByWithRelationInput | FinancialReportPhaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FinancialReportPhases.
+     */
+    cursor?: FinancialReportPhaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialReportPhases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialReportPhases.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FinancialReportPhases.
+     */
+    distinct?: FinancialReportPhaseScalarFieldEnum | FinancialReportPhaseScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialReportPhase findMany
+   */
+  export type FinancialReportPhaseFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * Filter, which FinancialReportPhases to fetch.
+     */
+    where?: FinancialReportPhaseWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FinancialReportPhases to fetch.
+     */
+    orderBy?: FinancialReportPhaseOrderByWithRelationInput | FinancialReportPhaseOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FinancialReportPhases.
+     */
+    cursor?: FinancialReportPhaseWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FinancialReportPhases from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FinancialReportPhases.
+     */
+    skip?: number
+    distinct?: FinancialReportPhaseScalarFieldEnum | FinancialReportPhaseScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialReportPhase create
+   */
+  export type FinancialReportPhaseCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FinancialReportPhase.
+     */
+    data: XOR<FinancialReportPhaseCreateInput, FinancialReportPhaseUncheckedCreateInput>
+  }
+
+  /**
+   * FinancialReportPhase createMany
+   */
+  export type FinancialReportPhaseCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FinancialReportPhases.
+     */
+    data: FinancialReportPhaseCreateManyInput | FinancialReportPhaseCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FinancialReportPhase createManyAndReturn
+   */
+  export type FinancialReportPhaseCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * The data used to create many FinancialReportPhases.
+     */
+    data: FinancialReportPhaseCreateManyInput | FinancialReportPhaseCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FinancialReportPhase update
+   */
+  export type FinancialReportPhaseUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FinancialReportPhase.
+     */
+    data: XOR<FinancialReportPhaseUpdateInput, FinancialReportPhaseUncheckedUpdateInput>
+    /**
+     * Choose, which FinancialReportPhase to update.
+     */
+    where: FinancialReportPhaseWhereUniqueInput
+  }
+
+  /**
+   * FinancialReportPhase updateMany
+   */
+  export type FinancialReportPhaseUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FinancialReportPhases.
+     */
+    data: XOR<FinancialReportPhaseUpdateManyMutationInput, FinancialReportPhaseUncheckedUpdateManyInput>
+    /**
+     * Filter which FinancialReportPhases to update
+     */
+    where?: FinancialReportPhaseWhereInput
+    /**
+     * Limit how many FinancialReportPhases to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FinancialReportPhase updateManyAndReturn
+   */
+  export type FinancialReportPhaseUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * The data used to update FinancialReportPhases.
+     */
+    data: XOR<FinancialReportPhaseUpdateManyMutationInput, FinancialReportPhaseUncheckedUpdateManyInput>
+    /**
+     * Filter which FinancialReportPhases to update
+     */
+    where?: FinancialReportPhaseWhereInput
+    /**
+     * Limit how many FinancialReportPhases to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FinancialReportPhase upsert
+   */
+  export type FinancialReportPhaseUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FinancialReportPhase to update in case it exists.
+     */
+    where: FinancialReportPhaseWhereUniqueInput
+    /**
+     * In case the FinancialReportPhase found by the `where` argument doesn't exist, create a new FinancialReportPhase with this data.
+     */
+    create: XOR<FinancialReportPhaseCreateInput, FinancialReportPhaseUncheckedCreateInput>
+    /**
+     * In case the FinancialReportPhase was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FinancialReportPhaseUpdateInput, FinancialReportPhaseUncheckedUpdateInput>
+  }
+
+  /**
+   * FinancialReportPhase delete
+   */
+  export type FinancialReportPhaseDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
+    /**
+     * Filter which FinancialReportPhase to delete.
+     */
+    where: FinancialReportPhaseWhereUniqueInput
+  }
+
+  /**
+   * FinancialReportPhase deleteMany
+   */
+  export type FinancialReportPhaseDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FinancialReportPhases to delete
+     */
+    where?: FinancialReportPhaseWhereInput
+    /**
+     * Limit how many FinancialReportPhases to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FinancialReportPhase.media
+   */
+  export type FinancialReportPhase$mediaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
+     */
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhaseMedia
+     */
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
+    where?: FinancialReportPhaseMediaWhereInput
+    orderBy?: FinancialReportPhaseMediaOrderByWithRelationInput | FinancialReportPhaseMediaOrderByWithRelationInput[]
+    cursor?: FinancialReportPhaseMediaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FinancialReportPhaseMediaScalarFieldEnum | FinancialReportPhaseMediaScalarFieldEnum[]
+  }
+
+  /**
+   * FinancialReportPhase without action
+   */
+  export type FinancialReportPhaseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FinancialReportPhase
+     */
+    select?: FinancialReportPhaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FinancialReportPhase
+     */
+    omit?: FinancialReportPhaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FinancialReportPhaseInclude<ExtArgs> | null
   }
 
 
@@ -14282,7 +15540,7 @@ export namespace Prisma {
     createdAt?: boolean
     news?: boolean | Media$newsArgs<ExtArgs>
     ministries?: boolean | Media$ministriesArgs<ExtArgs>
-    financialReports?: boolean | Media$financialReportsArgs<ExtArgs>
+    financialReportPhases?: boolean | Media$financialReportPhasesArgs<ExtArgs>
     homilies?: boolean | Media$homiliesArgs<ExtArgs>
     crunchMedias?: boolean | Media$crunchMediasArgs<ExtArgs>
     appointments?: boolean | Media$appointmentsArgs<ExtArgs>
@@ -14320,7 +15578,7 @@ export namespace Prisma {
   export type MediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     news?: boolean | Media$newsArgs<ExtArgs>
     ministries?: boolean | Media$ministriesArgs<ExtArgs>
-    financialReports?: boolean | Media$financialReportsArgs<ExtArgs>
+    financialReportPhases?: boolean | Media$financialReportPhasesArgs<ExtArgs>
     homilies?: boolean | Media$homiliesArgs<ExtArgs>
     crunchMedias?: boolean | Media$crunchMediasArgs<ExtArgs>
     appointments?: boolean | Media$appointmentsArgs<ExtArgs>
@@ -14334,7 +15592,7 @@ export namespace Prisma {
     objects: {
       news: Prisma.$NewsMediaPayload<ExtArgs>[]
       ministries: Prisma.$MinistryMediaPayload<ExtArgs>[]
-      financialReports: Prisma.$FinancialReportMediaPayload<ExtArgs>[]
+      financialReportPhases: Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>[]
       homilies: Prisma.$HomilyMediaPayload<ExtArgs>[]
       crunchMedias: Prisma.$CrunchMediaPayload<ExtArgs>[]
       appointments: Prisma.$AppointmentDocumentPayload<ExtArgs>[]
@@ -14742,7 +16000,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     news<T extends Media$newsArgs<ExtArgs> = {}>(args?: Subset<T, Media$newsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NewsMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ministries<T extends Media$ministriesArgs<ExtArgs> = {}>(args?: Subset<T, Media$ministriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MinistryMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    financialReports<T extends Media$financialReportsArgs<ExtArgs> = {}>(args?: Subset<T, Media$financialReportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    financialReportPhases<T extends Media$financialReportPhasesArgs<ExtArgs> = {}>(args?: Subset<T, Media$financialReportPhasesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     homilies<T extends Media$homiliesArgs<ExtArgs> = {}>(args?: Subset<T, Media$homiliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$HomilyMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     crunchMedias<T extends Media$crunchMediasArgs<ExtArgs> = {}>(args?: Subset<T, Media$crunchMediasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrunchMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     appointments<T extends Media$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, Media$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentDocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -15217,27 +16475,27 @@ export namespace Prisma {
   }
 
   /**
-   * Media.financialReports
+   * Media.financialReportPhases
    */
-  export type Media$financialReportsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Media$financialReportPhasesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
-    where?: FinancialReportMediaWhereInput
-    orderBy?: FinancialReportMediaOrderByWithRelationInput | FinancialReportMediaOrderByWithRelationInput[]
-    cursor?: FinancialReportMediaWhereUniqueInput
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
+    where?: FinancialReportPhaseMediaWhereInput
+    orderBy?: FinancialReportPhaseMediaOrderByWithRelationInput | FinancialReportPhaseMediaOrderByWithRelationInput[]
+    cursor?: FinancialReportPhaseMediaWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: FinancialReportMediaScalarFieldEnum | FinancialReportMediaScalarFieldEnum[]
+    distinct?: FinancialReportPhaseMediaScalarFieldEnum | FinancialReportPhaseMediaScalarFieldEnum[]
   }
 
   /**
@@ -17386,322 +18644,322 @@ export namespace Prisma {
 
 
   /**
-   * Model FinancialReportMedia
+   * Model FinancialReportPhaseMedia
    */
 
-  export type AggregateFinancialReportMedia = {
-    _count: FinancialReportMediaCountAggregateOutputType | null
-    _min: FinancialReportMediaMinAggregateOutputType | null
-    _max: FinancialReportMediaMaxAggregateOutputType | null
+  export type AggregateFinancialReportPhaseMedia = {
+    _count: FinancialReportPhaseMediaCountAggregateOutputType | null
+    _min: FinancialReportPhaseMediaMinAggregateOutputType | null
+    _max: FinancialReportPhaseMediaMaxAggregateOutputType | null
   }
 
-  export type FinancialReportMediaMinAggregateOutputType = {
-    reportId: string | null
+  export type FinancialReportPhaseMediaMinAggregateOutputType = {
+    phaseId: string | null
     mediaId: string | null
   }
 
-  export type FinancialReportMediaMaxAggregateOutputType = {
-    reportId: string | null
+  export type FinancialReportPhaseMediaMaxAggregateOutputType = {
+    phaseId: string | null
     mediaId: string | null
   }
 
-  export type FinancialReportMediaCountAggregateOutputType = {
-    reportId: number
+  export type FinancialReportPhaseMediaCountAggregateOutputType = {
+    phaseId: number
     mediaId: number
     _all: number
   }
 
 
-  export type FinancialReportMediaMinAggregateInputType = {
-    reportId?: true
+  export type FinancialReportPhaseMediaMinAggregateInputType = {
+    phaseId?: true
     mediaId?: true
   }
 
-  export type FinancialReportMediaMaxAggregateInputType = {
-    reportId?: true
+  export type FinancialReportPhaseMediaMaxAggregateInputType = {
+    phaseId?: true
     mediaId?: true
   }
 
-  export type FinancialReportMediaCountAggregateInputType = {
-    reportId?: true
+  export type FinancialReportPhaseMediaCountAggregateInputType = {
+    phaseId?: true
     mediaId?: true
     _all?: true
   }
 
-  export type FinancialReportMediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which FinancialReportMedia to aggregate.
+     * Filter which FinancialReportPhaseMedia to aggregate.
      */
-    where?: FinancialReportMediaWhereInput
+    where?: FinancialReportPhaseMediaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of FinancialReportMedias to fetch.
+     * Determine the order of FinancialReportPhaseMedias to fetch.
      */
-    orderBy?: FinancialReportMediaOrderByWithRelationInput | FinancialReportMediaOrderByWithRelationInput[]
+    orderBy?: FinancialReportPhaseMediaOrderByWithRelationInput | FinancialReportPhaseMediaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: FinancialReportMediaWhereUniqueInput
+    cursor?: FinancialReportPhaseMediaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` FinancialReportMedias from the position of the cursor.
+     * Take `±n` FinancialReportPhaseMedias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` FinancialReportMedias.
+     * Skip the first `n` FinancialReportPhaseMedias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned FinancialReportMedias
+     * Count returned FinancialReportPhaseMedias
     **/
-    _count?: true | FinancialReportMediaCountAggregateInputType
+    _count?: true | FinancialReportPhaseMediaCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: FinancialReportMediaMinAggregateInputType
+    _min?: FinancialReportPhaseMediaMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: FinancialReportMediaMaxAggregateInputType
+    _max?: FinancialReportPhaseMediaMaxAggregateInputType
   }
 
-  export type GetFinancialReportMediaAggregateType<T extends FinancialReportMediaAggregateArgs> = {
-        [P in keyof T & keyof AggregateFinancialReportMedia]: P extends '_count' | 'count'
+  export type GetFinancialReportPhaseMediaAggregateType<T extends FinancialReportPhaseMediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateFinancialReportPhaseMedia]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateFinancialReportMedia[P]>
-      : GetScalarType<T[P], AggregateFinancialReportMedia[P]>
+        : GetScalarType<T[P], AggregateFinancialReportPhaseMedia[P]>
+      : GetScalarType<T[P], AggregateFinancialReportPhaseMedia[P]>
   }
 
 
 
 
-  export type FinancialReportMediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: FinancialReportMediaWhereInput
-    orderBy?: FinancialReportMediaOrderByWithAggregationInput | FinancialReportMediaOrderByWithAggregationInput[]
-    by: FinancialReportMediaScalarFieldEnum[] | FinancialReportMediaScalarFieldEnum
-    having?: FinancialReportMediaScalarWhereWithAggregatesInput
+  export type FinancialReportPhaseMediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FinancialReportPhaseMediaWhereInput
+    orderBy?: FinancialReportPhaseMediaOrderByWithAggregationInput | FinancialReportPhaseMediaOrderByWithAggregationInput[]
+    by: FinancialReportPhaseMediaScalarFieldEnum[] | FinancialReportPhaseMediaScalarFieldEnum
+    having?: FinancialReportPhaseMediaScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: FinancialReportMediaCountAggregateInputType | true
-    _min?: FinancialReportMediaMinAggregateInputType
-    _max?: FinancialReportMediaMaxAggregateInputType
+    _count?: FinancialReportPhaseMediaCountAggregateInputType | true
+    _min?: FinancialReportPhaseMediaMinAggregateInputType
+    _max?: FinancialReportPhaseMediaMaxAggregateInputType
   }
 
-  export type FinancialReportMediaGroupByOutputType = {
-    reportId: string
+  export type FinancialReportPhaseMediaGroupByOutputType = {
+    phaseId: string
     mediaId: string
-    _count: FinancialReportMediaCountAggregateOutputType | null
-    _min: FinancialReportMediaMinAggregateOutputType | null
-    _max: FinancialReportMediaMaxAggregateOutputType | null
+    _count: FinancialReportPhaseMediaCountAggregateOutputType | null
+    _min: FinancialReportPhaseMediaMinAggregateOutputType | null
+    _max: FinancialReportPhaseMediaMaxAggregateOutputType | null
   }
 
-  type GetFinancialReportMediaGroupByPayload<T extends FinancialReportMediaGroupByArgs> = Prisma.PrismaPromise<
+  type GetFinancialReportPhaseMediaGroupByPayload<T extends FinancialReportPhaseMediaGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<FinancialReportMediaGroupByOutputType, T['by']> &
+      PickEnumerable<FinancialReportPhaseMediaGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof FinancialReportMediaGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof FinancialReportPhaseMediaGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], FinancialReportMediaGroupByOutputType[P]>
-            : GetScalarType<T[P], FinancialReportMediaGroupByOutputType[P]>
+              : GetScalarType<T[P], FinancialReportPhaseMediaGroupByOutputType[P]>
+            : GetScalarType<T[P], FinancialReportPhaseMediaGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type FinancialReportMediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    reportId?: boolean
+  export type FinancialReportPhaseMediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    phaseId?: boolean
     mediaId?: boolean
-    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+    phase?: boolean | FinancialReportPhaseDefaultArgs<ExtArgs>
     media?: boolean | MediaDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["financialReportMedia"]>
+  }, ExtArgs["result"]["financialReportPhaseMedia"]>
 
-  export type FinancialReportMediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    reportId?: boolean
+  export type FinancialReportPhaseMediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    phaseId?: boolean
     mediaId?: boolean
-    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+    phase?: boolean | FinancialReportPhaseDefaultArgs<ExtArgs>
     media?: boolean | MediaDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["financialReportMedia"]>
+  }, ExtArgs["result"]["financialReportPhaseMedia"]>
 
-  export type FinancialReportMediaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    reportId?: boolean
+  export type FinancialReportPhaseMediaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    phaseId?: boolean
     mediaId?: boolean
-    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+    phase?: boolean | FinancialReportPhaseDefaultArgs<ExtArgs>
     media?: boolean | MediaDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["financialReportMedia"]>
+  }, ExtArgs["result"]["financialReportPhaseMedia"]>
 
-  export type FinancialReportMediaSelectScalar = {
-    reportId?: boolean
+  export type FinancialReportPhaseMediaSelectScalar = {
+    phaseId?: boolean
     mediaId?: boolean
   }
 
-  export type FinancialReportMediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"reportId" | "mediaId", ExtArgs["result"]["financialReportMedia"]>
-  export type FinancialReportMediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+  export type FinancialReportPhaseMediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"phaseId" | "mediaId", ExtArgs["result"]["financialReportPhaseMedia"]>
+  export type FinancialReportPhaseMediaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    phase?: boolean | FinancialReportPhaseDefaultArgs<ExtArgs>
     media?: boolean | MediaDefaultArgs<ExtArgs>
   }
-  export type FinancialReportMediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+  export type FinancialReportPhaseMediaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    phase?: boolean | FinancialReportPhaseDefaultArgs<ExtArgs>
     media?: boolean | MediaDefaultArgs<ExtArgs>
   }
-  export type FinancialReportMediaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    report?: boolean | FinancialReportDefaultArgs<ExtArgs>
+  export type FinancialReportPhaseMediaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    phase?: boolean | FinancialReportPhaseDefaultArgs<ExtArgs>
     media?: boolean | MediaDefaultArgs<ExtArgs>
   }
 
-  export type $FinancialReportMediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "FinancialReportMedia"
+  export type $FinancialReportPhaseMediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FinancialReportPhaseMedia"
     objects: {
-      report: Prisma.$FinancialReportPayload<ExtArgs>
+      phase: Prisma.$FinancialReportPhasePayload<ExtArgs>
       media: Prisma.$MediaPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      reportId: string
+      phaseId: string
       mediaId: string
-    }, ExtArgs["result"]["financialReportMedia"]>
+    }, ExtArgs["result"]["financialReportPhaseMedia"]>
     composites: {}
   }
 
-  type FinancialReportMediaGetPayload<S extends boolean | null | undefined | FinancialReportMediaDefaultArgs> = $Result.GetResult<Prisma.$FinancialReportMediaPayload, S>
+  type FinancialReportPhaseMediaGetPayload<S extends boolean | null | undefined | FinancialReportPhaseMediaDefaultArgs> = $Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload, S>
 
-  type FinancialReportMediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<FinancialReportMediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: FinancialReportMediaCountAggregateInputType | true
+  type FinancialReportPhaseMediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FinancialReportPhaseMediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FinancialReportPhaseMediaCountAggregateInputType | true
     }
 
-  export interface FinancialReportMediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FinancialReportMedia'], meta: { name: 'FinancialReportMedia' } }
+  export interface FinancialReportPhaseMediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FinancialReportPhaseMedia'], meta: { name: 'FinancialReportPhaseMedia' } }
     /**
-     * Find zero or one FinancialReportMedia that matches the filter.
-     * @param {FinancialReportMediaFindUniqueArgs} args - Arguments to find a FinancialReportMedia
+     * Find zero or one FinancialReportPhaseMedia that matches the filter.
+     * @param {FinancialReportPhaseMediaFindUniqueArgs} args - Arguments to find a FinancialReportPhaseMedia
      * @example
-     * // Get one FinancialReportMedia
-     * const financialReportMedia = await prisma.financialReportMedia.findUnique({
+     * // Get one FinancialReportPhaseMedia
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends FinancialReportMediaFindUniqueArgs>(args: SelectSubset<T, FinancialReportMediaFindUniqueArgs<ExtArgs>>): Prisma__FinancialReportMediaClient<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends FinancialReportPhaseMediaFindUniqueArgs>(args: SelectSubset<T, FinancialReportPhaseMediaFindUniqueArgs<ExtArgs>>): Prisma__FinancialReportPhaseMediaClient<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one FinancialReportMedia that matches the filter or throw an error with `error.code='P2025'`
+     * Find one FinancialReportPhaseMedia that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {FinancialReportMediaFindUniqueOrThrowArgs} args - Arguments to find a FinancialReportMedia
+     * @param {FinancialReportPhaseMediaFindUniqueOrThrowArgs} args - Arguments to find a FinancialReportPhaseMedia
      * @example
-     * // Get one FinancialReportMedia
-     * const financialReportMedia = await prisma.financialReportMedia.findUniqueOrThrow({
+     * // Get one FinancialReportPhaseMedia
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends FinancialReportMediaFindUniqueOrThrowArgs>(args: SelectSubset<T, FinancialReportMediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FinancialReportMediaClient<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends FinancialReportPhaseMediaFindUniqueOrThrowArgs>(args: SelectSubset<T, FinancialReportPhaseMediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FinancialReportPhaseMediaClient<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first FinancialReportMedia that matches the filter.
+     * Find the first FinancialReportPhaseMedia that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FinancialReportMediaFindFirstArgs} args - Arguments to find a FinancialReportMedia
+     * @param {FinancialReportPhaseMediaFindFirstArgs} args - Arguments to find a FinancialReportPhaseMedia
      * @example
-     * // Get one FinancialReportMedia
-     * const financialReportMedia = await prisma.financialReportMedia.findFirst({
+     * // Get one FinancialReportPhaseMedia
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends FinancialReportMediaFindFirstArgs>(args?: SelectSubset<T, FinancialReportMediaFindFirstArgs<ExtArgs>>): Prisma__FinancialReportMediaClient<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends FinancialReportPhaseMediaFindFirstArgs>(args?: SelectSubset<T, FinancialReportPhaseMediaFindFirstArgs<ExtArgs>>): Prisma__FinancialReportPhaseMediaClient<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first FinancialReportMedia that matches the filter or
+     * Find the first FinancialReportPhaseMedia that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FinancialReportMediaFindFirstOrThrowArgs} args - Arguments to find a FinancialReportMedia
+     * @param {FinancialReportPhaseMediaFindFirstOrThrowArgs} args - Arguments to find a FinancialReportPhaseMedia
      * @example
-     * // Get one FinancialReportMedia
-     * const financialReportMedia = await prisma.financialReportMedia.findFirstOrThrow({
+     * // Get one FinancialReportPhaseMedia
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends FinancialReportMediaFindFirstOrThrowArgs>(args?: SelectSubset<T, FinancialReportMediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__FinancialReportMediaClient<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends FinancialReportPhaseMediaFindFirstOrThrowArgs>(args?: SelectSubset<T, FinancialReportPhaseMediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__FinancialReportPhaseMediaClient<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more FinancialReportMedias that matches the filter.
+     * Find zero or more FinancialReportPhaseMedias that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FinancialReportMediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {FinancialReportPhaseMediaFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all FinancialReportMedias
-     * const financialReportMedias = await prisma.financialReportMedia.findMany()
+     * // Get all FinancialReportPhaseMedias
+     * const financialReportPhaseMedias = await prisma.financialReportPhaseMedia.findMany()
      * 
-     * // Get first 10 FinancialReportMedias
-     * const financialReportMedias = await prisma.financialReportMedia.findMany({ take: 10 })
+     * // Get first 10 FinancialReportPhaseMedias
+     * const financialReportPhaseMedias = await prisma.financialReportPhaseMedia.findMany({ take: 10 })
      * 
-     * // Only select the `reportId`
-     * const financialReportMediaWithReportIdOnly = await prisma.financialReportMedia.findMany({ select: { reportId: true } })
+     * // Only select the `phaseId`
+     * const financialReportPhaseMediaWithPhaseIdOnly = await prisma.financialReportPhaseMedia.findMany({ select: { phaseId: true } })
      * 
      */
-    findMany<T extends FinancialReportMediaFindManyArgs>(args?: SelectSubset<T, FinancialReportMediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends FinancialReportPhaseMediaFindManyArgs>(args?: SelectSubset<T, FinancialReportPhaseMediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a FinancialReportMedia.
-     * @param {FinancialReportMediaCreateArgs} args - Arguments to create a FinancialReportMedia.
+     * Create a FinancialReportPhaseMedia.
+     * @param {FinancialReportPhaseMediaCreateArgs} args - Arguments to create a FinancialReportPhaseMedia.
      * @example
-     * // Create one FinancialReportMedia
-     * const FinancialReportMedia = await prisma.financialReportMedia.create({
+     * // Create one FinancialReportPhaseMedia
+     * const FinancialReportPhaseMedia = await prisma.financialReportPhaseMedia.create({
      *   data: {
-     *     // ... data to create a FinancialReportMedia
+     *     // ... data to create a FinancialReportPhaseMedia
      *   }
      * })
      * 
      */
-    create<T extends FinancialReportMediaCreateArgs>(args: SelectSubset<T, FinancialReportMediaCreateArgs<ExtArgs>>): Prisma__FinancialReportMediaClient<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends FinancialReportPhaseMediaCreateArgs>(args: SelectSubset<T, FinancialReportPhaseMediaCreateArgs<ExtArgs>>): Prisma__FinancialReportPhaseMediaClient<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many FinancialReportMedias.
-     * @param {FinancialReportMediaCreateManyArgs} args - Arguments to create many FinancialReportMedias.
+     * Create many FinancialReportPhaseMedias.
+     * @param {FinancialReportPhaseMediaCreateManyArgs} args - Arguments to create many FinancialReportPhaseMedias.
      * @example
-     * // Create many FinancialReportMedias
-     * const financialReportMedia = await prisma.financialReportMedia.createMany({
+     * // Create many FinancialReportPhaseMedias
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends FinancialReportMediaCreateManyArgs>(args?: SelectSubset<T, FinancialReportMediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends FinancialReportPhaseMediaCreateManyArgs>(args?: SelectSubset<T, FinancialReportPhaseMediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many FinancialReportMedias and returns the data saved in the database.
-     * @param {FinancialReportMediaCreateManyAndReturnArgs} args - Arguments to create many FinancialReportMedias.
+     * Create many FinancialReportPhaseMedias and returns the data saved in the database.
+     * @param {FinancialReportPhaseMediaCreateManyAndReturnArgs} args - Arguments to create many FinancialReportPhaseMedias.
      * @example
-     * // Create many FinancialReportMedias
-     * const financialReportMedia = await prisma.financialReportMedia.createManyAndReturn({
+     * // Create many FinancialReportPhaseMedias
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many FinancialReportMedias and only return the `reportId`
-     * const financialReportMediaWithReportIdOnly = await prisma.financialReportMedia.createManyAndReturn({
-     *   select: { reportId: true },
+     * // Create many FinancialReportPhaseMedias and only return the `phaseId`
+     * const financialReportPhaseMediaWithPhaseIdOnly = await prisma.financialReportPhaseMedia.createManyAndReturn({
+     *   select: { phaseId: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -17710,28 +18968,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends FinancialReportMediaCreateManyAndReturnArgs>(args?: SelectSubset<T, FinancialReportMediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends FinancialReportPhaseMediaCreateManyAndReturnArgs>(args?: SelectSubset<T, FinancialReportPhaseMediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a FinancialReportMedia.
-     * @param {FinancialReportMediaDeleteArgs} args - Arguments to delete one FinancialReportMedia.
+     * Delete a FinancialReportPhaseMedia.
+     * @param {FinancialReportPhaseMediaDeleteArgs} args - Arguments to delete one FinancialReportPhaseMedia.
      * @example
-     * // Delete one FinancialReportMedia
-     * const FinancialReportMedia = await prisma.financialReportMedia.delete({
+     * // Delete one FinancialReportPhaseMedia
+     * const FinancialReportPhaseMedia = await prisma.financialReportPhaseMedia.delete({
      *   where: {
-     *     // ... filter to delete one FinancialReportMedia
+     *     // ... filter to delete one FinancialReportPhaseMedia
      *   }
      * })
      * 
      */
-    delete<T extends FinancialReportMediaDeleteArgs>(args: SelectSubset<T, FinancialReportMediaDeleteArgs<ExtArgs>>): Prisma__FinancialReportMediaClient<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends FinancialReportPhaseMediaDeleteArgs>(args: SelectSubset<T, FinancialReportPhaseMediaDeleteArgs<ExtArgs>>): Prisma__FinancialReportPhaseMediaClient<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one FinancialReportMedia.
-     * @param {FinancialReportMediaUpdateArgs} args - Arguments to update one FinancialReportMedia.
+     * Update one FinancialReportPhaseMedia.
+     * @param {FinancialReportPhaseMediaUpdateArgs} args - Arguments to update one FinancialReportPhaseMedia.
      * @example
-     * // Update one FinancialReportMedia
-     * const financialReportMedia = await prisma.financialReportMedia.update({
+     * // Update one FinancialReportPhaseMedia
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -17741,30 +18999,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends FinancialReportMediaUpdateArgs>(args: SelectSubset<T, FinancialReportMediaUpdateArgs<ExtArgs>>): Prisma__FinancialReportMediaClient<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends FinancialReportPhaseMediaUpdateArgs>(args: SelectSubset<T, FinancialReportPhaseMediaUpdateArgs<ExtArgs>>): Prisma__FinancialReportPhaseMediaClient<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more FinancialReportMedias.
-     * @param {FinancialReportMediaDeleteManyArgs} args - Arguments to filter FinancialReportMedias to delete.
+     * Delete zero or more FinancialReportPhaseMedias.
+     * @param {FinancialReportPhaseMediaDeleteManyArgs} args - Arguments to filter FinancialReportPhaseMedias to delete.
      * @example
-     * // Delete a few FinancialReportMedias
-     * const { count } = await prisma.financialReportMedia.deleteMany({
+     * // Delete a few FinancialReportPhaseMedias
+     * const { count } = await prisma.financialReportPhaseMedia.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends FinancialReportMediaDeleteManyArgs>(args?: SelectSubset<T, FinancialReportMediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends FinancialReportPhaseMediaDeleteManyArgs>(args?: SelectSubset<T, FinancialReportPhaseMediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more FinancialReportMedias.
+     * Update zero or more FinancialReportPhaseMedias.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FinancialReportMediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {FinancialReportPhaseMediaUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many FinancialReportMedias
-     * const financialReportMedia = await prisma.financialReportMedia.updateMany({
+     * // Update many FinancialReportPhaseMedias
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -17774,14 +19032,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends FinancialReportMediaUpdateManyArgs>(args: SelectSubset<T, FinancialReportMediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends FinancialReportPhaseMediaUpdateManyArgs>(args: SelectSubset<T, FinancialReportPhaseMediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more FinancialReportMedias and returns the data updated in the database.
-     * @param {FinancialReportMediaUpdateManyAndReturnArgs} args - Arguments to update many FinancialReportMedias.
+     * Update zero or more FinancialReportPhaseMedias and returns the data updated in the database.
+     * @param {FinancialReportPhaseMediaUpdateManyAndReturnArgs} args - Arguments to update many FinancialReportPhaseMedias.
      * @example
-     * // Update many FinancialReportMedias
-     * const financialReportMedia = await prisma.financialReportMedia.updateManyAndReturn({
+     * // Update many FinancialReportPhaseMedias
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -17790,9 +19048,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more FinancialReportMedias and only return the `reportId`
-     * const financialReportMediaWithReportIdOnly = await prisma.financialReportMedia.updateManyAndReturn({
-     *   select: { reportId: true },
+     * // Update zero or more FinancialReportPhaseMedias and only return the `phaseId`
+     * const financialReportPhaseMediaWithPhaseIdOnly = await prisma.financialReportPhaseMedia.updateManyAndReturn({
+     *   select: { phaseId: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -17804,56 +19062,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends FinancialReportMediaUpdateManyAndReturnArgs>(args: SelectSubset<T, FinancialReportMediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends FinancialReportPhaseMediaUpdateManyAndReturnArgs>(args: SelectSubset<T, FinancialReportPhaseMediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one FinancialReportMedia.
-     * @param {FinancialReportMediaUpsertArgs} args - Arguments to update or create a FinancialReportMedia.
+     * Create or update one FinancialReportPhaseMedia.
+     * @param {FinancialReportPhaseMediaUpsertArgs} args - Arguments to update or create a FinancialReportPhaseMedia.
      * @example
-     * // Update or create a FinancialReportMedia
-     * const financialReportMedia = await prisma.financialReportMedia.upsert({
+     * // Update or create a FinancialReportPhaseMedia
+     * const financialReportPhaseMedia = await prisma.financialReportPhaseMedia.upsert({
      *   create: {
-     *     // ... data to create a FinancialReportMedia
+     *     // ... data to create a FinancialReportPhaseMedia
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the FinancialReportMedia we want to update
+     *     // ... the filter for the FinancialReportPhaseMedia we want to update
      *   }
      * })
      */
-    upsert<T extends FinancialReportMediaUpsertArgs>(args: SelectSubset<T, FinancialReportMediaUpsertArgs<ExtArgs>>): Prisma__FinancialReportMediaClient<$Result.GetResult<Prisma.$FinancialReportMediaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends FinancialReportPhaseMediaUpsertArgs>(args: SelectSubset<T, FinancialReportPhaseMediaUpsertArgs<ExtArgs>>): Prisma__FinancialReportPhaseMediaClient<$Result.GetResult<Prisma.$FinancialReportPhaseMediaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of FinancialReportMedias.
+     * Count the number of FinancialReportPhaseMedias.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FinancialReportMediaCountArgs} args - Arguments to filter FinancialReportMedias to count.
+     * @param {FinancialReportPhaseMediaCountArgs} args - Arguments to filter FinancialReportPhaseMedias to count.
      * @example
-     * // Count the number of FinancialReportMedias
-     * const count = await prisma.financialReportMedia.count({
+     * // Count the number of FinancialReportPhaseMedias
+     * const count = await prisma.financialReportPhaseMedia.count({
      *   where: {
-     *     // ... the filter for the FinancialReportMedias we want to count
+     *     // ... the filter for the FinancialReportPhaseMedias we want to count
      *   }
      * })
     **/
-    count<T extends FinancialReportMediaCountArgs>(
-      args?: Subset<T, FinancialReportMediaCountArgs>,
+    count<T extends FinancialReportPhaseMediaCountArgs>(
+      args?: Subset<T, FinancialReportPhaseMediaCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], FinancialReportMediaCountAggregateOutputType>
+          : GetScalarType<T['select'], FinancialReportPhaseMediaCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a FinancialReportMedia.
+     * Allows you to perform aggregations operations on a FinancialReportPhaseMedia.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FinancialReportMediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {FinancialReportPhaseMediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -17873,13 +19131,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends FinancialReportMediaAggregateArgs>(args: Subset<T, FinancialReportMediaAggregateArgs>): Prisma.PrismaPromise<GetFinancialReportMediaAggregateType<T>>
+    aggregate<T extends FinancialReportPhaseMediaAggregateArgs>(args: Subset<T, FinancialReportPhaseMediaAggregateArgs>): Prisma.PrismaPromise<GetFinancialReportPhaseMediaAggregateType<T>>
 
     /**
-     * Group by FinancialReportMedia.
+     * Group by FinancialReportPhaseMedia.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {FinancialReportMediaGroupByArgs} args - Group by arguments.
+     * @param {FinancialReportPhaseMediaGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -17894,14 +19152,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends FinancialReportMediaGroupByArgs,
+      T extends FinancialReportPhaseMediaGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: FinancialReportMediaGroupByArgs['orderBy'] }
-        : { orderBy?: FinancialReportMediaGroupByArgs['orderBy'] },
+        ? { orderBy: FinancialReportPhaseMediaGroupByArgs['orderBy'] }
+        : { orderBy?: FinancialReportPhaseMediaGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -17950,22 +19208,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, FinancialReportMediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFinancialReportMediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, FinancialReportPhaseMediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFinancialReportPhaseMediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the FinancialReportMedia model
+   * Fields of the FinancialReportPhaseMedia model
    */
-  readonly fields: FinancialReportMediaFieldRefs;
+  readonly fields: FinancialReportPhaseMediaFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for FinancialReportMedia.
+   * The delegate class that acts as a "Promise-like" for FinancialReportPhaseMedia.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__FinancialReportMediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__FinancialReportPhaseMediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    report<T extends FinancialReportDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FinancialReportDefaultArgs<ExtArgs>>): Prisma__FinancialReportClient<$Result.GetResult<Prisma.$FinancialReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    phase<T extends FinancialReportPhaseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FinancialReportPhaseDefaultArgs<ExtArgs>>): Prisma__FinancialReportPhaseClient<$Result.GetResult<Prisma.$FinancialReportPhasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     media<T extends MediaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MediaDefaultArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -17993,422 +19251,422 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the FinancialReportMedia model
+   * Fields of the FinancialReportPhaseMedia model
    */
-  interface FinancialReportMediaFieldRefs {
-    readonly reportId: FieldRef<"FinancialReportMedia", 'String'>
-    readonly mediaId: FieldRef<"FinancialReportMedia", 'String'>
+  interface FinancialReportPhaseMediaFieldRefs {
+    readonly phaseId: FieldRef<"FinancialReportPhaseMedia", 'String'>
+    readonly mediaId: FieldRef<"FinancialReportPhaseMedia", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * FinancialReportMedia findUnique
+   * FinancialReportPhaseMedia findUnique
    */
-  export type FinancialReportMediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * Filter, which FinancialReportMedia to fetch.
+     * Filter, which FinancialReportPhaseMedia to fetch.
      */
-    where: FinancialReportMediaWhereUniqueInput
+    where: FinancialReportPhaseMediaWhereUniqueInput
   }
 
   /**
-   * FinancialReportMedia findUniqueOrThrow
+   * FinancialReportPhaseMedia findUniqueOrThrow
    */
-  export type FinancialReportMediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * Filter, which FinancialReportMedia to fetch.
+     * Filter, which FinancialReportPhaseMedia to fetch.
      */
-    where: FinancialReportMediaWhereUniqueInput
+    where: FinancialReportPhaseMediaWhereUniqueInput
   }
 
   /**
-   * FinancialReportMedia findFirst
+   * FinancialReportPhaseMedia findFirst
    */
-  export type FinancialReportMediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * Filter, which FinancialReportMedia to fetch.
+     * Filter, which FinancialReportPhaseMedia to fetch.
      */
-    where?: FinancialReportMediaWhereInput
+    where?: FinancialReportPhaseMediaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of FinancialReportMedias to fetch.
+     * Determine the order of FinancialReportPhaseMedias to fetch.
      */
-    orderBy?: FinancialReportMediaOrderByWithRelationInput | FinancialReportMediaOrderByWithRelationInput[]
+    orderBy?: FinancialReportPhaseMediaOrderByWithRelationInput | FinancialReportPhaseMediaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for FinancialReportMedias.
+     * Sets the position for searching for FinancialReportPhaseMedias.
      */
-    cursor?: FinancialReportMediaWhereUniqueInput
+    cursor?: FinancialReportPhaseMediaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` FinancialReportMedias from the position of the cursor.
+     * Take `±n` FinancialReportPhaseMedias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` FinancialReportMedias.
+     * Skip the first `n` FinancialReportPhaseMedias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of FinancialReportMedias.
+     * Filter by unique combinations of FinancialReportPhaseMedias.
      */
-    distinct?: FinancialReportMediaScalarFieldEnum | FinancialReportMediaScalarFieldEnum[]
+    distinct?: FinancialReportPhaseMediaScalarFieldEnum | FinancialReportPhaseMediaScalarFieldEnum[]
   }
 
   /**
-   * FinancialReportMedia findFirstOrThrow
+   * FinancialReportPhaseMedia findFirstOrThrow
    */
-  export type FinancialReportMediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * Filter, which FinancialReportMedia to fetch.
+     * Filter, which FinancialReportPhaseMedia to fetch.
      */
-    where?: FinancialReportMediaWhereInput
+    where?: FinancialReportPhaseMediaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of FinancialReportMedias to fetch.
+     * Determine the order of FinancialReportPhaseMedias to fetch.
      */
-    orderBy?: FinancialReportMediaOrderByWithRelationInput | FinancialReportMediaOrderByWithRelationInput[]
+    orderBy?: FinancialReportPhaseMediaOrderByWithRelationInput | FinancialReportPhaseMediaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for FinancialReportMedias.
+     * Sets the position for searching for FinancialReportPhaseMedias.
      */
-    cursor?: FinancialReportMediaWhereUniqueInput
+    cursor?: FinancialReportPhaseMediaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` FinancialReportMedias from the position of the cursor.
+     * Take `±n` FinancialReportPhaseMedias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` FinancialReportMedias.
+     * Skip the first `n` FinancialReportPhaseMedias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of FinancialReportMedias.
+     * Filter by unique combinations of FinancialReportPhaseMedias.
      */
-    distinct?: FinancialReportMediaScalarFieldEnum | FinancialReportMediaScalarFieldEnum[]
+    distinct?: FinancialReportPhaseMediaScalarFieldEnum | FinancialReportPhaseMediaScalarFieldEnum[]
   }
 
   /**
-   * FinancialReportMedia findMany
+   * FinancialReportPhaseMedia findMany
    */
-  export type FinancialReportMediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * Filter, which FinancialReportMedias to fetch.
+     * Filter, which FinancialReportPhaseMedias to fetch.
      */
-    where?: FinancialReportMediaWhereInput
+    where?: FinancialReportPhaseMediaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of FinancialReportMedias to fetch.
+     * Determine the order of FinancialReportPhaseMedias to fetch.
      */
-    orderBy?: FinancialReportMediaOrderByWithRelationInput | FinancialReportMediaOrderByWithRelationInput[]
+    orderBy?: FinancialReportPhaseMediaOrderByWithRelationInput | FinancialReportPhaseMediaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing FinancialReportMedias.
+     * Sets the position for listing FinancialReportPhaseMedias.
      */
-    cursor?: FinancialReportMediaWhereUniqueInput
+    cursor?: FinancialReportPhaseMediaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` FinancialReportMedias from the position of the cursor.
+     * Take `±n` FinancialReportPhaseMedias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` FinancialReportMedias.
+     * Skip the first `n` FinancialReportPhaseMedias.
      */
     skip?: number
-    distinct?: FinancialReportMediaScalarFieldEnum | FinancialReportMediaScalarFieldEnum[]
+    distinct?: FinancialReportPhaseMediaScalarFieldEnum | FinancialReportPhaseMediaScalarFieldEnum[]
   }
 
   /**
-   * FinancialReportMedia create
+   * FinancialReportPhaseMedia create
    */
-  export type FinancialReportMediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * The data needed to create a FinancialReportMedia.
+     * The data needed to create a FinancialReportPhaseMedia.
      */
-    data: XOR<FinancialReportMediaCreateInput, FinancialReportMediaUncheckedCreateInput>
+    data: XOR<FinancialReportPhaseMediaCreateInput, FinancialReportPhaseMediaUncheckedCreateInput>
   }
 
   /**
-   * FinancialReportMedia createMany
+   * FinancialReportPhaseMedia createMany
    */
-  export type FinancialReportMediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many FinancialReportMedias.
+     * The data used to create many FinancialReportPhaseMedias.
      */
-    data: FinancialReportMediaCreateManyInput | FinancialReportMediaCreateManyInput[]
+    data: FinancialReportPhaseMediaCreateManyInput | FinancialReportPhaseMediaCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * FinancialReportMedia createManyAndReturn
+   * FinancialReportPhaseMedia createManyAndReturn
    */
-  export type FinancialReportMediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelectCreateManyAndReturn<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
-     * The data used to create many FinancialReportMedias.
+     * The data used to create many FinancialReportPhaseMedias.
      */
-    data: FinancialReportMediaCreateManyInput | FinancialReportMediaCreateManyInput[]
+    data: FinancialReportPhaseMediaCreateManyInput | FinancialReportPhaseMediaCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: FinancialReportPhaseMediaIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * FinancialReportMedia update
+   * FinancialReportPhaseMedia update
    */
-  export type FinancialReportMediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * The data needed to update a FinancialReportMedia.
+     * The data needed to update a FinancialReportPhaseMedia.
      */
-    data: XOR<FinancialReportMediaUpdateInput, FinancialReportMediaUncheckedUpdateInput>
+    data: XOR<FinancialReportPhaseMediaUpdateInput, FinancialReportPhaseMediaUncheckedUpdateInput>
     /**
-     * Choose, which FinancialReportMedia to update.
+     * Choose, which FinancialReportPhaseMedia to update.
      */
-    where: FinancialReportMediaWhereUniqueInput
+    where: FinancialReportPhaseMediaWhereUniqueInput
   }
 
   /**
-   * FinancialReportMedia updateMany
+   * FinancialReportPhaseMedia updateMany
    */
-  export type FinancialReportMediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update FinancialReportMedias.
+     * The data used to update FinancialReportPhaseMedias.
      */
-    data: XOR<FinancialReportMediaUpdateManyMutationInput, FinancialReportMediaUncheckedUpdateManyInput>
+    data: XOR<FinancialReportPhaseMediaUpdateManyMutationInput, FinancialReportPhaseMediaUncheckedUpdateManyInput>
     /**
-     * Filter which FinancialReportMedias to update
+     * Filter which FinancialReportPhaseMedias to update
      */
-    where?: FinancialReportMediaWhereInput
+    where?: FinancialReportPhaseMediaWhereInput
     /**
-     * Limit how many FinancialReportMedias to update.
+     * Limit how many FinancialReportPhaseMedias to update.
      */
     limit?: number
   }
 
   /**
-   * FinancialReportMedia updateManyAndReturn
+   * FinancialReportPhaseMedia updateManyAndReturn
    */
-  export type FinancialReportMediaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
-     * The data used to update FinancialReportMedias.
+     * The data used to update FinancialReportPhaseMedias.
      */
-    data: XOR<FinancialReportMediaUpdateManyMutationInput, FinancialReportMediaUncheckedUpdateManyInput>
+    data: XOR<FinancialReportPhaseMediaUpdateManyMutationInput, FinancialReportPhaseMediaUncheckedUpdateManyInput>
     /**
-     * Filter which FinancialReportMedias to update
+     * Filter which FinancialReportPhaseMedias to update
      */
-    where?: FinancialReportMediaWhereInput
+    where?: FinancialReportPhaseMediaWhereInput
     /**
-     * Limit how many FinancialReportMedias to update.
+     * Limit how many FinancialReportPhaseMedias to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: FinancialReportPhaseMediaIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * FinancialReportMedia upsert
+   * FinancialReportPhaseMedia upsert
    */
-  export type FinancialReportMediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * The filter to search for the FinancialReportMedia to update in case it exists.
+     * The filter to search for the FinancialReportPhaseMedia to update in case it exists.
      */
-    where: FinancialReportMediaWhereUniqueInput
+    where: FinancialReportPhaseMediaWhereUniqueInput
     /**
-     * In case the FinancialReportMedia found by the `where` argument doesn't exist, create a new FinancialReportMedia with this data.
+     * In case the FinancialReportPhaseMedia found by the `where` argument doesn't exist, create a new FinancialReportPhaseMedia with this data.
      */
-    create: XOR<FinancialReportMediaCreateInput, FinancialReportMediaUncheckedCreateInput>
+    create: XOR<FinancialReportPhaseMediaCreateInput, FinancialReportPhaseMediaUncheckedCreateInput>
     /**
-     * In case the FinancialReportMedia was found with the provided `where` argument, update it with this data.
+     * In case the FinancialReportPhaseMedia was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<FinancialReportMediaUpdateInput, FinancialReportMediaUncheckedUpdateInput>
+    update: XOR<FinancialReportPhaseMediaUpdateInput, FinancialReportPhaseMediaUncheckedUpdateInput>
   }
 
   /**
-   * FinancialReportMedia delete
+   * FinancialReportPhaseMedia delete
    */
-  export type FinancialReportMediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
     /**
-     * Filter which FinancialReportMedia to delete.
+     * Filter which FinancialReportPhaseMedia to delete.
      */
-    where: FinancialReportMediaWhereUniqueInput
+    where: FinancialReportPhaseMediaWhereUniqueInput
   }
 
   /**
-   * FinancialReportMedia deleteMany
+   * FinancialReportPhaseMedia deleteMany
    */
-  export type FinancialReportMediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which FinancialReportMedias to delete
+     * Filter which FinancialReportPhaseMedias to delete
      */
-    where?: FinancialReportMediaWhereInput
+    where?: FinancialReportPhaseMediaWhereInput
     /**
-     * Limit how many FinancialReportMedias to delete.
+     * Limit how many FinancialReportPhaseMedias to delete.
      */
     limit?: number
   }
 
   /**
-   * FinancialReportMedia without action
+   * FinancialReportPhaseMedia without action
    */
-  export type FinancialReportMediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type FinancialReportPhaseMediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the FinancialReportMedia
+     * Select specific fields to fetch from the FinancialReportPhaseMedia
      */
-    select?: FinancialReportMediaSelect<ExtArgs> | null
+    select?: FinancialReportPhaseMediaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the FinancialReportMedia
+     * Omit specific fields from the FinancialReportPhaseMedia
      */
-    omit?: FinancialReportMediaOmit<ExtArgs> | null
+    omit?: FinancialReportPhaseMediaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: FinancialReportMediaInclude<ExtArgs> | null
+    include?: FinancialReportPhaseMediaInclude<ExtArgs> | null
   }
 
 
@@ -20568,10 +21826,8 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
+    status: 'status',
     progressPercentage: 'progressPercentage',
-    totalCost: 'totalCost',
-    amountRaised: 'amountRaised',
-    amountRemaining: 'amountRemaining',
     published: 'published',
     publishedAt: 'publishedAt',
     createdById: 'createdById',
@@ -20580,6 +21836,20 @@ export namespace Prisma {
   };
 
   export type FinancialReportScalarFieldEnum = (typeof FinancialReportScalarFieldEnum)[keyof typeof FinancialReportScalarFieldEnum]
+
+
+  export const FinancialReportPhaseScalarFieldEnum: {
+    id: 'id',
+    reportId: 'reportId',
+    title: 'title',
+    phaseOrder: 'phaseOrder',
+    doneDetails: 'doneDetails',
+    nextDetails: 'nextDetails',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type FinancialReportPhaseScalarFieldEnum = (typeof FinancialReportPhaseScalarFieldEnum)[keyof typeof FinancialReportPhaseScalarFieldEnum]
 
 
   export const HomilyScalarFieldEnum: {
@@ -20656,12 +21926,12 @@ export namespace Prisma {
   export type MinistryMediaScalarFieldEnum = (typeof MinistryMediaScalarFieldEnum)[keyof typeof MinistryMediaScalarFieldEnum]
 
 
-  export const FinancialReportMediaScalarFieldEnum: {
-    reportId: 'reportId',
+  export const FinancialReportPhaseMediaScalarFieldEnum: {
+    phaseId: 'phaseId',
     mediaId: 'mediaId'
   };
 
-  export type FinancialReportMediaScalarFieldEnum = (typeof FinancialReportMediaScalarFieldEnum)[keyof typeof FinancialReportMediaScalarFieldEnum]
+  export type FinancialReportPhaseMediaScalarFieldEnum = (typeof FinancialReportPhaseMediaScalarFieldEnum)[keyof typeof FinancialReportPhaseMediaScalarFieldEnum]
 
 
   export const HomilyMediaScalarFieldEnum: {
@@ -20800,6 +22070,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FinancialReportStatus'
+   */
+  export type EnumFinancialReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinancialReportStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'FinancialReportStatus[]'
+   */
+  export type ListEnumFinancialReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FinancialReportStatus[]'>
     
 
 
@@ -21308,34 +22592,30 @@ export namespace Prisma {
     id?: StringFilter<"FinancialReport"> | string
     title?: StringFilter<"FinancialReport"> | string
     description?: StringFilter<"FinancialReport"> | string
+    status?: EnumFinancialReportStatusFilter<"FinancialReport"> | $Enums.FinancialReportStatus
     progressPercentage?: IntFilter<"FinancialReport"> | number
-    totalCost?: FloatFilter<"FinancialReport"> | number
-    amountRaised?: FloatFilter<"FinancialReport"> | number
-    amountRemaining?: FloatFilter<"FinancialReport"> | number
     published?: BoolFilter<"FinancialReport"> | boolean
     publishedAt?: DateTimeNullableFilter<"FinancialReport"> | Date | string | null
     createdById?: StringFilter<"FinancialReport"> | string
     createdAt?: DateTimeFilter<"FinancialReport"> | Date | string
     updatedAt?: DateTimeFilter<"FinancialReport"> | Date | string
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
-    media?: FinancialReportMediaListRelationFilter
+    phases?: FinancialReportPhaseListRelationFilter
   }
 
   export type FinancialReportOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    status?: SortOrder
     progressPercentage?: SortOrder
-    totalCost?: SortOrder
-    amountRaised?: SortOrder
-    amountRemaining?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
     createdById?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     createdBy?: UserOrderByWithRelationInput
-    media?: FinancialReportMediaOrderByRelationAggregateInput
+    phases?: FinancialReportPhaseOrderByRelationAggregateInput
   }
 
   export type FinancialReportWhereUniqueInput = Prisma.AtLeast<{
@@ -21345,27 +22625,23 @@ export namespace Prisma {
     NOT?: FinancialReportWhereInput | FinancialReportWhereInput[]
     title?: StringFilter<"FinancialReport"> | string
     description?: StringFilter<"FinancialReport"> | string
+    status?: EnumFinancialReportStatusFilter<"FinancialReport"> | $Enums.FinancialReportStatus
     progressPercentage?: IntFilter<"FinancialReport"> | number
-    totalCost?: FloatFilter<"FinancialReport"> | number
-    amountRaised?: FloatFilter<"FinancialReport"> | number
-    amountRemaining?: FloatFilter<"FinancialReport"> | number
     published?: BoolFilter<"FinancialReport"> | boolean
     publishedAt?: DateTimeNullableFilter<"FinancialReport"> | Date | string | null
     createdById?: StringFilter<"FinancialReport"> | string
     createdAt?: DateTimeFilter<"FinancialReport"> | Date | string
     updatedAt?: DateTimeFilter<"FinancialReport"> | Date | string
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
-    media?: FinancialReportMediaListRelationFilter
+    phases?: FinancialReportPhaseListRelationFilter
   }, "id">
 
   export type FinancialReportOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    status?: SortOrder
     progressPercentage?: SortOrder
-    totalCost?: SortOrder
-    amountRaised?: SortOrder
-    amountRemaining?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrderInput | SortOrder
     createdById?: SortOrder
@@ -21385,15 +22661,89 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"FinancialReport"> | string
     title?: StringWithAggregatesFilter<"FinancialReport"> | string
     description?: StringWithAggregatesFilter<"FinancialReport"> | string
+    status?: EnumFinancialReportStatusWithAggregatesFilter<"FinancialReport"> | $Enums.FinancialReportStatus
     progressPercentage?: IntWithAggregatesFilter<"FinancialReport"> | number
-    totalCost?: FloatWithAggregatesFilter<"FinancialReport"> | number
-    amountRaised?: FloatWithAggregatesFilter<"FinancialReport"> | number
-    amountRemaining?: FloatWithAggregatesFilter<"FinancialReport"> | number
     published?: BoolWithAggregatesFilter<"FinancialReport"> | boolean
     publishedAt?: DateTimeNullableWithAggregatesFilter<"FinancialReport"> | Date | string | null
     createdById?: StringWithAggregatesFilter<"FinancialReport"> | string
     createdAt?: DateTimeWithAggregatesFilter<"FinancialReport"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"FinancialReport"> | Date | string
+  }
+
+  export type FinancialReportPhaseWhereInput = {
+    AND?: FinancialReportPhaseWhereInput | FinancialReportPhaseWhereInput[]
+    OR?: FinancialReportPhaseWhereInput[]
+    NOT?: FinancialReportPhaseWhereInput | FinancialReportPhaseWhereInput[]
+    id?: StringFilter<"FinancialReportPhase"> | string
+    reportId?: StringFilter<"FinancialReportPhase"> | string
+    title?: StringFilter<"FinancialReportPhase"> | string
+    phaseOrder?: IntFilter<"FinancialReportPhase"> | number
+    doneDetails?: StringNullableFilter<"FinancialReportPhase"> | string | null
+    nextDetails?: StringNullableFilter<"FinancialReportPhase"> | string | null
+    createdAt?: DateTimeFilter<"FinancialReportPhase"> | Date | string
+    updatedAt?: DateTimeFilter<"FinancialReportPhase"> | Date | string
+    report?: XOR<FinancialReportScalarRelationFilter, FinancialReportWhereInput>
+    media?: FinancialReportPhaseMediaListRelationFilter
+  }
+
+  export type FinancialReportPhaseOrderByWithRelationInput = {
+    id?: SortOrder
+    reportId?: SortOrder
+    title?: SortOrder
+    phaseOrder?: SortOrder
+    doneDetails?: SortOrderInput | SortOrder
+    nextDetails?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    report?: FinancialReportOrderByWithRelationInput
+    media?: FinancialReportPhaseMediaOrderByRelationAggregateInput
+  }
+
+  export type FinancialReportPhaseWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    reportId_phaseOrder?: FinancialReportPhaseReportIdPhaseOrderCompoundUniqueInput
+    AND?: FinancialReportPhaseWhereInput | FinancialReportPhaseWhereInput[]
+    OR?: FinancialReportPhaseWhereInput[]
+    NOT?: FinancialReportPhaseWhereInput | FinancialReportPhaseWhereInput[]
+    reportId?: StringFilter<"FinancialReportPhase"> | string
+    title?: StringFilter<"FinancialReportPhase"> | string
+    phaseOrder?: IntFilter<"FinancialReportPhase"> | number
+    doneDetails?: StringNullableFilter<"FinancialReportPhase"> | string | null
+    nextDetails?: StringNullableFilter<"FinancialReportPhase"> | string | null
+    createdAt?: DateTimeFilter<"FinancialReportPhase"> | Date | string
+    updatedAt?: DateTimeFilter<"FinancialReportPhase"> | Date | string
+    report?: XOR<FinancialReportScalarRelationFilter, FinancialReportWhereInput>
+    media?: FinancialReportPhaseMediaListRelationFilter
+  }, "id" | "reportId_phaseOrder">
+
+  export type FinancialReportPhaseOrderByWithAggregationInput = {
+    id?: SortOrder
+    reportId?: SortOrder
+    title?: SortOrder
+    phaseOrder?: SortOrder
+    doneDetails?: SortOrderInput | SortOrder
+    nextDetails?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: FinancialReportPhaseCountOrderByAggregateInput
+    _avg?: FinancialReportPhaseAvgOrderByAggregateInput
+    _max?: FinancialReportPhaseMaxOrderByAggregateInput
+    _min?: FinancialReportPhaseMinOrderByAggregateInput
+    _sum?: FinancialReportPhaseSumOrderByAggregateInput
+  }
+
+  export type FinancialReportPhaseScalarWhereWithAggregatesInput = {
+    AND?: FinancialReportPhaseScalarWhereWithAggregatesInput | FinancialReportPhaseScalarWhereWithAggregatesInput[]
+    OR?: FinancialReportPhaseScalarWhereWithAggregatesInput[]
+    NOT?: FinancialReportPhaseScalarWhereWithAggregatesInput | FinancialReportPhaseScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FinancialReportPhase"> | string
+    reportId?: StringWithAggregatesFilter<"FinancialReportPhase"> | string
+    title?: StringWithAggregatesFilter<"FinancialReportPhase"> | string
+    phaseOrder?: IntWithAggregatesFilter<"FinancialReportPhase"> | number
+    doneDetails?: StringNullableWithAggregatesFilter<"FinancialReportPhase"> | string | null
+    nextDetails?: StringNullableWithAggregatesFilter<"FinancialReportPhase"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"FinancialReportPhase"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"FinancialReportPhase"> | Date | string
   }
 
   export type HomilyWhereInput = {
@@ -21644,7 +22994,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Media"> | Date | string
     news?: NewsMediaListRelationFilter
     ministries?: MinistryMediaListRelationFilter
-    financialReports?: FinancialReportMediaListRelationFilter
+    financialReportPhases?: FinancialReportPhaseMediaListRelationFilter
     homilies?: HomilyMediaListRelationFilter
     crunchMedias?: CrunchMediaListRelationFilter
     appointments?: AppointmentDocumentListRelationFilter
@@ -21659,7 +23009,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     news?: NewsMediaOrderByRelationAggregateInput
     ministries?: MinistryMediaOrderByRelationAggregateInput
-    financialReports?: FinancialReportMediaOrderByRelationAggregateInput
+    financialReportPhases?: FinancialReportPhaseMediaOrderByRelationAggregateInput
     homilies?: HomilyMediaOrderByRelationAggregateInput
     crunchMedias?: CrunchMediaOrderByRelationAggregateInput
     appointments?: AppointmentDocumentOrderByRelationAggregateInput
@@ -21677,7 +23027,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Media"> | Date | string
     news?: NewsMediaListRelationFilter
     ministries?: MinistryMediaListRelationFilter
-    financialReports?: FinancialReportMediaListRelationFilter
+    financialReportPhases?: FinancialReportPhaseMediaListRelationFilter
     homilies?: HomilyMediaListRelationFilter
     crunchMedias?: CrunchMediaListRelationFilter
     appointments?: AppointmentDocumentListRelationFilter
@@ -21797,48 +23147,48 @@ export namespace Prisma {
     mediaId?: StringWithAggregatesFilter<"MinistryMedia"> | string
   }
 
-  export type FinancialReportMediaWhereInput = {
-    AND?: FinancialReportMediaWhereInput | FinancialReportMediaWhereInput[]
-    OR?: FinancialReportMediaWhereInput[]
-    NOT?: FinancialReportMediaWhereInput | FinancialReportMediaWhereInput[]
-    reportId?: StringFilter<"FinancialReportMedia"> | string
-    mediaId?: StringFilter<"FinancialReportMedia"> | string
-    report?: XOR<FinancialReportScalarRelationFilter, FinancialReportWhereInput>
+  export type FinancialReportPhaseMediaWhereInput = {
+    AND?: FinancialReportPhaseMediaWhereInput | FinancialReportPhaseMediaWhereInput[]
+    OR?: FinancialReportPhaseMediaWhereInput[]
+    NOT?: FinancialReportPhaseMediaWhereInput | FinancialReportPhaseMediaWhereInput[]
+    phaseId?: StringFilter<"FinancialReportPhaseMedia"> | string
+    mediaId?: StringFilter<"FinancialReportPhaseMedia"> | string
+    phase?: XOR<FinancialReportPhaseScalarRelationFilter, FinancialReportPhaseWhereInput>
     media?: XOR<MediaScalarRelationFilter, MediaWhereInput>
   }
 
-  export type FinancialReportMediaOrderByWithRelationInput = {
-    reportId?: SortOrder
+  export type FinancialReportPhaseMediaOrderByWithRelationInput = {
+    phaseId?: SortOrder
     mediaId?: SortOrder
-    report?: FinancialReportOrderByWithRelationInput
+    phase?: FinancialReportPhaseOrderByWithRelationInput
     media?: MediaOrderByWithRelationInput
   }
 
-  export type FinancialReportMediaWhereUniqueInput = Prisma.AtLeast<{
-    reportId_mediaId?: FinancialReportMediaReportIdMediaIdCompoundUniqueInput
-    AND?: FinancialReportMediaWhereInput | FinancialReportMediaWhereInput[]
-    OR?: FinancialReportMediaWhereInput[]
-    NOT?: FinancialReportMediaWhereInput | FinancialReportMediaWhereInput[]
-    reportId?: StringFilter<"FinancialReportMedia"> | string
-    mediaId?: StringFilter<"FinancialReportMedia"> | string
-    report?: XOR<FinancialReportScalarRelationFilter, FinancialReportWhereInput>
+  export type FinancialReportPhaseMediaWhereUniqueInput = Prisma.AtLeast<{
+    phaseId_mediaId?: FinancialReportPhaseMediaPhaseIdMediaIdCompoundUniqueInput
+    AND?: FinancialReportPhaseMediaWhereInput | FinancialReportPhaseMediaWhereInput[]
+    OR?: FinancialReportPhaseMediaWhereInput[]
+    NOT?: FinancialReportPhaseMediaWhereInput | FinancialReportPhaseMediaWhereInput[]
+    phaseId?: StringFilter<"FinancialReportPhaseMedia"> | string
+    mediaId?: StringFilter<"FinancialReportPhaseMedia"> | string
+    phase?: XOR<FinancialReportPhaseScalarRelationFilter, FinancialReportPhaseWhereInput>
     media?: XOR<MediaScalarRelationFilter, MediaWhereInput>
-  }, "reportId_mediaId">
+  }, "phaseId_mediaId">
 
-  export type FinancialReportMediaOrderByWithAggregationInput = {
-    reportId?: SortOrder
+  export type FinancialReportPhaseMediaOrderByWithAggregationInput = {
+    phaseId?: SortOrder
     mediaId?: SortOrder
-    _count?: FinancialReportMediaCountOrderByAggregateInput
-    _max?: FinancialReportMediaMaxOrderByAggregateInput
-    _min?: FinancialReportMediaMinOrderByAggregateInput
+    _count?: FinancialReportPhaseMediaCountOrderByAggregateInput
+    _max?: FinancialReportPhaseMediaMaxOrderByAggregateInput
+    _min?: FinancialReportPhaseMediaMinOrderByAggregateInput
   }
 
-  export type FinancialReportMediaScalarWhereWithAggregatesInput = {
-    AND?: FinancialReportMediaScalarWhereWithAggregatesInput | FinancialReportMediaScalarWhereWithAggregatesInput[]
-    OR?: FinancialReportMediaScalarWhereWithAggregatesInput[]
-    NOT?: FinancialReportMediaScalarWhereWithAggregatesInput | FinancialReportMediaScalarWhereWithAggregatesInput[]
-    reportId?: StringWithAggregatesFilter<"FinancialReportMedia"> | string
-    mediaId?: StringWithAggregatesFilter<"FinancialReportMedia"> | string
+  export type FinancialReportPhaseMediaScalarWhereWithAggregatesInput = {
+    AND?: FinancialReportPhaseMediaScalarWhereWithAggregatesInput | FinancialReportPhaseMediaScalarWhereWithAggregatesInput[]
+    OR?: FinancialReportPhaseMediaScalarWhereWithAggregatesInput[]
+    NOT?: FinancialReportPhaseMediaScalarWhereWithAggregatesInput | FinancialReportPhaseMediaScalarWhereWithAggregatesInput[]
+    phaseId?: StringWithAggregatesFilter<"FinancialReportPhaseMedia"> | string
+    mediaId?: StringWithAggregatesFilter<"FinancialReportPhaseMedia"> | string
   }
 
   export type HomilyMediaWhereInput = {
@@ -22424,74 +23774,64 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
+    status?: $Enums.FinancialReportStatus
+    progressPercentage?: number
     published?: boolean
     publishedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     createdBy: UserCreateNestedOneWithoutFinancialReportsInput
-    media?: FinancialReportMediaCreateNestedManyWithoutReportInput
+    phases?: FinancialReportPhaseCreateNestedManyWithoutReportInput
   }
 
   export type FinancialReportUncheckedCreateInput = {
     id?: string
     title: string
     description: string
-    progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
+    status?: $Enums.FinancialReportStatus
+    progressPercentage?: number
     published?: boolean
     publishedAt?: Date | string | null
     createdById: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    media?: FinancialReportMediaUncheckedCreateNestedManyWithoutReportInput
+    phases?: FinancialReportPhaseUncheckedCreateNestedManyWithoutReportInput
   }
 
   export type FinancialReportUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
     progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     createdBy?: UserUpdateOneRequiredWithoutFinancialReportsNestedInput
-    media?: FinancialReportMediaUpdateManyWithoutReportNestedInput
+    phases?: FinancialReportPhaseUpdateManyWithoutReportNestedInput
   }
 
   export type FinancialReportUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
     progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdById?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    media?: FinancialReportMediaUncheckedUpdateManyWithoutReportNestedInput
+    phases?: FinancialReportPhaseUncheckedUpdateManyWithoutReportNestedInput
   }
 
   export type FinancialReportCreateManyInput = {
     id?: string
     title: string
     description: string
-    progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
+    status?: $Enums.FinancialReportStatus
+    progressPercentage?: number
     published?: boolean
     publishedAt?: Date | string | null
     createdById: string
@@ -22503,10 +23843,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
     progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22517,13 +23855,91 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
     progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialReportPhaseCreateInput = {
+    id?: string
+    title: string
+    phaseOrder: number
+    doneDetails?: string | null
+    nextDetails?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    report: FinancialReportCreateNestedOneWithoutPhasesInput
+    media?: FinancialReportPhaseMediaCreateNestedManyWithoutPhaseInput
+  }
+
+  export type FinancialReportPhaseUncheckedCreateInput = {
+    id?: string
+    reportId: string
+    title: string
+    phaseOrder: number
+    doneDetails?: string | null
+    nextDetails?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    media?: FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutPhaseInput
+  }
+
+  export type FinancialReportPhaseUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    report?: FinancialReportUpdateOneRequiredWithoutPhasesNestedInput
+    media?: FinancialReportPhaseMediaUpdateManyWithoutPhaseNestedInput
+  }
+
+  export type FinancialReportPhaseUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    media?: FinancialReportPhaseMediaUncheckedUpdateManyWithoutPhaseNestedInput
+  }
+
+  export type FinancialReportPhaseCreateManyInput = {
+    id?: string
+    reportId: string
+    title: string
+    phaseOrder: number
+    doneDetails?: string | null
+    nextDetails?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FinancialReportPhaseUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialReportPhaseUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reportId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -22801,7 +24217,7 @@ export namespace Prisma {
     createdAt?: Date | string
     news?: NewsMediaCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
@@ -22816,7 +24232,7 @@ export namespace Prisma {
     createdAt?: Date | string
     news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
@@ -22831,7 +24247,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
@@ -22846,7 +24262,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
@@ -22947,37 +24363,37 @@ export namespace Prisma {
     mediaId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type FinancialReportMediaCreateInput = {
-    report: FinancialReportCreateNestedOneWithoutMediaInput
-    media: MediaCreateNestedOneWithoutFinancialReportsInput
+  export type FinancialReportPhaseMediaCreateInput = {
+    phase: FinancialReportPhaseCreateNestedOneWithoutMediaInput
+    media: MediaCreateNestedOneWithoutFinancialReportPhasesInput
   }
 
-  export type FinancialReportMediaUncheckedCreateInput = {
-    reportId: string
+  export type FinancialReportPhaseMediaUncheckedCreateInput = {
+    phaseId: string
     mediaId: string
   }
 
-  export type FinancialReportMediaUpdateInput = {
-    report?: FinancialReportUpdateOneRequiredWithoutMediaNestedInput
-    media?: MediaUpdateOneRequiredWithoutFinancialReportsNestedInput
+  export type FinancialReportPhaseMediaUpdateInput = {
+    phase?: FinancialReportPhaseUpdateOneRequiredWithoutMediaNestedInput
+    media?: MediaUpdateOneRequiredWithoutFinancialReportPhasesNestedInput
   }
 
-  export type FinancialReportMediaUncheckedUpdateInput = {
-    reportId?: StringFieldUpdateOperationsInput | string
+  export type FinancialReportPhaseMediaUncheckedUpdateInput = {
+    phaseId?: StringFieldUpdateOperationsInput | string
     mediaId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type FinancialReportMediaCreateManyInput = {
-    reportId: string
+  export type FinancialReportPhaseMediaCreateManyInput = {
+    phaseId: string
     mediaId: string
   }
 
-  export type FinancialReportMediaUpdateManyMutationInput = {
+  export type FinancialReportPhaseMediaUpdateManyMutationInput = {
 
   }
 
-  export type FinancialReportMediaUncheckedUpdateManyInput = {
-    reportId?: StringFieldUpdateOperationsInput | string
+  export type FinancialReportPhaseMediaUncheckedUpdateManyInput = {
+    phaseId?: StringFieldUpdateOperationsInput | string
     mediaId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -23555,13 +24971,20 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type FinancialReportMediaListRelationFilter = {
-    every?: FinancialReportMediaWhereInput
-    some?: FinancialReportMediaWhereInput
-    none?: FinancialReportMediaWhereInput
+  export type EnumFinancialReportStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialReportStatus | EnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialReportStatus[] | ListEnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialReportStatus[] | ListEnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialReportStatusFilter<$PrismaModel> | $Enums.FinancialReportStatus
   }
 
-  export type FinancialReportMediaOrderByRelationAggregateInput = {
+  export type FinancialReportPhaseListRelationFilter = {
+    every?: FinancialReportPhaseWhereInput
+    some?: FinancialReportPhaseWhereInput
+    none?: FinancialReportPhaseWhereInput
+  }
+
+  export type FinancialReportPhaseOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -23569,10 +24992,8 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    status?: SortOrder
     progressPercentage?: SortOrder
-    totalCost?: SortOrder
-    amountRaised?: SortOrder
-    amountRemaining?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrder
     createdById?: SortOrder
@@ -23582,19 +25003,14 @@ export namespace Prisma {
 
   export type FinancialReportAvgOrderByAggregateInput = {
     progressPercentage?: SortOrder
-    totalCost?: SortOrder
-    amountRaised?: SortOrder
-    amountRemaining?: SortOrder
   }
 
   export type FinancialReportMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    status?: SortOrder
     progressPercentage?: SortOrder
-    totalCost?: SortOrder
-    amountRaised?: SortOrder
-    amountRemaining?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrder
     createdById?: SortOrder
@@ -23606,10 +25022,8 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    status?: SortOrder
     progressPercentage?: SortOrder
-    totalCost?: SortOrder
-    amountRaised?: SortOrder
-    amountRemaining?: SortOrder
     published?: SortOrder
     publishedAt?: SortOrder
     createdById?: SortOrder
@@ -23619,9 +25033,77 @@ export namespace Prisma {
 
   export type FinancialReportSumOrderByAggregateInput = {
     progressPercentage?: SortOrder
-    totalCost?: SortOrder
-    amountRaised?: SortOrder
-    amountRemaining?: SortOrder
+  }
+
+  export type EnumFinancialReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialReportStatus | EnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialReportStatus[] | ListEnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialReportStatus[] | ListEnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.FinancialReportStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFinancialReportStatusFilter<$PrismaModel>
+    _max?: NestedEnumFinancialReportStatusFilter<$PrismaModel>
+  }
+
+  export type FinancialReportScalarRelationFilter = {
+    is?: FinancialReportWhereInput
+    isNot?: FinancialReportWhereInput
+  }
+
+  export type FinancialReportPhaseMediaListRelationFilter = {
+    every?: FinancialReportPhaseMediaWhereInput
+    some?: FinancialReportPhaseMediaWhereInput
+    none?: FinancialReportPhaseMediaWhereInput
+  }
+
+  export type FinancialReportPhaseMediaOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FinancialReportPhaseReportIdPhaseOrderCompoundUniqueInput = {
+    reportId: string
+    phaseOrder: number
+  }
+
+  export type FinancialReportPhaseCountOrderByAggregateInput = {
+    id?: SortOrder
+    reportId?: SortOrder
+    title?: SortOrder
+    phaseOrder?: SortOrder
+    doneDetails?: SortOrder
+    nextDetails?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FinancialReportPhaseAvgOrderByAggregateInput = {
+    phaseOrder?: SortOrder
+  }
+
+  export type FinancialReportPhaseMaxOrderByAggregateInput = {
+    id?: SortOrder
+    reportId?: SortOrder
+    title?: SortOrder
+    phaseOrder?: SortOrder
+    doneDetails?: SortOrder
+    nextDetails?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FinancialReportPhaseMinOrderByAggregateInput = {
+    id?: SortOrder
+    reportId?: SortOrder
+    title?: SortOrder
+    phaseOrder?: SortOrder
+    doneDetails?: SortOrder
+    nextDetails?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type FinancialReportPhaseSumOrderByAggregateInput = {
+    phaseOrder?: SortOrder
   }
 
   export type HomilyMediaListRelationFilter = {
@@ -23975,28 +25457,28 @@ export namespace Prisma {
     mediaId?: SortOrder
   }
 
-  export type FinancialReportScalarRelationFilter = {
-    is?: FinancialReportWhereInput
-    isNot?: FinancialReportWhereInput
+  export type FinancialReportPhaseScalarRelationFilter = {
+    is?: FinancialReportPhaseWhereInput
+    isNot?: FinancialReportPhaseWhereInput
   }
 
-  export type FinancialReportMediaReportIdMediaIdCompoundUniqueInput = {
-    reportId: string
+  export type FinancialReportPhaseMediaPhaseIdMediaIdCompoundUniqueInput = {
+    phaseId: string
     mediaId: string
   }
 
-  export type FinancialReportMediaCountOrderByAggregateInput = {
-    reportId?: SortOrder
+  export type FinancialReportPhaseMediaCountOrderByAggregateInput = {
+    phaseId?: SortOrder
     mediaId?: SortOrder
   }
 
-  export type FinancialReportMediaMaxOrderByAggregateInput = {
-    reportId?: SortOrder
+  export type FinancialReportPhaseMediaMaxOrderByAggregateInput = {
+    phaseId?: SortOrder
     mediaId?: SortOrder
   }
 
-  export type FinancialReportMediaMinOrderByAggregateInput = {
-    reportId?: SortOrder
+  export type FinancialReportPhaseMediaMinOrderByAggregateInput = {
+    phaseId?: SortOrder
     mediaId?: SortOrder
   }
 
@@ -24469,18 +25951,22 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type FinancialReportMediaCreateNestedManyWithoutReportInput = {
-    create?: XOR<FinancialReportMediaCreateWithoutReportInput, FinancialReportMediaUncheckedCreateWithoutReportInput> | FinancialReportMediaCreateWithoutReportInput[] | FinancialReportMediaUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: FinancialReportMediaCreateOrConnectWithoutReportInput | FinancialReportMediaCreateOrConnectWithoutReportInput[]
-    createMany?: FinancialReportMediaCreateManyReportInputEnvelope
-    connect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
+  export type FinancialReportPhaseCreateNestedManyWithoutReportInput = {
+    create?: XOR<FinancialReportPhaseCreateWithoutReportInput, FinancialReportPhaseUncheckedCreateWithoutReportInput> | FinancialReportPhaseCreateWithoutReportInput[] | FinancialReportPhaseUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: FinancialReportPhaseCreateOrConnectWithoutReportInput | FinancialReportPhaseCreateOrConnectWithoutReportInput[]
+    createMany?: FinancialReportPhaseCreateManyReportInputEnvelope
+    connect?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
   }
 
-  export type FinancialReportMediaUncheckedCreateNestedManyWithoutReportInput = {
-    create?: XOR<FinancialReportMediaCreateWithoutReportInput, FinancialReportMediaUncheckedCreateWithoutReportInput> | FinancialReportMediaCreateWithoutReportInput[] | FinancialReportMediaUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: FinancialReportMediaCreateOrConnectWithoutReportInput | FinancialReportMediaCreateOrConnectWithoutReportInput[]
-    createMany?: FinancialReportMediaCreateManyReportInputEnvelope
-    connect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
+  export type FinancialReportPhaseUncheckedCreateNestedManyWithoutReportInput = {
+    create?: XOR<FinancialReportPhaseCreateWithoutReportInput, FinancialReportPhaseUncheckedCreateWithoutReportInput> | FinancialReportPhaseCreateWithoutReportInput[] | FinancialReportPhaseUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: FinancialReportPhaseCreateOrConnectWithoutReportInput | FinancialReportPhaseCreateOrConnectWithoutReportInput[]
+    createMany?: FinancialReportPhaseCreateManyReportInputEnvelope
+    connect?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+  }
+
+  export type EnumFinancialReportStatusFieldUpdateOperationsInput = {
+    set?: $Enums.FinancialReportStatus
   }
 
   export type UserUpdateOneRequiredWithoutFinancialReportsNestedInput = {
@@ -24491,32 +25977,88 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFinancialReportsInput, UserUpdateWithoutFinancialReportsInput>, UserUncheckedUpdateWithoutFinancialReportsInput>
   }
 
-  export type FinancialReportMediaUpdateManyWithoutReportNestedInput = {
-    create?: XOR<FinancialReportMediaCreateWithoutReportInput, FinancialReportMediaUncheckedCreateWithoutReportInput> | FinancialReportMediaCreateWithoutReportInput[] | FinancialReportMediaUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: FinancialReportMediaCreateOrConnectWithoutReportInput | FinancialReportMediaCreateOrConnectWithoutReportInput[]
-    upsert?: FinancialReportMediaUpsertWithWhereUniqueWithoutReportInput | FinancialReportMediaUpsertWithWhereUniqueWithoutReportInput[]
-    createMany?: FinancialReportMediaCreateManyReportInputEnvelope
-    set?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    disconnect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    delete?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    connect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    update?: FinancialReportMediaUpdateWithWhereUniqueWithoutReportInput | FinancialReportMediaUpdateWithWhereUniqueWithoutReportInput[]
-    updateMany?: FinancialReportMediaUpdateManyWithWhereWithoutReportInput | FinancialReportMediaUpdateManyWithWhereWithoutReportInput[]
-    deleteMany?: FinancialReportMediaScalarWhereInput | FinancialReportMediaScalarWhereInput[]
+  export type FinancialReportPhaseUpdateManyWithoutReportNestedInput = {
+    create?: XOR<FinancialReportPhaseCreateWithoutReportInput, FinancialReportPhaseUncheckedCreateWithoutReportInput> | FinancialReportPhaseCreateWithoutReportInput[] | FinancialReportPhaseUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: FinancialReportPhaseCreateOrConnectWithoutReportInput | FinancialReportPhaseCreateOrConnectWithoutReportInput[]
+    upsert?: FinancialReportPhaseUpsertWithWhereUniqueWithoutReportInput | FinancialReportPhaseUpsertWithWhereUniqueWithoutReportInput[]
+    createMany?: FinancialReportPhaseCreateManyReportInputEnvelope
+    set?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+    disconnect?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+    delete?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+    connect?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+    update?: FinancialReportPhaseUpdateWithWhereUniqueWithoutReportInput | FinancialReportPhaseUpdateWithWhereUniqueWithoutReportInput[]
+    updateMany?: FinancialReportPhaseUpdateManyWithWhereWithoutReportInput | FinancialReportPhaseUpdateManyWithWhereWithoutReportInput[]
+    deleteMany?: FinancialReportPhaseScalarWhereInput | FinancialReportPhaseScalarWhereInput[]
   }
 
-  export type FinancialReportMediaUncheckedUpdateManyWithoutReportNestedInput = {
-    create?: XOR<FinancialReportMediaCreateWithoutReportInput, FinancialReportMediaUncheckedCreateWithoutReportInput> | FinancialReportMediaCreateWithoutReportInput[] | FinancialReportMediaUncheckedCreateWithoutReportInput[]
-    connectOrCreate?: FinancialReportMediaCreateOrConnectWithoutReportInput | FinancialReportMediaCreateOrConnectWithoutReportInput[]
-    upsert?: FinancialReportMediaUpsertWithWhereUniqueWithoutReportInput | FinancialReportMediaUpsertWithWhereUniqueWithoutReportInput[]
-    createMany?: FinancialReportMediaCreateManyReportInputEnvelope
-    set?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    disconnect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    delete?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    connect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    update?: FinancialReportMediaUpdateWithWhereUniqueWithoutReportInput | FinancialReportMediaUpdateWithWhereUniqueWithoutReportInput[]
-    updateMany?: FinancialReportMediaUpdateManyWithWhereWithoutReportInput | FinancialReportMediaUpdateManyWithWhereWithoutReportInput[]
-    deleteMany?: FinancialReportMediaScalarWhereInput | FinancialReportMediaScalarWhereInput[]
+  export type FinancialReportPhaseUncheckedUpdateManyWithoutReportNestedInput = {
+    create?: XOR<FinancialReportPhaseCreateWithoutReportInput, FinancialReportPhaseUncheckedCreateWithoutReportInput> | FinancialReportPhaseCreateWithoutReportInput[] | FinancialReportPhaseUncheckedCreateWithoutReportInput[]
+    connectOrCreate?: FinancialReportPhaseCreateOrConnectWithoutReportInput | FinancialReportPhaseCreateOrConnectWithoutReportInput[]
+    upsert?: FinancialReportPhaseUpsertWithWhereUniqueWithoutReportInput | FinancialReportPhaseUpsertWithWhereUniqueWithoutReportInput[]
+    createMany?: FinancialReportPhaseCreateManyReportInputEnvelope
+    set?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+    disconnect?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+    delete?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+    connect?: FinancialReportPhaseWhereUniqueInput | FinancialReportPhaseWhereUniqueInput[]
+    update?: FinancialReportPhaseUpdateWithWhereUniqueWithoutReportInput | FinancialReportPhaseUpdateWithWhereUniqueWithoutReportInput[]
+    updateMany?: FinancialReportPhaseUpdateManyWithWhereWithoutReportInput | FinancialReportPhaseUpdateManyWithWhereWithoutReportInput[]
+    deleteMany?: FinancialReportPhaseScalarWhereInput | FinancialReportPhaseScalarWhereInput[]
+  }
+
+  export type FinancialReportCreateNestedOneWithoutPhasesInput = {
+    create?: XOR<FinancialReportCreateWithoutPhasesInput, FinancialReportUncheckedCreateWithoutPhasesInput>
+    connectOrCreate?: FinancialReportCreateOrConnectWithoutPhasesInput
+    connect?: FinancialReportWhereUniqueInput
+  }
+
+  export type FinancialReportPhaseMediaCreateNestedManyWithoutPhaseInput = {
+    create?: XOR<FinancialReportPhaseMediaCreateWithoutPhaseInput, FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput> | FinancialReportPhaseMediaCreateWithoutPhaseInput[] | FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput[]
+    connectOrCreate?: FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput | FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput[]
+    createMany?: FinancialReportPhaseMediaCreateManyPhaseInputEnvelope
+    connect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+  }
+
+  export type FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutPhaseInput = {
+    create?: XOR<FinancialReportPhaseMediaCreateWithoutPhaseInput, FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput> | FinancialReportPhaseMediaCreateWithoutPhaseInput[] | FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput[]
+    connectOrCreate?: FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput | FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput[]
+    createMany?: FinancialReportPhaseMediaCreateManyPhaseInputEnvelope
+    connect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+  }
+
+  export type FinancialReportUpdateOneRequiredWithoutPhasesNestedInput = {
+    create?: XOR<FinancialReportCreateWithoutPhasesInput, FinancialReportUncheckedCreateWithoutPhasesInput>
+    connectOrCreate?: FinancialReportCreateOrConnectWithoutPhasesInput
+    upsert?: FinancialReportUpsertWithoutPhasesInput
+    connect?: FinancialReportWhereUniqueInput
+    update?: XOR<XOR<FinancialReportUpdateToOneWithWhereWithoutPhasesInput, FinancialReportUpdateWithoutPhasesInput>, FinancialReportUncheckedUpdateWithoutPhasesInput>
+  }
+
+  export type FinancialReportPhaseMediaUpdateManyWithoutPhaseNestedInput = {
+    create?: XOR<FinancialReportPhaseMediaCreateWithoutPhaseInput, FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput> | FinancialReportPhaseMediaCreateWithoutPhaseInput[] | FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput[]
+    connectOrCreate?: FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput | FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput[]
+    upsert?: FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutPhaseInput | FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutPhaseInput[]
+    createMany?: FinancialReportPhaseMediaCreateManyPhaseInputEnvelope
+    set?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    disconnect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    delete?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    connect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    update?: FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutPhaseInput | FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutPhaseInput[]
+    updateMany?: FinancialReportPhaseMediaUpdateManyWithWhereWithoutPhaseInput | FinancialReportPhaseMediaUpdateManyWithWhereWithoutPhaseInput[]
+    deleteMany?: FinancialReportPhaseMediaScalarWhereInput | FinancialReportPhaseMediaScalarWhereInput[]
+  }
+
+  export type FinancialReportPhaseMediaUncheckedUpdateManyWithoutPhaseNestedInput = {
+    create?: XOR<FinancialReportPhaseMediaCreateWithoutPhaseInput, FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput> | FinancialReportPhaseMediaCreateWithoutPhaseInput[] | FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput[]
+    connectOrCreate?: FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput | FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput[]
+    upsert?: FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutPhaseInput | FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutPhaseInput[]
+    createMany?: FinancialReportPhaseMediaCreateManyPhaseInputEnvelope
+    set?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    disconnect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    delete?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    connect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    update?: FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutPhaseInput | FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutPhaseInput[]
+    updateMany?: FinancialReportPhaseMediaUpdateManyWithWhereWithoutPhaseInput | FinancialReportPhaseMediaUpdateManyWithWhereWithoutPhaseInput[]
+    deleteMany?: FinancialReportPhaseMediaScalarWhereInput | FinancialReportPhaseMediaScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutHomiliesInput = {
@@ -24667,11 +26209,11 @@ export namespace Prisma {
     connect?: MinistryMediaWhereUniqueInput | MinistryMediaWhereUniqueInput[]
   }
 
-  export type FinancialReportMediaCreateNestedManyWithoutMediaInput = {
-    create?: XOR<FinancialReportMediaCreateWithoutMediaInput, FinancialReportMediaUncheckedCreateWithoutMediaInput> | FinancialReportMediaCreateWithoutMediaInput[] | FinancialReportMediaUncheckedCreateWithoutMediaInput[]
-    connectOrCreate?: FinancialReportMediaCreateOrConnectWithoutMediaInput | FinancialReportMediaCreateOrConnectWithoutMediaInput[]
-    createMany?: FinancialReportMediaCreateManyMediaInputEnvelope
-    connect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
+  export type FinancialReportPhaseMediaCreateNestedManyWithoutMediaInput = {
+    create?: XOR<FinancialReportPhaseMediaCreateWithoutMediaInput, FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput> | FinancialReportPhaseMediaCreateWithoutMediaInput[] | FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput | FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput[]
+    createMany?: FinancialReportPhaseMediaCreateManyMediaInputEnvelope
+    connect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
   }
 
   export type HomilyMediaCreateNestedManyWithoutMediaInput = {
@@ -24709,11 +26251,11 @@ export namespace Prisma {
     connect?: MinistryMediaWhereUniqueInput | MinistryMediaWhereUniqueInput[]
   }
 
-  export type FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput = {
-    create?: XOR<FinancialReportMediaCreateWithoutMediaInput, FinancialReportMediaUncheckedCreateWithoutMediaInput> | FinancialReportMediaCreateWithoutMediaInput[] | FinancialReportMediaUncheckedCreateWithoutMediaInput[]
-    connectOrCreate?: FinancialReportMediaCreateOrConnectWithoutMediaInput | FinancialReportMediaCreateOrConnectWithoutMediaInput[]
-    createMany?: FinancialReportMediaCreateManyMediaInputEnvelope
-    connect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
+  export type FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutMediaInput = {
+    create?: XOR<FinancialReportPhaseMediaCreateWithoutMediaInput, FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput> | FinancialReportPhaseMediaCreateWithoutMediaInput[] | FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput | FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput[]
+    createMany?: FinancialReportPhaseMediaCreateManyMediaInputEnvelope
+    connect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
   }
 
   export type HomilyMediaUncheckedCreateNestedManyWithoutMediaInput = {
@@ -24777,18 +26319,18 @@ export namespace Prisma {
     deleteMany?: MinistryMediaScalarWhereInput | MinistryMediaScalarWhereInput[]
   }
 
-  export type FinancialReportMediaUpdateManyWithoutMediaNestedInput = {
-    create?: XOR<FinancialReportMediaCreateWithoutMediaInput, FinancialReportMediaUncheckedCreateWithoutMediaInput> | FinancialReportMediaCreateWithoutMediaInput[] | FinancialReportMediaUncheckedCreateWithoutMediaInput[]
-    connectOrCreate?: FinancialReportMediaCreateOrConnectWithoutMediaInput | FinancialReportMediaCreateOrConnectWithoutMediaInput[]
-    upsert?: FinancialReportMediaUpsertWithWhereUniqueWithoutMediaInput | FinancialReportMediaUpsertWithWhereUniqueWithoutMediaInput[]
-    createMany?: FinancialReportMediaCreateManyMediaInputEnvelope
-    set?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    disconnect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    delete?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    connect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    update?: FinancialReportMediaUpdateWithWhereUniqueWithoutMediaInput | FinancialReportMediaUpdateWithWhereUniqueWithoutMediaInput[]
-    updateMany?: FinancialReportMediaUpdateManyWithWhereWithoutMediaInput | FinancialReportMediaUpdateManyWithWhereWithoutMediaInput[]
-    deleteMany?: FinancialReportMediaScalarWhereInput | FinancialReportMediaScalarWhereInput[]
+  export type FinancialReportPhaseMediaUpdateManyWithoutMediaNestedInput = {
+    create?: XOR<FinancialReportPhaseMediaCreateWithoutMediaInput, FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput> | FinancialReportPhaseMediaCreateWithoutMediaInput[] | FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput | FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput[]
+    upsert?: FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutMediaInput | FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutMediaInput[]
+    createMany?: FinancialReportPhaseMediaCreateManyMediaInputEnvelope
+    set?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    disconnect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    delete?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    connect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    update?: FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutMediaInput | FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutMediaInput[]
+    updateMany?: FinancialReportPhaseMediaUpdateManyWithWhereWithoutMediaInput | FinancialReportPhaseMediaUpdateManyWithWhereWithoutMediaInput[]
+    deleteMany?: FinancialReportPhaseMediaScalarWhereInput | FinancialReportPhaseMediaScalarWhereInput[]
   }
 
   export type HomilyMediaUpdateManyWithoutMediaNestedInput = {
@@ -24861,18 +26403,18 @@ export namespace Prisma {
     deleteMany?: MinistryMediaScalarWhereInput | MinistryMediaScalarWhereInput[]
   }
 
-  export type FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput = {
-    create?: XOR<FinancialReportMediaCreateWithoutMediaInput, FinancialReportMediaUncheckedCreateWithoutMediaInput> | FinancialReportMediaCreateWithoutMediaInput[] | FinancialReportMediaUncheckedCreateWithoutMediaInput[]
-    connectOrCreate?: FinancialReportMediaCreateOrConnectWithoutMediaInput | FinancialReportMediaCreateOrConnectWithoutMediaInput[]
-    upsert?: FinancialReportMediaUpsertWithWhereUniqueWithoutMediaInput | FinancialReportMediaUpsertWithWhereUniqueWithoutMediaInput[]
-    createMany?: FinancialReportMediaCreateManyMediaInputEnvelope
-    set?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    disconnect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    delete?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    connect?: FinancialReportMediaWhereUniqueInput | FinancialReportMediaWhereUniqueInput[]
-    update?: FinancialReportMediaUpdateWithWhereUniqueWithoutMediaInput | FinancialReportMediaUpdateWithWhereUniqueWithoutMediaInput[]
-    updateMany?: FinancialReportMediaUpdateManyWithWhereWithoutMediaInput | FinancialReportMediaUpdateManyWithWhereWithoutMediaInput[]
-    deleteMany?: FinancialReportMediaScalarWhereInput | FinancialReportMediaScalarWhereInput[]
+  export type FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaNestedInput = {
+    create?: XOR<FinancialReportPhaseMediaCreateWithoutMediaInput, FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput> | FinancialReportPhaseMediaCreateWithoutMediaInput[] | FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput[]
+    connectOrCreate?: FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput | FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput[]
+    upsert?: FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutMediaInput | FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutMediaInput[]
+    createMany?: FinancialReportPhaseMediaCreateManyMediaInputEnvelope
+    set?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    disconnect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    delete?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    connect?: FinancialReportPhaseMediaWhereUniqueInput | FinancialReportPhaseMediaWhereUniqueInput[]
+    update?: FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutMediaInput | FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutMediaInput[]
+    updateMany?: FinancialReportPhaseMediaUpdateManyWithWhereWithoutMediaInput | FinancialReportPhaseMediaUpdateManyWithWhereWithoutMediaInput[]
+    deleteMany?: FinancialReportPhaseMediaScalarWhereInput | FinancialReportPhaseMediaScalarWhereInput[]
   }
 
   export type HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput = {
@@ -24973,32 +26515,32 @@ export namespace Prisma {
     update?: XOR<XOR<MediaUpdateToOneWithWhereWithoutMinistriesInput, MediaUpdateWithoutMinistriesInput>, MediaUncheckedUpdateWithoutMinistriesInput>
   }
 
-  export type FinancialReportCreateNestedOneWithoutMediaInput = {
-    create?: XOR<FinancialReportCreateWithoutMediaInput, FinancialReportUncheckedCreateWithoutMediaInput>
-    connectOrCreate?: FinancialReportCreateOrConnectWithoutMediaInput
-    connect?: FinancialReportWhereUniqueInput
+  export type FinancialReportPhaseCreateNestedOneWithoutMediaInput = {
+    create?: XOR<FinancialReportPhaseCreateWithoutMediaInput, FinancialReportPhaseUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: FinancialReportPhaseCreateOrConnectWithoutMediaInput
+    connect?: FinancialReportPhaseWhereUniqueInput
   }
 
-  export type MediaCreateNestedOneWithoutFinancialReportsInput = {
-    create?: XOR<MediaCreateWithoutFinancialReportsInput, MediaUncheckedCreateWithoutFinancialReportsInput>
-    connectOrCreate?: MediaCreateOrConnectWithoutFinancialReportsInput
+  export type MediaCreateNestedOneWithoutFinancialReportPhasesInput = {
+    create?: XOR<MediaCreateWithoutFinancialReportPhasesInput, MediaUncheckedCreateWithoutFinancialReportPhasesInput>
+    connectOrCreate?: MediaCreateOrConnectWithoutFinancialReportPhasesInput
     connect?: MediaWhereUniqueInput
   }
 
-  export type FinancialReportUpdateOneRequiredWithoutMediaNestedInput = {
-    create?: XOR<FinancialReportCreateWithoutMediaInput, FinancialReportUncheckedCreateWithoutMediaInput>
-    connectOrCreate?: FinancialReportCreateOrConnectWithoutMediaInput
-    upsert?: FinancialReportUpsertWithoutMediaInput
-    connect?: FinancialReportWhereUniqueInput
-    update?: XOR<XOR<FinancialReportUpdateToOneWithWhereWithoutMediaInput, FinancialReportUpdateWithoutMediaInput>, FinancialReportUncheckedUpdateWithoutMediaInput>
+  export type FinancialReportPhaseUpdateOneRequiredWithoutMediaNestedInput = {
+    create?: XOR<FinancialReportPhaseCreateWithoutMediaInput, FinancialReportPhaseUncheckedCreateWithoutMediaInput>
+    connectOrCreate?: FinancialReportPhaseCreateOrConnectWithoutMediaInput
+    upsert?: FinancialReportPhaseUpsertWithoutMediaInput
+    connect?: FinancialReportPhaseWhereUniqueInput
+    update?: XOR<XOR<FinancialReportPhaseUpdateToOneWithWhereWithoutMediaInput, FinancialReportPhaseUpdateWithoutMediaInput>, FinancialReportPhaseUncheckedUpdateWithoutMediaInput>
   }
 
-  export type MediaUpdateOneRequiredWithoutFinancialReportsNestedInput = {
-    create?: XOR<MediaCreateWithoutFinancialReportsInput, MediaUncheckedCreateWithoutFinancialReportsInput>
-    connectOrCreate?: MediaCreateOrConnectWithoutFinancialReportsInput
-    upsert?: MediaUpsertWithoutFinancialReportsInput
+  export type MediaUpdateOneRequiredWithoutFinancialReportPhasesNestedInput = {
+    create?: XOR<MediaCreateWithoutFinancialReportPhasesInput, MediaUncheckedCreateWithoutFinancialReportPhasesInput>
+    connectOrCreate?: MediaCreateOrConnectWithoutFinancialReportPhasesInput
+    upsert?: MediaUpsertWithoutFinancialReportPhasesInput
     connect?: MediaWhereUniqueInput
-    update?: XOR<XOR<MediaUpdateToOneWithWhereWithoutFinancialReportsInput, MediaUpdateWithoutFinancialReportsInput>, MediaUncheckedUpdateWithoutFinancialReportsInput>
+    update?: XOR<XOR<MediaUpdateToOneWithWhereWithoutFinancialReportPhasesInput, MediaUpdateWithoutFinancialReportPhasesInput>, MediaUncheckedUpdateWithoutFinancialReportPhasesInput>
   }
 
   export type HomilyCreateNestedOneWithoutMediaInput = {
@@ -25264,6 +26806,23 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type NestedEnumFinancialReportStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialReportStatus | EnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialReportStatus[] | ListEnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialReportStatus[] | ListEnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialReportStatusFilter<$PrismaModel> | $Enums.FinancialReportStatus
+  }
+
+  export type NestedEnumFinancialReportStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FinancialReportStatus | EnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FinancialReportStatus[] | ListEnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FinancialReportStatus[] | ListEnumFinancialReportStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFinancialReportStatusWithAggregatesFilter<$PrismaModel> | $Enums.FinancialReportStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFinancialReportStatusFilter<$PrismaModel>
+    _max?: NestedEnumFinancialReportStatusFilter<$PrismaModel>
+  }
+
   export type NestedEnumAppointmentTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.AppointmentType | EnumAppointmentTypeFieldRefInput<$PrismaModel>
     in?: $Enums.AppointmentType[] | ListEnumAppointmentTypeFieldRefInput<$PrismaModel>
@@ -25409,30 +26968,26 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
+    status?: $Enums.FinancialReportStatus
+    progressPercentage?: number
     published?: boolean
     publishedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    media?: FinancialReportMediaCreateNestedManyWithoutReportInput
+    phases?: FinancialReportPhaseCreateNestedManyWithoutReportInput
   }
 
   export type FinancialReportUncheckedCreateWithoutCreatedByInput = {
     id?: string
     title: string
     description: string
-    progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
+    status?: $Enums.FinancialReportStatus
+    progressPercentage?: number
     published?: boolean
     publishedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    media?: FinancialReportMediaUncheckedCreateNestedManyWithoutReportInput
+    phases?: FinancialReportPhaseUncheckedCreateNestedManyWithoutReportInput
   }
 
   export type FinancialReportCreateOrConnectWithoutCreatedByInput = {
@@ -25540,10 +27095,8 @@ export namespace Prisma {
     id?: StringFilter<"FinancialReport"> | string
     title?: StringFilter<"FinancialReport"> | string
     description?: StringFilter<"FinancialReport"> | string
+    status?: EnumFinancialReportStatusFilter<"FinancialReport"> | $Enums.FinancialReportStatus
     progressPercentage?: IntFilter<"FinancialReport"> | number
-    totalCost?: FloatFilter<"FinancialReport"> | number
-    amountRaised?: FloatFilter<"FinancialReport"> | number
-    amountRemaining?: FloatFilter<"FinancialReport"> | number
     published?: BoolFilter<"FinancialReport"> | boolean
     publishedAt?: DateTimeNullableFilter<"FinancialReport"> | Date | string | null
     createdById?: StringFilter<"FinancialReport"> | string
@@ -26028,21 +27581,35 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutFinancialReportsInput, UserUncheckedCreateWithoutFinancialReportsInput>
   }
 
-  export type FinancialReportMediaCreateWithoutReportInput = {
-    media: MediaCreateNestedOneWithoutFinancialReportsInput
+  export type FinancialReportPhaseCreateWithoutReportInput = {
+    id?: string
+    title: string
+    phaseOrder: number
+    doneDetails?: string | null
+    nextDetails?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    media?: FinancialReportPhaseMediaCreateNestedManyWithoutPhaseInput
   }
 
-  export type FinancialReportMediaUncheckedCreateWithoutReportInput = {
-    mediaId: string
+  export type FinancialReportPhaseUncheckedCreateWithoutReportInput = {
+    id?: string
+    title: string
+    phaseOrder: number
+    doneDetails?: string | null
+    nextDetails?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    media?: FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutPhaseInput
   }
 
-  export type FinancialReportMediaCreateOrConnectWithoutReportInput = {
-    where: FinancialReportMediaWhereUniqueInput
-    create: XOR<FinancialReportMediaCreateWithoutReportInput, FinancialReportMediaUncheckedCreateWithoutReportInput>
+  export type FinancialReportPhaseCreateOrConnectWithoutReportInput = {
+    where: FinancialReportPhaseWhereUniqueInput
+    create: XOR<FinancialReportPhaseCreateWithoutReportInput, FinancialReportPhaseUncheckedCreateWithoutReportInput>
   }
 
-  export type FinancialReportMediaCreateManyReportInputEnvelope = {
-    data: FinancialReportMediaCreateManyReportInput | FinancialReportMediaCreateManyReportInput[]
+  export type FinancialReportPhaseCreateManyReportInputEnvelope = {
+    data: FinancialReportPhaseCreateManyReportInput | FinancialReportPhaseCreateManyReportInput[]
     skipDuplicates?: boolean
   }
 
@@ -26081,28 +27648,144 @@ export namespace Prisma {
     homilies?: HomilyUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
-  export type FinancialReportMediaUpsertWithWhereUniqueWithoutReportInput = {
-    where: FinancialReportMediaWhereUniqueInput
-    update: XOR<FinancialReportMediaUpdateWithoutReportInput, FinancialReportMediaUncheckedUpdateWithoutReportInput>
-    create: XOR<FinancialReportMediaCreateWithoutReportInput, FinancialReportMediaUncheckedCreateWithoutReportInput>
+  export type FinancialReportPhaseUpsertWithWhereUniqueWithoutReportInput = {
+    where: FinancialReportPhaseWhereUniqueInput
+    update: XOR<FinancialReportPhaseUpdateWithoutReportInput, FinancialReportPhaseUncheckedUpdateWithoutReportInput>
+    create: XOR<FinancialReportPhaseCreateWithoutReportInput, FinancialReportPhaseUncheckedCreateWithoutReportInput>
   }
 
-  export type FinancialReportMediaUpdateWithWhereUniqueWithoutReportInput = {
-    where: FinancialReportMediaWhereUniqueInput
-    data: XOR<FinancialReportMediaUpdateWithoutReportInput, FinancialReportMediaUncheckedUpdateWithoutReportInput>
+  export type FinancialReportPhaseUpdateWithWhereUniqueWithoutReportInput = {
+    where: FinancialReportPhaseWhereUniqueInput
+    data: XOR<FinancialReportPhaseUpdateWithoutReportInput, FinancialReportPhaseUncheckedUpdateWithoutReportInput>
   }
 
-  export type FinancialReportMediaUpdateManyWithWhereWithoutReportInput = {
-    where: FinancialReportMediaScalarWhereInput
-    data: XOR<FinancialReportMediaUpdateManyMutationInput, FinancialReportMediaUncheckedUpdateManyWithoutReportInput>
+  export type FinancialReportPhaseUpdateManyWithWhereWithoutReportInput = {
+    where: FinancialReportPhaseScalarWhereInput
+    data: XOR<FinancialReportPhaseUpdateManyMutationInput, FinancialReportPhaseUncheckedUpdateManyWithoutReportInput>
   }
 
-  export type FinancialReportMediaScalarWhereInput = {
-    AND?: FinancialReportMediaScalarWhereInput | FinancialReportMediaScalarWhereInput[]
-    OR?: FinancialReportMediaScalarWhereInput[]
-    NOT?: FinancialReportMediaScalarWhereInput | FinancialReportMediaScalarWhereInput[]
-    reportId?: StringFilter<"FinancialReportMedia"> | string
-    mediaId?: StringFilter<"FinancialReportMedia"> | string
+  export type FinancialReportPhaseScalarWhereInput = {
+    AND?: FinancialReportPhaseScalarWhereInput | FinancialReportPhaseScalarWhereInput[]
+    OR?: FinancialReportPhaseScalarWhereInput[]
+    NOT?: FinancialReportPhaseScalarWhereInput | FinancialReportPhaseScalarWhereInput[]
+    id?: StringFilter<"FinancialReportPhase"> | string
+    reportId?: StringFilter<"FinancialReportPhase"> | string
+    title?: StringFilter<"FinancialReportPhase"> | string
+    phaseOrder?: IntFilter<"FinancialReportPhase"> | number
+    doneDetails?: StringNullableFilter<"FinancialReportPhase"> | string | null
+    nextDetails?: StringNullableFilter<"FinancialReportPhase"> | string | null
+    createdAt?: DateTimeFilter<"FinancialReportPhase"> | Date | string
+    updatedAt?: DateTimeFilter<"FinancialReportPhase"> | Date | string
+  }
+
+  export type FinancialReportCreateWithoutPhasesInput = {
+    id?: string
+    title: string
+    description: string
+    status?: $Enums.FinancialReportStatus
+    progressPercentage?: number
+    published?: boolean
+    publishedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutFinancialReportsInput
+  }
+
+  export type FinancialReportUncheckedCreateWithoutPhasesInput = {
+    id?: string
+    title: string
+    description: string
+    status?: $Enums.FinancialReportStatus
+    progressPercentage?: number
+    published?: boolean
+    publishedAt?: Date | string | null
+    createdById: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FinancialReportCreateOrConnectWithoutPhasesInput = {
+    where: FinancialReportWhereUniqueInput
+    create: XOR<FinancialReportCreateWithoutPhasesInput, FinancialReportUncheckedCreateWithoutPhasesInput>
+  }
+
+  export type FinancialReportPhaseMediaCreateWithoutPhaseInput = {
+    media: MediaCreateNestedOneWithoutFinancialReportPhasesInput
+  }
+
+  export type FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput = {
+    mediaId: string
+  }
+
+  export type FinancialReportPhaseMediaCreateOrConnectWithoutPhaseInput = {
+    where: FinancialReportPhaseMediaWhereUniqueInput
+    create: XOR<FinancialReportPhaseMediaCreateWithoutPhaseInput, FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput>
+  }
+
+  export type FinancialReportPhaseMediaCreateManyPhaseInputEnvelope = {
+    data: FinancialReportPhaseMediaCreateManyPhaseInput | FinancialReportPhaseMediaCreateManyPhaseInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type FinancialReportUpsertWithoutPhasesInput = {
+    update: XOR<FinancialReportUpdateWithoutPhasesInput, FinancialReportUncheckedUpdateWithoutPhasesInput>
+    create: XOR<FinancialReportCreateWithoutPhasesInput, FinancialReportUncheckedCreateWithoutPhasesInput>
+    where?: FinancialReportWhereInput
+  }
+
+  export type FinancialReportUpdateToOneWithWhereWithoutPhasesInput = {
+    where?: FinancialReportWhereInput
+    data: XOR<FinancialReportUpdateWithoutPhasesInput, FinancialReportUncheckedUpdateWithoutPhasesInput>
+  }
+
+  export type FinancialReportUpdateWithoutPhasesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
+    progressPercentage?: IntFieldUpdateOperationsInput | number
+    published?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutFinancialReportsNestedInput
+  }
+
+  export type FinancialReportUncheckedUpdateWithoutPhasesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
+    progressPercentage?: IntFieldUpdateOperationsInput | number
+    published?: BoolFieldUpdateOperationsInput | boolean
+    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdById?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutPhaseInput = {
+    where: FinancialReportPhaseMediaWhereUniqueInput
+    update: XOR<FinancialReportPhaseMediaUpdateWithoutPhaseInput, FinancialReportPhaseMediaUncheckedUpdateWithoutPhaseInput>
+    create: XOR<FinancialReportPhaseMediaCreateWithoutPhaseInput, FinancialReportPhaseMediaUncheckedCreateWithoutPhaseInput>
+  }
+
+  export type FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutPhaseInput = {
+    where: FinancialReportPhaseMediaWhereUniqueInput
+    data: XOR<FinancialReportPhaseMediaUpdateWithoutPhaseInput, FinancialReportPhaseMediaUncheckedUpdateWithoutPhaseInput>
+  }
+
+  export type FinancialReportPhaseMediaUpdateManyWithWhereWithoutPhaseInput = {
+    where: FinancialReportPhaseMediaScalarWhereInput
+    data: XOR<FinancialReportPhaseMediaUpdateManyMutationInput, FinancialReportPhaseMediaUncheckedUpdateManyWithoutPhaseInput>
+  }
+
+  export type FinancialReportPhaseMediaScalarWhereInput = {
+    AND?: FinancialReportPhaseMediaScalarWhereInput | FinancialReportPhaseMediaScalarWhereInput[]
+    OR?: FinancialReportPhaseMediaScalarWhereInput[]
+    NOT?: FinancialReportPhaseMediaScalarWhereInput | FinancialReportPhaseMediaScalarWhereInput[]
+    phaseId?: StringFilter<"FinancialReportPhaseMedia"> | string
+    mediaId?: StringFilter<"FinancialReportPhaseMedia"> | string
   }
 
   export type UserCreateWithoutHomiliesInput = {
@@ -26307,7 +27990,7 @@ export namespace Prisma {
     createdAt?: Date | string
     news?: NewsMediaCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
   }
@@ -26321,7 +28004,7 @@ export namespace Prisma {
     createdAt?: Date | string
     news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
   }
@@ -26390,7 +28073,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
   }
@@ -26404,7 +28087,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
   }
@@ -26445,21 +28128,21 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type FinancialReportMediaCreateWithoutMediaInput = {
-    report: FinancialReportCreateNestedOneWithoutMediaInput
+  export type FinancialReportPhaseMediaCreateWithoutMediaInput = {
+    phase: FinancialReportPhaseCreateNestedOneWithoutMediaInput
   }
 
-  export type FinancialReportMediaUncheckedCreateWithoutMediaInput = {
-    reportId: string
+  export type FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput = {
+    phaseId: string
   }
 
-  export type FinancialReportMediaCreateOrConnectWithoutMediaInput = {
-    where: FinancialReportMediaWhereUniqueInput
-    create: XOR<FinancialReportMediaCreateWithoutMediaInput, FinancialReportMediaUncheckedCreateWithoutMediaInput>
+  export type FinancialReportPhaseMediaCreateOrConnectWithoutMediaInput = {
+    where: FinancialReportPhaseMediaWhereUniqueInput
+    create: XOR<FinancialReportPhaseMediaCreateWithoutMediaInput, FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput>
   }
 
-  export type FinancialReportMediaCreateManyMediaInputEnvelope = {
-    data: FinancialReportMediaCreateManyMediaInput | FinancialReportMediaCreateManyMediaInput[]
+  export type FinancialReportPhaseMediaCreateManyMediaInputEnvelope = {
+    data: FinancialReportPhaseMediaCreateManyMediaInput | FinancialReportPhaseMediaCreateManyMediaInput[]
     skipDuplicates?: boolean
   }
 
@@ -26557,20 +28240,20 @@ export namespace Prisma {
     data: XOR<MinistryMediaUpdateManyMutationInput, MinistryMediaUncheckedUpdateManyWithoutMediaInput>
   }
 
-  export type FinancialReportMediaUpsertWithWhereUniqueWithoutMediaInput = {
-    where: FinancialReportMediaWhereUniqueInput
-    update: XOR<FinancialReportMediaUpdateWithoutMediaInput, FinancialReportMediaUncheckedUpdateWithoutMediaInput>
-    create: XOR<FinancialReportMediaCreateWithoutMediaInput, FinancialReportMediaUncheckedCreateWithoutMediaInput>
+  export type FinancialReportPhaseMediaUpsertWithWhereUniqueWithoutMediaInput = {
+    where: FinancialReportPhaseMediaWhereUniqueInput
+    update: XOR<FinancialReportPhaseMediaUpdateWithoutMediaInput, FinancialReportPhaseMediaUncheckedUpdateWithoutMediaInput>
+    create: XOR<FinancialReportPhaseMediaCreateWithoutMediaInput, FinancialReportPhaseMediaUncheckedCreateWithoutMediaInput>
   }
 
-  export type FinancialReportMediaUpdateWithWhereUniqueWithoutMediaInput = {
-    where: FinancialReportMediaWhereUniqueInput
-    data: XOR<FinancialReportMediaUpdateWithoutMediaInput, FinancialReportMediaUncheckedUpdateWithoutMediaInput>
+  export type FinancialReportPhaseMediaUpdateWithWhereUniqueWithoutMediaInput = {
+    where: FinancialReportPhaseMediaWhereUniqueInput
+    data: XOR<FinancialReportPhaseMediaUpdateWithoutMediaInput, FinancialReportPhaseMediaUncheckedUpdateWithoutMediaInput>
   }
 
-  export type FinancialReportMediaUpdateManyWithWhereWithoutMediaInput = {
-    where: FinancialReportMediaScalarWhereInput
-    data: XOR<FinancialReportMediaUpdateManyMutationInput, FinancialReportMediaUncheckedUpdateManyWithoutMediaInput>
+  export type FinancialReportPhaseMediaUpdateManyWithWhereWithoutMediaInput = {
+    where: FinancialReportPhaseMediaScalarWhereInput
+    data: XOR<FinancialReportPhaseMediaUpdateManyMutationInput, FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaInput>
   }
 
   export type HomilyMediaUpsertWithWhereUniqueWithoutMediaInput = {
@@ -26664,7 +28347,7 @@ export namespace Prisma {
     size?: number | null
     createdAt?: Date | string
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
@@ -26678,7 +28361,7 @@ export namespace Prisma {
     size?: number | null
     createdAt?: Date | string
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
@@ -26749,7 +28432,7 @@ export namespace Prisma {
     size?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
@@ -26763,7 +28446,7 @@ export namespace Prisma {
     size?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
@@ -26806,7 +28489,7 @@ export namespace Prisma {
     size?: number | null
     createdAt?: Date | string
     news?: NewsMediaCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
@@ -26820,7 +28503,7 @@ export namespace Prisma {
     size?: number | null
     createdAt?: Date | string
     news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
@@ -26885,7 +28568,7 @@ export namespace Prisma {
     size?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
@@ -26899,48 +28582,40 @@ export namespace Prisma {
     size?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
 
-  export type FinancialReportCreateWithoutMediaInput = {
+  export type FinancialReportPhaseCreateWithoutMediaInput = {
     id?: string
     title: string
-    description: string
-    progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
-    published?: boolean
-    publishedAt?: Date | string | null
+    phaseOrder: number
+    doneDetails?: string | null
+    nextDetails?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    createdBy: UserCreateNestedOneWithoutFinancialReportsInput
+    report: FinancialReportCreateNestedOneWithoutPhasesInput
   }
 
-  export type FinancialReportUncheckedCreateWithoutMediaInput = {
+  export type FinancialReportPhaseUncheckedCreateWithoutMediaInput = {
     id?: string
+    reportId: string
     title: string
-    description: string
-    progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
-    published?: boolean
-    publishedAt?: Date | string | null
-    createdById: string
+    phaseOrder: number
+    doneDetails?: string | null
+    nextDetails?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type FinancialReportCreateOrConnectWithoutMediaInput = {
-    where: FinancialReportWhereUniqueInput
-    create: XOR<FinancialReportCreateWithoutMediaInput, FinancialReportUncheckedCreateWithoutMediaInput>
+  export type FinancialReportPhaseCreateOrConnectWithoutMediaInput = {
+    where: FinancialReportPhaseWhereUniqueInput
+    create: XOR<FinancialReportPhaseCreateWithoutMediaInput, FinancialReportPhaseUncheckedCreateWithoutMediaInput>
   }
 
-  export type MediaCreateWithoutFinancialReportsInput = {
+  export type MediaCreateWithoutFinancialReportPhasesInput = {
     id?: string
     url: string
     type: $Enums.MediaType
@@ -26954,7 +28629,7 @@ export namespace Prisma {
     appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
 
-  export type MediaUncheckedCreateWithoutFinancialReportsInput = {
+  export type MediaUncheckedCreateWithoutFinancialReportPhasesInput = {
     id?: string
     url: string
     type: $Enums.MediaType
@@ -26968,64 +28643,56 @@ export namespace Prisma {
     appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
 
-  export type MediaCreateOrConnectWithoutFinancialReportsInput = {
+  export type MediaCreateOrConnectWithoutFinancialReportPhasesInput = {
     where: MediaWhereUniqueInput
-    create: XOR<MediaCreateWithoutFinancialReportsInput, MediaUncheckedCreateWithoutFinancialReportsInput>
+    create: XOR<MediaCreateWithoutFinancialReportPhasesInput, MediaUncheckedCreateWithoutFinancialReportPhasesInput>
   }
 
-  export type FinancialReportUpsertWithoutMediaInput = {
-    update: XOR<FinancialReportUpdateWithoutMediaInput, FinancialReportUncheckedUpdateWithoutMediaInput>
-    create: XOR<FinancialReportCreateWithoutMediaInput, FinancialReportUncheckedCreateWithoutMediaInput>
-    where?: FinancialReportWhereInput
+  export type FinancialReportPhaseUpsertWithoutMediaInput = {
+    update: XOR<FinancialReportPhaseUpdateWithoutMediaInput, FinancialReportPhaseUncheckedUpdateWithoutMediaInput>
+    create: XOR<FinancialReportPhaseCreateWithoutMediaInput, FinancialReportPhaseUncheckedCreateWithoutMediaInput>
+    where?: FinancialReportPhaseWhereInput
   }
 
-  export type FinancialReportUpdateToOneWithWhereWithoutMediaInput = {
-    where?: FinancialReportWhereInput
-    data: XOR<FinancialReportUpdateWithoutMediaInput, FinancialReportUncheckedUpdateWithoutMediaInput>
+  export type FinancialReportPhaseUpdateToOneWithWhereWithoutMediaInput = {
+    where?: FinancialReportPhaseWhereInput
+    data: XOR<FinancialReportPhaseUpdateWithoutMediaInput, FinancialReportPhaseUncheckedUpdateWithoutMediaInput>
   }
 
-  export type FinancialReportUpdateWithoutMediaInput = {
+  export type FinancialReportPhaseUpdateWithoutMediaInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
-    published?: BoolFieldUpdateOperationsInput | boolean
-    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: UserUpdateOneRequiredWithoutFinancialReportsNestedInput
+    report?: FinancialReportUpdateOneRequiredWithoutPhasesNestedInput
   }
 
-  export type FinancialReportUncheckedUpdateWithoutMediaInput = {
+  export type FinancialReportPhaseUncheckedUpdateWithoutMediaInput = {
     id?: StringFieldUpdateOperationsInput | string
+    reportId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
-    published?: BoolFieldUpdateOperationsInput | boolean
-    publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdById?: StringFieldUpdateOperationsInput | string
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type MediaUpsertWithoutFinancialReportsInput = {
-    update: XOR<MediaUpdateWithoutFinancialReportsInput, MediaUncheckedUpdateWithoutFinancialReportsInput>
-    create: XOR<MediaCreateWithoutFinancialReportsInput, MediaUncheckedCreateWithoutFinancialReportsInput>
+  export type MediaUpsertWithoutFinancialReportPhasesInput = {
+    update: XOR<MediaUpdateWithoutFinancialReportPhasesInput, MediaUncheckedUpdateWithoutFinancialReportPhasesInput>
+    create: XOR<MediaCreateWithoutFinancialReportPhasesInput, MediaUncheckedCreateWithoutFinancialReportPhasesInput>
     where?: MediaWhereInput
   }
 
-  export type MediaUpdateToOneWithWhereWithoutFinancialReportsInput = {
+  export type MediaUpdateToOneWithWhereWithoutFinancialReportPhasesInput = {
     where?: MediaWhereInput
-    data: XOR<MediaUpdateWithoutFinancialReportsInput, MediaUncheckedUpdateWithoutFinancialReportsInput>
+    data: XOR<MediaUpdateWithoutFinancialReportPhasesInput, MediaUncheckedUpdateWithoutFinancialReportPhasesInput>
   }
 
-  export type MediaUpdateWithoutFinancialReportsInput = {
+  export type MediaUpdateWithoutFinancialReportPhasesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
@@ -27039,7 +28706,7 @@ export namespace Prisma {
     appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
 
-  export type MediaUncheckedUpdateWithoutFinancialReportsInput = {
+  export type MediaUncheckedUpdateWithoutFinancialReportPhasesInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
     type?: EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
@@ -27095,7 +28762,7 @@ export namespace Prisma {
     createdAt?: Date | string
     news?: NewsMediaCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
@@ -27109,7 +28776,7 @@ export namespace Prisma {
     createdAt?: Date | string
     news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutMediaInput
     crunchMedias?: CrunchMediaUncheckedCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
@@ -27178,7 +28845,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
@@ -27192,7 +28859,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaNestedInput
     crunchMedias?: CrunchMediaUncheckedUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
@@ -27237,7 +28904,7 @@ export namespace Prisma {
     createdAt?: Date | string
     news?: NewsMediaCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentCreateNestedManyWithoutMediaInput
   }
@@ -27251,7 +28918,7 @@ export namespace Prisma {
     createdAt?: Date | string
     news?: NewsMediaUncheckedCreateNestedManyWithoutMediaInput
     ministries?: MinistryMediaUncheckedCreateNestedManyWithoutMediaInput
-    financialReports?: FinancialReportMediaUncheckedCreateNestedManyWithoutMediaInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedCreateNestedManyWithoutMediaInput
     homilies?: HomilyMediaUncheckedCreateNestedManyWithoutMediaInput
     appointments?: AppointmentDocumentUncheckedCreateNestedManyWithoutMediaInput
   }
@@ -27318,7 +28985,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUpdateManyWithoutMediaNestedInput
   }
@@ -27332,7 +28999,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     news?: NewsMediaUncheckedUpdateManyWithoutMediaNestedInput
     ministries?: MinistryMediaUncheckedUpdateManyWithoutMediaNestedInput
-    financialReports?: FinancialReportMediaUncheckedUpdateManyWithoutMediaNestedInput
+    financialReportPhases?: FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaNestedInput
     homilies?: HomilyMediaUncheckedUpdateManyWithoutMediaNestedInput
     appointments?: AppointmentDocumentUncheckedUpdateManyWithoutMediaNestedInput
   }
@@ -27355,10 +29022,8 @@ export namespace Prisma {
     id?: string
     title: string
     description: string
-    progressPercentage: number
-    totalCost: number
-    amountRaised: number
-    amountRemaining: number
+    status?: $Enums.FinancialReportStatus
+    progressPercentage?: number
     published?: boolean
     publishedAt?: Date | string | null
     createdAt?: Date | string
@@ -27426,40 +29091,34 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
     progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    media?: FinancialReportMediaUpdateManyWithoutReportNestedInput
+    phases?: FinancialReportPhaseUpdateManyWithoutReportNestedInput
   }
 
   export type FinancialReportUncheckedUpdateWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
     progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    media?: FinancialReportMediaUncheckedUpdateManyWithoutReportNestedInput
+    phases?: FinancialReportPhaseUncheckedUpdateManyWithoutReportNestedInput
   }
 
   export type FinancialReportUncheckedUpdateManyWithoutCreatedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    status?: EnumFinancialReportStatusFieldUpdateOperationsInput | $Enums.FinancialReportStatus
     progressPercentage?: IntFieldUpdateOperationsInput | number
-    totalCost?: FloatFieldUpdateOperationsInput | number
-    amountRaised?: FloatFieldUpdateOperationsInput | number
-    amountRemaining?: FloatFieldUpdateOperationsInput | number
     published?: BoolFieldUpdateOperationsInput | boolean
     publishedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -27649,19 +29308,61 @@ export namespace Prisma {
     mediaId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type FinancialReportMediaCreateManyReportInput = {
+  export type FinancialReportPhaseCreateManyReportInput = {
+    id?: string
+    title: string
+    phaseOrder: number
+    doneDetails?: string | null
+    nextDetails?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type FinancialReportPhaseUpdateWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    media?: FinancialReportPhaseMediaUpdateManyWithoutPhaseNestedInput
+  }
+
+  export type FinancialReportPhaseUncheckedUpdateWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    media?: FinancialReportPhaseMediaUncheckedUpdateManyWithoutPhaseNestedInput
+  }
+
+  export type FinancialReportPhaseUncheckedUpdateManyWithoutReportInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    phaseOrder?: IntFieldUpdateOperationsInput | number
+    doneDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    nextDetails?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FinancialReportPhaseMediaCreateManyPhaseInput = {
     mediaId: string
   }
 
-  export type FinancialReportMediaUpdateWithoutReportInput = {
-    media?: MediaUpdateOneRequiredWithoutFinancialReportsNestedInput
+  export type FinancialReportPhaseMediaUpdateWithoutPhaseInput = {
+    media?: MediaUpdateOneRequiredWithoutFinancialReportPhasesNestedInput
   }
 
-  export type FinancialReportMediaUncheckedUpdateWithoutReportInput = {
+  export type FinancialReportPhaseMediaUncheckedUpdateWithoutPhaseInput = {
     mediaId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type FinancialReportMediaUncheckedUpdateManyWithoutReportInput = {
+  export type FinancialReportPhaseMediaUncheckedUpdateManyWithoutPhaseInput = {
     mediaId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -27721,8 +29422,8 @@ export namespace Prisma {
     ministryId: string
   }
 
-  export type FinancialReportMediaCreateManyMediaInput = {
-    reportId: string
+  export type FinancialReportPhaseMediaCreateManyMediaInput = {
+    phaseId: string
   }
 
   export type HomilyMediaCreateManyMediaInput = {
@@ -27765,16 +29466,16 @@ export namespace Prisma {
     ministryId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type FinancialReportMediaUpdateWithoutMediaInput = {
-    report?: FinancialReportUpdateOneRequiredWithoutMediaNestedInput
+  export type FinancialReportPhaseMediaUpdateWithoutMediaInput = {
+    phase?: FinancialReportPhaseUpdateOneRequiredWithoutMediaNestedInput
   }
 
-  export type FinancialReportMediaUncheckedUpdateWithoutMediaInput = {
-    reportId?: StringFieldUpdateOperationsInput | string
+  export type FinancialReportPhaseMediaUncheckedUpdateWithoutMediaInput = {
+    phaseId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type FinancialReportMediaUncheckedUpdateManyWithoutMediaInput = {
-    reportId?: StringFieldUpdateOperationsInput | string
+  export type FinancialReportPhaseMediaUncheckedUpdateManyWithoutMediaInput = {
+    phaseId?: StringFieldUpdateOperationsInput | string
   }
 
   export type HomilyMediaUpdateWithoutMediaInput = {

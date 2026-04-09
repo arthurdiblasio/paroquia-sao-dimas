@@ -33,6 +33,12 @@ enum MediaType {
   FILE
 }
 
+enum FinancialReportStatus {
+  STARTED
+  IN_PROGRESS
+  FINISHED
+}
+
 //////////////////////////////////////////////////////
 // USERS
 //////////////////////////////////////////////////////
@@ -145,14 +151,11 @@ model Ministry {
 //////////////////////////////////////////////////////
 
 model FinancialReport {
-  id                 String @id @default(uuid())
+  id                 String                @id @default(uuid())
   title              String
   description        String
-  progressPercentage Int
-
-  totalCost       Float
-  amountRaised    Float
-  amountRemaining Float
+  status             FinancialReportStatus @default(STARTED)
+  progressPercentage Int                   @default(0)
 
   published   Boolean   @default(false)
   publishedAt DateTime?
@@ -160,10 +163,27 @@ model FinancialReport {
   createdById String
   createdBy   User   @relation(fields: [createdById], references: [id])
 
-  media FinancialReportMedia[]
+  phases FinancialReportPhase[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model FinancialReportPhase {
+  id          String          @id @default(uuid())
+  reportId    String
+  report      FinancialReport @relation(fields: [reportId], references: [id])
+  title       String
+  phaseOrder  Int
+  doneDetails String?
+  nextDetails String?
+
+  media FinancialReportPhaseMedia[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([reportId, phaseOrder])
 }
 
 //////////////////////////////////////////////////////
@@ -239,7 +259,7 @@ model Media {
 
   news             NewsMedia[]
   ministries       MinistryMedia[]
-  financialReports FinancialReportMedia[]
+  financialReportPhases FinancialReportPhaseMedia[]
   homilies         HomilyMedia[]
   crunchMedias     CrunchMedia[]
   appointments     AppointmentDocument[]
@@ -269,14 +289,14 @@ model MinistryMedia {
   @@id([ministryId, mediaId])
 }
 
-model FinancialReportMedia {
-  reportId String
-  mediaId  String
+model FinancialReportPhaseMedia {
+  phaseId String
+  mediaId String
 
-  report FinancialReport @relation(fields: [reportId], references: [id])
-  media  Media           @relation(fields: [mediaId], references: [id])
+  phase FinancialReportPhase @relation(fields: [phaseId], references: [id])
+  media Media                @relation(fields: [mediaId], references: [id])
 
-  @@id([reportId, mediaId])
+  @@id([phaseId, mediaId])
 }
 
 model HomilyMedia {

@@ -190,13 +190,22 @@ exports.Prisma.FinancialReportScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
+  status: 'status',
   progressPercentage: 'progressPercentage',
-  totalCost: 'totalCost',
-  amountRaised: 'amountRaised',
-  amountRemaining: 'amountRemaining',
   published: 'published',
   publishedAt: 'publishedAt',
   createdById: 'createdById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.FinancialReportPhaseScalarFieldEnum = {
+  id: 'id',
+  reportId: 'reportId',
+  title: 'title',
+  phaseOrder: 'phaseOrder',
+  doneDetails: 'doneDetails',
+  nextDetails: 'nextDetails',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -257,8 +266,8 @@ exports.Prisma.MinistryMediaScalarFieldEnum = {
   mediaId: 'mediaId'
 };
 
-exports.Prisma.FinancialReportMediaScalarFieldEnum = {
-  reportId: 'reportId',
+exports.Prisma.FinancialReportPhaseMediaScalarFieldEnum = {
+  phaseId: 'phaseId',
   mediaId: 'mediaId'
 };
 
@@ -302,6 +311,12 @@ exports.Role = exports.$Enums.Role = {
   COMUNICACAO: 'COMUNICACAO'
 };
 
+exports.FinancialReportStatus = exports.$Enums.FinancialReportStatus = {
+  STARTED: 'STARTED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  FINISHED: 'FINISHED'
+};
+
 exports.AppointmentType = exports.$Enums.AppointmentType = {
   BATISMO: 'BATISMO',
   CASAMENTO: 'CASAMENTO'
@@ -327,13 +342,14 @@ exports.Prisma.ModelName = {
   MassSchedule: 'MassSchedule',
   Ministry: 'Ministry',
   FinancialReport: 'FinancialReport',
+  FinancialReportPhase: 'FinancialReportPhase',
   Homily: 'Homily',
   Appointment: 'Appointment',
   AppointmentDocument: 'AppointmentDocument',
   Media: 'Media',
   NewsMedia: 'NewsMedia',
   MinistryMedia: 'MinistryMedia',
-  FinancialReportMedia: 'FinancialReportMedia',
+  FinancialReportPhaseMedia: 'FinancialReportPhaseMedia',
   HomilyMedia: 'HomilyMedia',
   CrunchMedia: 'CrunchMedia'
 };

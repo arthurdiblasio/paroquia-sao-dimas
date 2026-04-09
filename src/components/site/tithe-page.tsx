@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 import { Check, Copy } from "lucide-react"
 
@@ -109,6 +110,28 @@ export function TithePage() {
               seu banco.
             </p>
           </article>
+        </div>
+
+        <div className="mt-8 rounded-[2rem] bg-[#091c63] px-8 py-7 text-white shadow-[0_24px_60px_-32px_rgba(15,23,42,0.3)]">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-secondary">
+            Transparencia
+          </p>
+
+          <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
+            Acompanhe como o dizimo esta sendo usado na paroquia
+          </h2>
+
+          <p className="mt-4 max-w-3xl text-sm leading-7 text-white/82">
+            Publicamos as prestacoes de contas para mostrar os projetos, fases e
+            melhorias que estao sendo realizados com a contribuicao da comunidade.
+          </p>
+
+          <Link
+            href="/prestacao-contas"
+            className="mt-5 inline-flex items-center rounded-full bg-secondary px-5 py-3 text-sm font-semibold text-primary transition hover:bg-secondary/90"
+          >
+            Ver prestacao de contas
+          </Link>
         </div>
       </section>
     </div>
