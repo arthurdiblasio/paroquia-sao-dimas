@@ -1,6 +1,5 @@
 import { cloudinary } from "@/lib/cloudinary";
 import { UploadApiResponse } from "cloudinary";
-import { fileTypeFromBuffer } from "file-type";
 
 export async function POST(req: Request) {
   const formData = await req.formData();

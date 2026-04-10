@@ -43,6 +43,8 @@ const defaultValues: NewsFormValues = {
 }
 
 function extractImageUrlsFromContent(html: string) {
+  if (typeof window === "undefined") return []
+
   const parser = new DOMParser()
   const document = parser.parseFromString(html, "text/html")
   const urls = Array.from(document.querySelectorAll("img"))

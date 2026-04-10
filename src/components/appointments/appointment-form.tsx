@@ -261,15 +261,18 @@ export function AppointmentForm() {
 
       const data = (await response.json()) as { url?: string }
 
-      if (!data.url) {
+      const url = data.url
+
+      if (!url) {
         throw new Error("Upload retornou sem url.")
       }
 
       setDocumentUploads((current) => ({
         ...current,
         [field.key]: {
-          url: data.url,
+          url,
           fileName: file.name,
+
         },
       }))
     } catch {

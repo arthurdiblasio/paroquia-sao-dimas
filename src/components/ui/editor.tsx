@@ -74,19 +74,19 @@ export function Editor({ value, onChange }: Props) {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 shadow-sm">
       <div className="flex flex-wrap gap-2 border-b bg-gray-50 p-2">
-        <ToolbarButton onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}>
+        <ToolbarButton onClick={() => { editor.chain().focus().toggleHeading({ level: 2 }).run() }}>
           H2
         </ToolbarButton>
 
-        <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()}>
+        <ToolbarButton onClick={() => { editor.chain().focus().toggleBold().run() }}>
           <b>B</b>
         </ToolbarButton>
 
-        <ToolbarButton onClick={() => editor.chain().focus().toggleItalic().run()}>
+        <ToolbarButton onClick={() => { editor.chain().focus().toggleItalic().run() }}>
           <i>I</i>
         </ToolbarButton>
 
-        <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()}>
+        <ToolbarButton onClick={() => { editor.chain().focus().toggleBulletList().run() }}>
           Lista
         </ToolbarButton>
 
