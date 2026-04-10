@@ -45,6 +45,7 @@ export default async function EditFinancialReportPage({ params }: Props) {
         progressPercentage: String(report.progressPercentage),
         publicationStatus: report.published ? "PUBLISHED" : "DRAFT",
         phases: report.phases.map((phase) => ({
+          id: phase.id,
           title: phase.title,
           doneDetails: phase.doneDetails ?? "",
           nextDetails: phase.nextDetails ?? "",
