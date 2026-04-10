@@ -1,51 +1,48 @@
-import { prisma } from "lib/prisma"
-import { getAuthenticatedUserRole } from "@/lib/auth"
+import { prisma } from "lib/prisma";
+import { getAuthenticatedUserRole } from "@/lib/auth";
 
-const allowedStatuses = ["PENDING", "APPROVED", "CANCELLED"] as const
+const allowedStatuses = ["PENDING", "APPROVED", "CANCELLED"] as const;
 
-type AllowedStatus = (typeof allowedStatuses)[number]
+type AllowedStatus = (typeof allowedStatuses)[number];
 
 type Props = {
   params: Promise<{
-    id: string
-  }>
-}
+    id: string;
+  }>;
+};
 
 type UpdateAppointmentBody = {
-  status?: string
-}
+  status?: string;
+};
 
 function isAllowedStatus(value: string): value is AllowedStatus {
-  return allowedStatuses.includes(value as AllowedStatus)
+  return allowedStatuses.includes(value as AllowedStatus);
 }
 
 export async function PATCH(req: Request, { params }: Props) {
-  const role = await getAuthenticatedUserRole()
+  const role = await getAuthenticatedUserRole();
 
   if (role !== "ADMIN") {
-    return Response.json({ error: "Não autorizado." }, { status: 401 })
+    return Response.json({ error: "Não autorizado." }, { status: 401 });
   }
 
-  const { id } = await params
-  const body = (await req.json()) as UpdateAppointmentBody
-  const status = body.status?.trim().toUpperCase()
+  const { id } = await params;
+  const body = (await req.json()) as UpdateAppointmentBody;
+  const status = body.status?.trim().toUpperCase();
 
   if (!status || !isAllowedStatus(status)) {
-    return Response.json(
-      { error: "Status invalido." },
-      { status: 400 }
-    )
+    return Response.json({ error: "Status invalido." }, { status: 400 });
   }
 
   const appointment = await prisma.appointment.findUnique({
     where: { id },
-  })
+  });
 
   if (!appointment) {
     return Response.json(
       { error: "Agendamento nao encontrado." },
-      { status: 404 }
-    )
+      { status: 404 },
+    );
   }
 
   const updatedAppointment = await prisma.appointment.update({
@@ -53,7 +50,7 @@ export async function PATCH(req: Request, { params }: Props) {
     data: {
       status,
     },
-  })
+  });
 
-  return Response.json(updatedAppointment)
+  return Response.json(updatedAppointment);
 }
