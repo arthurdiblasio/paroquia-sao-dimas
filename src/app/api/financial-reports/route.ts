@@ -1,15 +1,15 @@
-import { prisma } from "lib/prisma"
-import { Prisma } from "generated/prisma/client"
+import { prisma } from "lib/prisma";
 
-import { getAuthenticatedUserIdOrFallback } from "@/lib/auth"
+import { getAuthenticatedUserIdOrFallback } from "@/lib/auth";
 import {
   parseFinancialReportBody,
   type FinancialReportBody,
-} from "@/lib/financial-report"
+} from "@/lib/financial-report";
 import {
   getPublishedStateFromStatus,
   normalizePublicationStatus,
-} from "@/lib/publication-status"
+} from "@/lib/publication-status";
+import { Prisma } from "@prisma/client";
 
 function getFinancialReportInclude() {
   return {
@@ -36,7 +36,7 @@ function getFinancialReportInclude() {
         phases: true,
       },
     },
-  }
+  };
 }
 
 export async function GET() {
@@ -45,27 +45,34 @@ export async function GET() {
     orderBy: {
       updatedAt: "desc",
     },
-  })
+  });
 
-  return Response.json(reports)
+  return Response.json(reports);
 }
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as FinancialReportBody & { publicationStatus?: string }
-    const createdById = await getAuthenticatedUserIdOrFallback()
-    const parsedBody = parseFinancialReportBody(body)
-    const publicationStatus = normalizePublicationStatus(body.publicationStatus)
+    const body = (await req.json()) as FinancialReportBody & {
+      publicationStatus?: string;
+    };
+    const createdById = await getAuthenticatedUserIdOrFallback();
+    const parsedBody = parseFinancialReportBody(body);
+    const publicationStatus = normalizePublicationStatus(
+      body.publicationStatus,
+    );
 
     if (!createdById) {
       return Response.json(
-        { error: "Nenhum usuario encontrado para vincular a prestacao de contas." },
-        { status: 400 }
-      )
+        {
+          error:
+            "Nenhum usuario encontrado para vincular a prestacao de contas.",
+        },
+        { status: 400 },
+      );
     }
 
     if (typeof parsedBody === "string") {
-      return Response.json({ error: parsedBody }, { status: 400 })
+      return Response.json({ error: parsedBody }, { status: 400 });
     }
 
     const report = await prisma.financialReport.create({
@@ -82,37 +89,38 @@ export async function POST(req: Request) {
             phaseOrder: index,
             doneDetails: phase.doneDetails,
             nextDetails: phase.nextDetails,
-            media: phase.images.length > 0
-              ? {
-                  create: phase.images.map((url) => ({
-                    media: {
-                      create: {
-                        url,
-                        type: "IMAGE",
-                        altText: `${parsedBody.title} - ${phase.title}`,
+            media:
+              phase.images.length > 0
+                ? {
+                    create: phase.images.map((url) => ({
+                      media: {
+                        create: {
+                          url,
+                          type: "IMAGE",
+                          altText: `${parsedBody.title} - ${phase.title}`,
+                        },
                       },
-                    },
-                  })),
-                }
-              : undefined,
+                    })),
+                  }
+                : undefined,
           })),
         },
       },
       include: getFinancialReportInclude(),
-    })
+    });
 
-    return Response.json(report)
+    return Response.json(report);
   } catch (error) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       return Response.json(
         { error: "Nao foi possivel salvar a prestacao de contas." },
-        { status: 400 }
-      )
+        { status: 400 },
+      );
     }
 
     return Response.json(
       { error: "Nao foi possivel salvar a prestacao de contas." },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }

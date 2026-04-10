@@ -4,7 +4,7 @@ import {
   getPublishedStateFromStatus,
   normalizePublicationStatus,
 } from "@/lib/publication-status";
-import { Prisma } from "generated/prisma";
+import { Prisma } from "@prisma/client";
 
 type CreateNewsBody = {
   title: string;

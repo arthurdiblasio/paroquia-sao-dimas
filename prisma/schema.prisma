@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -99,12 +98,12 @@ model News {
 //////////////////////////////////////////////////////
 
 model Church {
-  id          String  @id @default(uuid())
-  name        String
-  address     String
-  description String?
-  latitude    Float
-  longitude   Float
+  id           String  @id @default(uuid())
+  name         String
+  address      String
+  description  String?
+  latitude     Float
+  longitude    Float
   isMainChurch Boolean @default(false)
 
   massSchedules MassSchedule[]
@@ -257,12 +256,12 @@ model Media {
 
   createdAt DateTime @default(now())
 
-  news             NewsMedia[]
-  ministries       MinistryMedia[]
+  news                  NewsMedia[]
+  ministries            MinistryMedia[]
   financialReportPhases FinancialReportPhaseMedia[]
-  homilies         HomilyMedia[]
-  crunchMedias     CrunchMedia[]
-  appointments     AppointmentDocument[]
+  homilies              HomilyMedia[]
+  crunchMedias          CrunchMedia[]
+  appointments          AppointmentDocument[]
 }
 
 //////////////////////////////////////////////////////
