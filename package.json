@@ -37,12 +37,13 @@
     "@types/bcrypt": "^6.0.0",
     "@types/google.maps": "^3.58.1",
     "@types/jsonwebtoken": "^9.0.10",
-    "prisma": "^7.4.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^17.4.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "prisma": "^7.4.2",
     "tsx": "^4.21.0",
     "typescript": "^5"
   }
