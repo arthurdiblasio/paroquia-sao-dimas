@@ -16,6 +16,7 @@ import {
 import { type PublicationStatus } from "@/lib/publication-status"
 
 type FinancialReportPhaseFormValues = {
+  id: string
   title: string
   doneDetails: string
   nextDetails: string
@@ -45,6 +46,7 @@ const defaultValues: FinancialReportFormValues = {
   publicationStatus: "DRAFT",
   phases: [
     {
+      id: crypto.randomUUID(),
       title: "",
       doneDetails: "",
       nextDetails: "",
@@ -59,6 +61,12 @@ export function FinancialReportForm({
   reportId,
 }: Props) {
   const router = useRouter()
+  const [phases, setPhases] = useState(() =>
+    initialValues.phases.map((phase) => ({
+      ...phase,
+      id: phase.id || crypto.randomUUID(),
+    }))
+  )
 
   const [title, setTitle] = useState(initialValues.title)
   const [description, setDescription] = useState(initialValues.description)
@@ -69,7 +77,6 @@ export function FinancialReportForm({
   const [publicationStatus, setPublicationStatus] = useState<PublicationStatus>(
     initialValues.publicationStatus
   )
-  const [phases, setPhases] = useState(initialValues.phases)
   const [errorMessage, setErrorMessage] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -100,6 +107,7 @@ export function FinancialReportForm({
     setPhases((currentPhases) => [
       ...currentPhases,
       {
+        id: crypto.randomUUID(),
         title: "",
         doneDetails: "",
         nextDetails: "",
@@ -155,7 +163,12 @@ export function FinancialReportForm({
         status,
         progressPercentage: status === "IN_PROGRESS" ? Number(progressPercentage) : undefined,
         publicationStatus,
-        phases,
+        phases: phases.map((phase) => ({
+          title: phase.title,
+          doneDetails: phase.doneDetails,
+          nextDetails: phase.nextDetails,
+          images: phase.images,
+        })),
       }),
     })
 
@@ -273,7 +286,7 @@ export function FinancialReportForm({
         <div className="space-y-5">
           {phases.map((phase, index) => (
             <article
-              key={`${index}-${phase.title}`}
+              key={phase.id}
               className="space-y-4 rounded-2xl border border-gray-200 bg-gray-50/70 p-5"
             >
               <div className="flex items-center justify-between gap-4">
