@@ -1,5 +1,5 @@
 import { prisma } from "lib/prisma";
-import { getAuthenticatedUserIdOrFallback } from "@/lib/auth";
+import { getAuthenticatedUserId } from "@/lib/auth";
 import {
   getPublishedStateFromStatus,
   normalizePublicationStatus,
@@ -55,7 +55,12 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as CreateNewsBody;
-    const createdById = await getAuthenticatedUserIdOrFallback();
+    const createdById = await getAuthenticatedUserId();
+
+    if (!createdById) {
+      return Response.json({ error: "Não autorizado." }, { status: 401 });
+    }
+
     const title = normalizeString(body.title);
     const subtitle = normalizeString(body.subtitle);
     const content = normalizeString(body.content);

@@ -1,6 +1,6 @@
 import { prisma } from "lib/prisma";
 
-import { getAuthenticatedUserIdOrFallback } from "@/lib/auth";
+import { getAuthenticatedUserId } from "@/lib/auth";
 import {
   parseFinancialReportBody,
   type FinancialReportBody,
@@ -55,7 +55,12 @@ export async function POST(req: Request) {
     const body = (await req.json()) as FinancialReportBody & {
       publicationStatus?: string;
     };
-    const createdById = await getAuthenticatedUserIdOrFallback();
+    const createdById = await getAuthenticatedUserId();
+
+    if (!createdById) {
+      return Response.json({ error: "Não autorizado." }, { status: 401 });
+    }
+
     const parsedBody = parseFinancialReportBody(body);
     const publicationStatus = normalizePublicationStatus(
       body.publicationStatus,

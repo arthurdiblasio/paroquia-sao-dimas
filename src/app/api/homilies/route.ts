@@ -1,30 +1,30 @@
-import { prisma } from "lib/prisma"
+import { prisma } from "lib/prisma";
 
-import { getAuthenticatedUserIdOrFallback } from "@/lib/auth"
+import { getAuthenticatedUserId } from "@/lib/auth";
 import {
   getPublishedStateFromStatus,
   normalizePublicationStatus,
-} from "@/lib/publication-status"
+} from "@/lib/publication-status";
 
 type CreateHomilyBody = {
-  title: string
-  description?: string | null
-  content?: string | null
-  videoUrl?: string | null
-  date: string
-  status?: string
-}
+  title: string;
+  description?: string | null;
+  content?: string | null;
+  videoUrl?: string | null;
+  date: string;
+  status?: string;
+};
 
 function normalizeString(value?: string | null) {
-  const normalizedValue = value?.trim()
+  const normalizedValue = value?.trim();
 
-  return normalizedValue ? normalizedValue : null
+  return normalizedValue ? normalizedValue : null;
 }
 
 function normalizeDate(value: string) {
-  const parsedDate = new Date(value)
+  const parsedDate = new Date(value);
 
-  return Number.isNaN(parsedDate.getTime()) ? null : parsedDate
+  return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
 }
 
 export async function GET() {
@@ -45,27 +45,27 @@ export async function GET() {
     orderBy: {
       date: "desc",
     },
-  })
+  });
 
-  return Response.json(homilies)
+  return Response.json(homilies);
 }
 
 export async function POST(req: Request) {
-  const body = (await req.json()) as CreateHomilyBody
-  const createdById = await getAuthenticatedUserIdOrFallback()
-  const status = normalizePublicationStatus(body.status)
+  const body = (await req.json()) as CreateHomilyBody;
+  const createdById = await getAuthenticatedUserId();
+  const status = normalizePublicationStatus(body.status);
 
   if (!createdById) {
-    return Response.json({ error: "Nenhum usuario encontrado para vincular a homilia." }, { status: 400 })
+    return Response.json({ error: "Não autorizado." }, { status: 401 });
   }
 
-  const date = normalizeDate(body.date)
+  const date = normalizeDate(body.date);
 
   if (!date) {
-    return Response.json({ error: "Data invalida." }, { status: 400 })
+    return Response.json({ error: "Data invalida." }, { status: 400 });
   }
 
-  const videoUrl = normalizeString(body.videoUrl)
+  const videoUrl = normalizeString(body.videoUrl);
 
   const homily = await prisma.homily.create({
     data: {
@@ -105,7 +105,7 @@ export async function POST(req: Request) {
         },
       },
     },
-  })
+  });
 
-  return Response.json(homily)
+  return Response.json(homily);
 }

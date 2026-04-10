@@ -1,4 +1,5 @@
 import { prisma } from "lib/prisma"
+import { getAuthenticatedUserRole } from "@/lib/auth"
 
 const allowedStatuses = ["PENDING", "APPROVED", "CANCELLED"] as const
 
@@ -19,6 +20,12 @@ function isAllowedStatus(value: string): value is AllowedStatus {
 }
 
 export async function PATCH(req: Request, { params }: Props) {
+  const role = await getAuthenticatedUserRole()
+
+  if (role !== "ADMIN") {
+    return Response.json({ error: "Não autorizado." }, { status: 401 })
+  }
+
   const { id } = await params
   const body = (await req.json()) as UpdateAppointmentBody
   const status = body.status?.trim().toUpperCase()

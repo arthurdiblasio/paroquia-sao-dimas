@@ -1,44 +1,40 @@
-import { cookies } from "next/headers"
+import { cookies } from "next/headers";
 
-import { verifyToken } from "../../lib/jwt"
-import { prisma } from "../../lib/prisma"
+import { verifyToken } from "../../lib/jwt";
 
 type TokenPayload = {
-  userId?: string
-  role?: string
-}
+  userId?: string;
+  role?: string;
+};
 
 export async function getAuthenticatedUserId() {
-  const token = (await cookies()).get("token")?.value
+  const token = (await cookies()).get("token")?.value;
 
   if (!token) {
-    return null
+    return null;
   }
 
   try {
-    const payload = verifyToken(token) as TokenPayload
+    const payload = verifyToken(token) as TokenPayload;
 
-    return payload.userId ?? null
+    return payload.userId ?? null;
   } catch {
-    return null
+    return null;
   }
 }
 
-export async function getAuthenticatedUserIdOrFallback() {
-  const authenticatedUserId = await getAuthenticatedUserId()
+export async function getAuthenticatedUserRole() {
+  const token = (await cookies()).get("token")?.value;
 
-  if (authenticatedUserId) {
-    return authenticatedUserId
+  if (!token) {
+    return null;
   }
 
-  const fallbackUser = await prisma.user.findFirst({
-    orderBy: {
-      createdAt: "asc",
-    },
-    select: {
-      id: true,
-    },
-  })
+  try {
+    const payload = verifyToken(token) as TokenPayload;
 
-  return fallbackUser?.id ?? null
+    return payload.role ?? null;
+  } catch {
+    return null;
+  }
 }
