@@ -13,18 +13,18 @@ export default function Footer() {
 
           <p className="flex items-center gap-2 text-sm">
             <MapPin size={18} />
-            Rua Exemplo, 123 - Cidade
+            Rua Av. Djalma Vieira Cristo, 123 - Vale do Jatobá, Belo Horizonte - MG
           </p>
 
           <p className="flex items-center gap-2 text-sm">
             <Phone size={18} />
-            (31) 99999-9999
+            (31) 99084-1083
           </p>
 
-          <p className="flex items-center gap-2 text-sm">
+          {/* <p className="flex items-center gap-2 text-sm">
             <Mail size={18} />
             contato@paroquiasaodimas.com
-          </p>
+          </p> */}
         </div>
 
         {/* Navegação */}
@@ -47,15 +47,15 @@ export default function Footer() {
           <h3 className="text-lg font-semibold">Redes Sociais</h3>
 
           <div className="flex gap-4">
-            <a href="#" className="hover:text-secondary">
+            <a href="https://www.instagram.com/paroquiasaodimasvj" target="_blank" rel="noreferrer noopener" className="hover:text-secondary">
               <Instagram size={22} />
             </a>
 
-            <a href="#" className="hover:text-secondary">
+            <a href="https://www.facebook.com/paroquiasaodimasvj" target="_blank" rel="noreferrer noopener" className="hover:text-secondary">
               <Facebook size={22} />
             </a>
 
-            <a href="#" className="hover:text-secondary">
+            <a href="https://www.youtube.com/@paroquiasaodimasvj" target="_blank" rel="noreferrer noopener" className="hover:text-secondary">
               <Youtube size={22} />
             </a>
           </div>
