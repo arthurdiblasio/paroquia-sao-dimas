@@ -64,6 +64,12 @@ export async function HomePage() {
         massSchedules: {
           orderBy: [{ dayOfWeek: "asc" }, { time: "asc" }],
         },
+        crunchMedias: {
+          include: {
+            media: true,
+          },
+          take: 1,
+        },
       },
       orderBy: [{ isMainChurch: "desc" }, { name: "asc" }],
       take: 3,
@@ -202,6 +208,93 @@ export async function HomePage() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
+        <div className="mb-8 flex items-end justify-between gap-6">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
+              Destaques
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Veja o que está em evidência</h2>
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          <Link
+            href="https://www.youtube.com/@paroquiasaodimasvj"
+            target="_blank"
+            rel="noreferrer"
+            className="group relative overflow-hidden rounded-[1.75rem] bg-slate-950 text-white shadow-[0_24px_60px_-28px_rgba(15,23,42,0.35)] transition hover:-translate-y-1"
+          >
+            <div className="absolute inset-0">
+              <Image
+                src="/logo.png"
+                alt="Canal do YouTube Paróquia São Dimas"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-slate-950/65" />
+            </div>
+            <div className="relative flex h-full flex-col justify-between p-8">
+              <span className="text-xs uppercase tracking-[0.24em] text-secondary">YouTube</span>
+              <div>
+                <h3 className="text-3xl font-semibold">Canal ao vivo</h3>
+                <p className="mt-3 text-sm leading-6 text-white/80">
+                  Acompanhe missas, homilias e eventos direto do nosso canal.
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          <Link
+            href="/dizimo"
+            className="group relative overflow-hidden rounded-[1.75rem] bg-slate-950 text-white shadow-[0_24px_60px_-28px_rgba(15,23,42,0.35)] transition hover:-translate-y-1"
+          >
+            <div className="absolute inset-0">
+              <Image
+                src="/doacao.png"
+                alt="Dízimo Paróquia São Dimas"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-slate-950/40" />
+            </div>
+            <div className="relative flex h-full flex-col justify-between p-8">
+              <span className="text-xs uppercase tracking-[0.24em] text-secondary">Dízimo</span>
+              <div>
+                <h3 className="text-3xl font-semibold">Doe com confiança</h3>
+                <p className="mt-3 text-sm leading-6 text-white/80">
+                  Saiba como sua oferta ajuda a manter a paróquia, pastorais e obras.
+                </p>
+              </div>
+            </div>
+          </Link>
+
+          <Link
+            href="/noticias"
+            className="group relative overflow-hidden rounded-[1.75rem] bg-slate-950 text-white shadow-[0_24px_60px_-28px_rgba(15,23,42,0.35)] transition hover:-translate-y-1"
+          >
+            <div className="absolute inset-0">
+              <Image
+                src={heroImage}
+                alt="Notícias Paróquia São Dimas"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-slate-950/55" />
+            </div>
+            <div className="relative flex h-full flex-col justify-between p-8">
+              <span className="text-xs uppercase tracking-[0.24em] text-secondary">Notícias</span>
+              <div>
+                <h3 className="text-3xl font-semibold">Últimas publicações</h3>
+                <p className="mt-3 text-sm leading-6 text-white/80">
+                  Confira as notícias mais recentes da paróquia em um clique.
+                </p>
+              </div>
+            </div>
+          </Link>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-[1240px] px-6 py-6 lg:px-10">
         <div className="mb-8 flex items-end justify-between gap-6">
           <div>
@@ -210,10 +303,6 @@ export async function HomePage() {
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Últimas publicações</h2>
           </div>
-
-          <Link href="/noticias" className="text-sm font-semibold text-[#092070]">
-            Ver todas
-          </Link>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
@@ -222,42 +311,36 @@ export async function HomePage() {
               <Link
                 key={item.id}
                 href={`/noticias/${item.slug}`}
-                className="block overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_60px_-32px_rgba(15,23,42,0.35)] ring-1 ring-slate-200/70 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-34px_rgba(15,23,42,0.38)]"
+                className="group relative overflow-hidden rounded-[1.75rem] shadow-[0_24px_60px_-32px_rgba(15,23,42,0.35)] ring-1 ring-slate-200/70 transition hover:-translate-y-1 hover:shadow-[0_28px_70px_-34px_rgba(15,23,42,0.38)]"
               >
-                <div className="h-56 bg-slate-200">
+                <div className="absolute inset-0">
                   {item.imageUrl ? (
                     <Image
                       src={item.imageUrl}
                       alt={item.title}
-                      width={720}
-                      height={420}
-                      className="h-full w-full object-cover"
+                      fill
+                      className="object-cover"
                     />
                   ) : (
-                    <div className="flex h-full items-center justify-center bg-[linear-gradient(135deg,#092070,#1d4ed8)] text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
-                      Paróquia São Dimas
-                    </div>
+                    <div className="h-full w-full bg-[linear-gradient(135deg,#092070,#1d4ed8)]" />
                   )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
                 </div>
 
-                <div className="space-y-4 p-6">
-                  <div className="flex items-center justify-between gap-3 text-xs uppercase tracking-[0.18em] text-slate-500">
-                    <span>{item.category?.name ?? "Paróquia"}</span>
-                    <span>{formatDate(item.publishedAt ?? item.createdAt)}</span>
+                <div className="relative flex h-[420px] flex-col justify-end p-6">
+                  <div className="inline-flex rounded-full bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
+                    {item.category?.name ?? "Paróquia"}
                   </div>
-
-                  <div>
-                    <h3 className="text-2xl font-semibold leading-tight text-slate-900">
-                      {item.title}
-                    </h3>
-
-                    {item.subtitle && (
-                      <p className="mt-2 text-sm text-slate-500">{item.subtitle}</p>
-                    )}
-                  </div>
-
-                  <p className="text-sm leading-7 text-slate-600">
-                    {truncate(stripHtml(item.content), 150)}
+                  {item.subtitle && (
+                    <p className="mt-6 text-sm uppercase tracking-[0.18em] text-white/80">
+                      {item.subtitle}
+                    </p>
+                  )}
+                  <h3 className="mt-3 text-3xl font-semibold text-white drop-shadow-lg">
+                    {item.title}
+                  </h3>
+                  <p className="mt-4 max-w-xl text-sm leading-6 text-white/75">
+                    {truncate(stripHtml(item.content), 120)}
                   </p>
                 </div>
               </Link>
@@ -270,7 +353,52 @@ export async function HomePage() {
           )}
         </div>
       </section>
+      <section className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
+        <div className="overflow-hidden rounded-[2rem] bg-primary text-white shadow-[0_25px_80px_-45px_rgba(9,32,112,0.95)]">
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+            <div className="relative h-72 overflow-hidden lg:h-[460px]">
+              <Image
+                src="/logo.png"
+                alt="Canal do YouTube Paróquia São Dimas"
+                fill
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,32,112,0.75),rgba(223,152,34,0.28))]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_35%)]" />
+            </div>
 
+            <div className="flex flex-col justify-center gap-6 p-8 sm:p-12">
+              <p className="text-sm font-semibold uppercase tracking-[0.22em] text-secondary/90">
+                Canal do YouTube
+              </p>
+              <h2 className="text-4xl font-bold leading-tight text-white">
+                Acompanhe missas, homilias e eventos ao vivo
+              </h2>
+              <p className="max-w-2xl text-base leading-8 text-white/80">
+                Fique mais perto da Casa da Mãe Aparecida com conteúdo exclusivo e
+                transmissões ao vivo do nosso canal no YouTube. Uma forma simples de
+                se conectar com a comunidade e com a fé, de qualquer lugar.
+              </p>
+              <div className="flex flex-col gap-4 sm:flex-row">
+                <Link
+                  href="https://www.youtube.com/@paroquiasaodimasvj"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-full bg-secondary px-6 py-4 text-sm font-semibold text-primary transition hover:bg-secondary/90"
+                >
+                  Ver canal no YouTube
+                </Link>
+                <Link
+                  href="/noticias"
+                  className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 py-4 text-sm font-semibold text-white transition hover:bg-white/20"
+                >
+                  Ver notícias recentes
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {dailyLiturgy && <DailyLiturgySection dailyLiturgy={dailyLiturgy} />}
 
       <section className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
@@ -407,28 +535,46 @@ export async function HomePage() {
           {churches.map((church) => (
             <article
               key={church.id}
-              className="rounded-[1.75rem] bg-white p-6 shadow-[0_24px_60px_-32px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70"
+              className="overflow-hidden rounded-[1.75rem] bg-white shadow-[0_24px_60px_-32px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70"
             >
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="text-2xl font-semibold text-slate-900">{church.name}</h3>
-                {church.isMainChurch && (
-                  <span className="rounded-full bg-[#092070]/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#092070]">
-                    Matriz
-                  </span>
+              <div className="h-52 overflow-hidden bg-slate-100">
+                {church.crunchMedias?.[0]?.media.url ? (
+                  <Image
+                    src={church.crunchMedias[0].media.url}
+                    alt={`Foto da igreja ${church.name}`}
+                    width={720}
+                    height={340}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center bg-[linear-gradient(135deg,#f8fafc,#cbd5e1)] text-center text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">
+                    {church.name}
+                  </div>
                 )}
               </div>
 
-              <div className="mt-3 flex-col flex items-start justify-between gap-4">
-                <p className="text-sm leading-7 text-slate-600">{church.address}</p>
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(church.address)}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#092070]/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092070] transition hover:bg-[#092070]/14"
-                >
-                  Ver no mapa
-                  <ChevronRight className="h-3.5 w-3.5" />
-                </a>
+              <div className="p-6">
+                <div className="flex items-center justify-between gap-4">
+                  <h3 className="text-2xl font-semibold text-slate-900">{church.name}</h3>
+                  {church.isMainChurch && (
+                    <span className="rounded-full bg-[#092070]/8 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[#092070]">
+                      Matriz
+                    </span>
+                  )}
+                </div>
+
+                <div className="mt-3 flex-col flex items-start justify-between gap-4">
+                  <p className="text-sm leading-7 text-slate-600">{church.address}</p>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(church.address)}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex shrink-0 items-center gap-1 rounded-full bg-[#092070]/8 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#092070] transition hover:bg-[#092070]/14"
+                  >
+                    Ver no mapa
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </a>
+                </div>
               </div>
 
               <div className="mt-6 space-y-3">
@@ -464,6 +610,27 @@ export async function HomePage() {
       </section>
 
       <section className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
+        <div className="grid gap-12">
+
+          <Link
+            href="/dizimo"
+            className="block overflow-hidden rounded-[2rem] bg-slate-900 text-white shadow-[0_30px_80px_-55px_rgba(15,23,42,0.85)]"
+          >
+            <div className="relative h-100">
+              <Image
+                src="/doacao.png"
+                alt="Doação Paróquia São Dimas"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/10 to-slate-950/85" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(223,152,34,0.25),transparent_40%)]" />
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1240px] px-6 py-8 lg:px-10">
         <div className="mb-8 flex items-end justify-between gap-6">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
