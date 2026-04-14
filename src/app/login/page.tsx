@@ -85,6 +85,12 @@ export default function LoginPage() {
               </button>
             </div>
 
+            <div className="flex items-center justify-between text-sm text-slate-600">
+              <Link href="/login/forgot" className="font-semibold text-primary hover:text-primary/80">
+                Esqueci minha senha
+              </Link>
+            </div>
+
             <button className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary/90">
               Entrar
             </button>

@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation"
 export function PublicShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
 
-  if (pathname === "/login") {
+  if (pathname.startsWith("/login")) {
     return <main>{children}</main>
   }
 
