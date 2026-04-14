@@ -7,28 +7,25 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState<string | null>(null);
-  const [debugLink, setDebugLink] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus("sending");
     setMessage(null);
-    setDebugLink(null);
 
     const res = await fetch("/api/auth/forgot-password", {
       method: "POST",
       body: JSON.stringify({ email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
     if (res.ok) {
-      const data = await res.json().catch(() => null);
       setStatus("success");
       setMessage(
         "Se o email existir no sistema, você receberá um link para redefinir sua senha."
       );
-      if (data?.debugLink) {
-        setDebugLink(data.debugLink);
-      }
       return;
     }
 
@@ -86,13 +83,6 @@ export default function ForgotPasswordPage() {
           {message ? (
             <div className={`rounded-xl border p-4 text-sm ${status === "error" ? "border-red-200 bg-red-50 text-red-700" : "border-emerald-200 bg-emerald-50 text-emerald-700"}`}>
               {message}
-            </div>
-          ) : null}
-
-          {debugLink ? (
-            <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-800">
-              <p className="font-semibold">Link de redefinição (dev):</p>
-              <p className="break-all">{debugLink}</p>
             </div>
           ) : null}
         </div>
