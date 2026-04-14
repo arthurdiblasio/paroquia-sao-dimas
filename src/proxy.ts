@@ -22,7 +22,9 @@ export function proxy(req: NextRequest) {
 
     if (
       pathname === "/admin/agendamentos" ||
-      pathname.startsWith("/admin/agendamentos/")
+      pathname.startsWith("/admin/agendamentos/") ||
+      pathname === "/admin/usuarios" ||
+      pathname.startsWith("/admin/usuarios/")
     ) {
       if (payload.role !== "ADMIN") {
         return NextResponse.redirect(new URL("/admin", req.url));

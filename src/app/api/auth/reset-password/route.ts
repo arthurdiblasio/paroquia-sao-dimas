@@ -1,6 +1,6 @@
-import { hashPassword } from "lib/password";
 import { prisma } from "lib/prisma";
 import { verifyPasswordResetToken } from "lib/jwt";
+import { hashPassword } from "@/lib/password";
 
 export async function POST(req: Request) {
   const body = await req.json();

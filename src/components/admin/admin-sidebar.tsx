@@ -21,6 +21,7 @@ const menu = [
   { name: "Pastorais", href: "/admin/pastorais", icon: Users },
   { name: "Igrejas", href: "/admin/igrejas", icon: Church },
   { name: "Agendamentos", href: "/admin/agendamentos", icon: Calendar },
+  { name: "Usuários", href: "/admin/usuarios", icon: Users },
 ]
 
 type SidebarProps = {
@@ -33,6 +34,10 @@ export function AdminSidebar({ role }: SidebarProps) {
 
   const visibleMenu = menu.filter((item) => {
     if (item.href === "/admin/agendamentos" && role !== "ADMIN") {
+      return false
+    }
+
+    if (item.href === "/admin/usuarios" && role !== "ADMIN") {
       return false
     }
 
