@@ -147,7 +147,7 @@ export default function ResetPasswordPage() {
 
           {hasInvalidToken ? (
             <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-              Token de redefinição inválido ou expirado.
+              Token de redefinir senha inválido ou expirado.
             </div>
           ) : null}
         </div>
