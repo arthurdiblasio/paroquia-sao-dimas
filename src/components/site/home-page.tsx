@@ -93,12 +93,15 @@ export async function HomePage() {
       orderBy: {
         date: "desc",
       },
-      take: 2,
+      take: 3,
     }),
     getDailyLiturgy(),
   ])
 
   const heroImage = mainChurch?.crunchMedias[0]?.media.url ?? "/logo.png"
+  const featuredHomily = homilies[0]
+  const remainingHomilies = homilies.slice(1)
+  const remainingCount = Math.max(homilies.length - 1, 0)
 
   return (
     <div className="bg-white text-slate-900">
@@ -271,21 +274,81 @@ export async function HomePage() {
       {dailyLiturgy && <DailyLiturgySection dailyLiturgy={dailyLiturgy} />}
 
       <section className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="rounded-[2rem] bg-[#0f172a] p-8 text-white">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
+        <div className="mb-8 flex items-end justify-between gap-6">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-primary">
               Homilias
             </p>
-            <h2 className="mt-4 text-3xl font-bold tracking-[-0.03em]">Palavra que continua ecoando</h2>
-            <p className="mt-4 text-sm leading-7 text-white/72">
-              As homilias mais recentes publicadas pela equipe ficam disponíveis
-              para consulta com data e link do vídeo.
-            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">Palavra que continua ecoando</h2>
           </div>
+        </div>
+        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+
+          <aside className="rounded-[1.75rem] border border-slate-200/70 bg-white p-8 shadow-[0_24px_60px_-32px_rgba(15,23,42,0.18)] lg:sticky lg:top-[5.5rem]">
+            <div className="flex items-center justify-between gap-3 text-sm uppercase tracking-[0.22em] text-primary">
+              <span>Destaque</span>
+              <span className="text-slate-500">Últimas homilias</span>
+            </div>
+
+            {featuredHomily ? (
+              <div className="space-y-6">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.18em] text-[#092070]">
+                    {formatDate(featuredHomily.date)}
+                  </p>
+                  <h3 className="mt-3 text-3xl font-bold text-slate-900">
+                    {featuredHomily.title}
+                  </h3>
+                </div>
+
+                <p className="text-sm leading-7 text-slate-600">
+                  {truncate(
+                    featuredHomily.description?.trim() ||
+                    stripHtml(featuredHomily.content ?? "") ||
+                    "A homilia foi publicada e ficará disponível com mais detalhes em breve.",
+                    220
+                  )}
+                </p>
+
+                {featuredHomily.videoUrl && (
+                  <a
+                    href={featuredHomily.videoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-full bg-[#df9822]/15 px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#7a4f00] transition hover:bg-[#df9822]/25"
+                  >
+                    Assistir vídeo
+                  </a>
+                )}
+
+                {remainingCount > 0 ? (
+                  <p className="text-sm leading-7 text-slate-500">
+                    Em seguida, apresentamos as {remainingCount} homilias mais recentes após o destaque.
+                  </p>
+                ) : (
+                  <p className="text-sm leading-7 text-slate-500">
+                    No momento, esta é a homilia mais recente disponível.
+                  </p>
+                )}
+
+                <Link
+                  href="/admin/homilias"
+                  className="inline-flex items-center justify-center rounded-full bg-[#092070] px-5 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#0d1a44]"
+                >
+                  Ver todas as homilias
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-4 text-sm text-slate-500">
+                <p>Ainda não há homilias publicadas.</p>
+                <p>Retorne mais tarde para ver a palavra que ecoa em nossa comunidade.</p>
+              </div>
+            )}
+          </aside>
 
           <div className="grid gap-5">
-            {homilies.length > 0 ? (
-              homilies.map((homily) => (
+            {remainingHomilies.length > 0 ? (
+              remainingHomilies.map((homily) => (
                 <article
                   key={homily.id}
                   className="rounded-[1.75rem] bg-white p-6 shadow-[0_24px_60px_-32px_rgba(15,23,42,0.28)] ring-1 ring-slate-200/70"
@@ -323,7 +386,7 @@ export async function HomePage() {
               ))
             ) : (
               <div className="rounded-[1.75rem] border border-dashed border-slate-300 bg-white/70 p-10 text-sm text-slate-500">
-                Nenhuma homilia publicada ainda.
+                Nenhuma outra homilia recente disponível.
               </div>
             )}
           </div>
