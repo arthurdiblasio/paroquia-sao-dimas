@@ -104,7 +104,10 @@ export async function HomePage() {
     getDailyLiturgy(),
   ])
 
-  const heroImage = mainChurch?.crunchMedias[0]?.media.url ?? "/logo.png"
+  const bannerImage = "/banner.png"
+  const bannerImageMobile = "/banner-md.png"
+  const doacaoImage = "/doacao.png"
+  const doacaoImageMobile = "/doacao-md.png"
   const featuredHomily = homilies[0]
   const remainingHomilies = homilies.slice(1)
   const remainingCount = Math.max(homilies.length - 1, 0)
@@ -113,14 +116,24 @@ export async function HomePage() {
     <div className="bg-white text-slate-900">
       <section className="relative isolate flex min-h-screen items-center overflow-hidden bg-[#091c63] text-white">
         <div className="absolute inset-0">
-          <Image
-            src={heroImage}
-            alt={mainChurch?.name ?? "Paróquia São Dimas"}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
+          <div className="relative h-full w-full">
+            <Image
+              src={bannerImageMobile}
+              alt={mainChurch?.name ?? "Paróquia São Dimas"}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover lg:hidden"
+            />
+            <Image
+              src={bannerImage}
+              alt={mainChurch?.name ?? "Paróquia São Dimas"}
+              fill
+              priority
+              sizes="100vw"
+              className="hidden lg:block object-cover"
+            />
+          </div>
         </div>
 
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,28,99,0.78),rgba(9,28,99,0.68)),linear-gradient(90deg,rgba(9,28,99,0.72),rgba(12,26,86,0.35),rgba(12,26,86,0.72))]" />
@@ -275,7 +288,7 @@ export async function HomePage() {
           >
             <div className="absolute inset-0">
               <Image
-                src={heroImage}
+                src={bannerImage}
                 alt="Notícias Paróquia São Dimas"
                 fill
                 className="object-cover"
@@ -617,12 +630,22 @@ export async function HomePage() {
             className="block overflow-hidden rounded-[2rem] bg-slate-900 text-white shadow-[0_30px_80px_-55px_rgba(15,23,42,0.85)]"
           >
             <div className="relative h-100">
-              <Image
-                src="/doacao.png"
-                alt="Doação Paróquia São Dimas"
-                fill
-                className="object-cover"
-              />
+              <div className="relative h-full w-full">
+                <Image
+                  src={doacaoImageMobile}
+                  alt="Doação Paróquia São Dimas"
+                  fill
+                  sizes="100vw"
+                  className="object-cover lg:hidden"
+                />
+                <Image
+                  src={doacaoImage}
+                  alt="Doação Paróquia São Dimas"
+                  fill
+                  sizes="100vw"
+                  className="hidden lg:block object-cover"
+                />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/10 to-slate-950/85" />
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(223,152,34,0.25),transparent_40%)]" />
             </div>
