@@ -29,9 +29,9 @@ export default function Header() {
   }
 
   return (
-    <header className="w-full bg-primary">
+    <header className="fixed inset-x-0 top-0 z-50 w-full bg-primary shadow-lg shadow-slate-950/5">
       <div className="flex w-full items-center justify-between px-6 py-4">
-        <nav className="hidden w-full items-center gap-8 text-white font-bold md:flex">
+        <nav className="hidden w-full items-center gap-8 text-white font-bold lg:flex">
           <Link href="/" className="flex shrink-0 items-center gap-2">
             <Image src="/logo.png" alt="Paróquia São Dimas" width={40} height={40} />
           </Link>
@@ -55,10 +55,15 @@ export default function Header() {
             <div className="text-primary">Acesso Restrito</div>
           </Link>
         </nav>
+        <nav className="lg:hidden flex justify-between w-full">
+          <button className="text-white " onClick={() => setOpen(!open)}>
+            {open ? <X size={28} /> : <Menu size={28} />}
+          </button>
+          <Link href="/" className="flex shrink-0 items-center gap-2">
+            <Image src="/logo.png" alt="Paróquia São Dimas" width={40} height={40} />
+          </Link>
 
-        <button className="text-white md:hidden" onClick={() => setOpen(!open)}>
-          {open ? <X size={28} /> : <Menu size={28} />}
-        </button>
+        </nav>
       </div>
 
       {open && (

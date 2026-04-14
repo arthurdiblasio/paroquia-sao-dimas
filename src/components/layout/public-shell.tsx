@@ -18,7 +18,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="pt-16">{children}</main>
       <Footer />
       <a
         href="https://api.whatsapp.com/send?phone=5531990841083&text=Olá, preciso de ajuda com a Paróquia São Dimas."
