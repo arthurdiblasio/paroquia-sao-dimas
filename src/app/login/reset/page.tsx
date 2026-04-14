@@ -13,6 +13,8 @@ export default function ResetPasswordPage() {
       : new URL(window.location.href).searchParams.get("token"),
   );
 
+
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -20,10 +22,16 @@ export default function ResetPasswordPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const hasInvalidToken = token === null;
+  const hasInvalidToken = !token;
+  console.log('token antes', token);
+  console.log('status', status);
+
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
+    console.log('token', token);
+
 
     if (!token) {
       setStatus("error");
@@ -124,7 +132,7 @@ export default function ResetPasswordPage() {
 
             <button
               type="submit"
-              disabled={status === "sending" || token === undefined}
+              disabled={status === "sending"}
               className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {status === "sending" ? "Redefinindo..." : "Redefinir senha"}
