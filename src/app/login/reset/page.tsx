@@ -2,13 +2,16 @@
 
 import { EyeOff, Eye } from "lucide-react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function ResetPasswordPage() {
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const token = searchParams.get("token");
+  const [token] = useState<string | null | undefined>(() =>
+    typeof window === "undefined"
+      ? undefined
+      : new URL(window.location.href).searchParams.get("token"),
+  );
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,6 +19,8 @@ export default function ResetPasswordPage() {
   const [message, setMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const hasInvalidToken = token === null;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -119,7 +124,7 @@ export default function ResetPasswordPage() {
 
             <button
               type="submit"
-              disabled={status === "sending"}
+              disabled={status === "sending" || token === undefined}
               className="w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-60"
             >
               {status === "sending" ? "Redefinindo..." : "Redefinir senha"}
@@ -132,7 +137,7 @@ export default function ResetPasswordPage() {
             </div>
           ) : null}
 
-          {!token ? (
+          {hasInvalidToken ? (
             <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
               Token de redefinição inválido ou expirado.
             </div>
