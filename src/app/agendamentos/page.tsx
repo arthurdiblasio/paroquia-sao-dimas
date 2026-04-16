@@ -28,7 +28,6 @@ export default function AppointmentsPage() {
         </section>
       </main>
 
-      <Footer />
     </>
   )
 }

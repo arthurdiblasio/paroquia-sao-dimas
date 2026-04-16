@@ -43,11 +43,6 @@ export async function FinancialReportsPage() {
           <h1 className="mt-5 max-w-4xl text-5xl font-bold tracking-[-0.05em] sm:text-6xl">
             Veja como o dizimo esta sendo aplicado na vida da paroquia
           </h1>
-
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-white/82">
-            Esta pagina mostra os projetos, melhorias e frentes pastorais que estao
-            recebendo cuidado da comunidade, com andamento, fases e registros visuais.
-          </p>
         </div>
       </section>
 

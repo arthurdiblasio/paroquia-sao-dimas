@@ -13,7 +13,7 @@ export default function Footer() {
 
           <p className="flex items-center gap-2 text-sm">
             <MapPin size={18} />
-            Rua Av. Djalma Vieira Cristo, 123 - Vale do Jatobá, Belo Horizonte - MG
+            Rua Av. Djalma Vieira Cristo, 33 - Vale do Jatobá, Belo Horizonte - MG
           </p>
 
           <p className="flex items-center gap-2 text-sm">
