@@ -19,6 +19,7 @@ const menu = [
   { name: "Prestações", href: "/admin/prestacoes-contas", icon: ReceiptText },
   { name: "Homilias", href: "/admin/homilias", icon: FileText },
   { name: "Pastorais", href: "/admin/pastorais", icon: Users },
+  { name: "Padres", href: "/admin/padres", icon: Users },
   { name: "Igrejas", href: "/admin/igrejas", icon: Church },
   { name: "Agendamentos", href: "/admin/agendamentos", icon: Calendar },
   { name: "Usuários", href: "/admin/usuarios", icon: Users },

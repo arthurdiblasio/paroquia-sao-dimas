@@ -70,22 +70,27 @@ export default async function MassesPage() {
                 </div>
               </div>
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="mt-6 grid gap-2 sm:grid-cols-3">
                 {church.massSchedules.length > 0 ? (
                   church.massSchedules.map((schedule) => (
                     <div
                       key={`${church.id}-${schedule.dayOfWeek}-${schedule.time}-${schedule.notes ?? ""}`}
-                      className="rounded-3xl bg-slate-800/80 p-5"
+                      className="rounded-3xl border border-slate-200/10 bg-slate-900/5 p-4"
                     >
-                      <p className="text-sm uppercase tracking-[0.14em] text-slate-400">
-                        {getDayLabel(schedule.dayOfWeek)}
-                      </p>
-                      <p className="mt-2 text-2xl font-semibold text-amber-300">
-                        {schedule.time}
-                      </p>
-                      <p className="mt-1 text-sm text-slate-300">
-                        {schedule.notes?.trim() || "Horário de missa"}
-                      </p>
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="text-xs uppercase tracking-[0.16em] text-primary">
+                          {getDayLabel(schedule.dayOfWeek)}
+                        </p>
+                        <p className="text-lg font-semibold text-primary">
+                          {schedule.time}
+                        </p>
+                      </div>
+
+                      {schedule.notes?.trim() ? (
+                        <p className="mt-2 text-xs text-slate-400 truncate">
+                          {schedule.notes.trim()}
+                        </p>
+                      ) : null}
                     </div>
                   ))
                 ) : (
