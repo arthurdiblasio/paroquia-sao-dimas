@@ -16,7 +16,7 @@ const navigationItems = [
 const churchMenuItems = [
   { href: "/igrejas", label: "Igrejas" },
   { href: "/missas", label: "Missas" },
-  { href: "/pastorais", label: "Párocos" },
+  { href: "/igrejas/parocos", label: "Párocos" },
 ]
 
 export default function Header() {
