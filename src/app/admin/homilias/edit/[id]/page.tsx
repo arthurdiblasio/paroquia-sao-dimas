@@ -1,8 +1,18 @@
 import { notFound } from "next/navigation"
 
 import { HomilyForm } from "@/components/admin/homily-form"
+import { fetchInternalApiOrNull } from "@/lib/internal-api"
 import { getPublicationStatusFromPublished } from "@/lib/publication-status"
-import { prisma } from "lib/prisma"
+
+type HomilyItem = {
+  id: string
+  title: string
+  description: string | null
+  content: string | null
+  videoUrl: string | null
+  date: string
+  published: boolean
+}
 
 type Props = {
   params: Promise<{
@@ -10,16 +20,14 @@ type Props = {
   }>
 }
 
-function formatDateToInput(date: Date) {
-  return date.toISOString().slice(0, 10)
+function formatDateToInput(date: string) {
+  return date.slice(0, 10)
 }
 
 export default async function EditHomilyPage({ params }: Props) {
   const { id } = await params
 
-  const homily = await prisma.homily.findUnique({
-    where: { id },
-  })
+  const homily = await fetchInternalApiOrNull<HomilyItem>(`/api/homilies/${id}`)
 
   if (!homily) {
     notFound()

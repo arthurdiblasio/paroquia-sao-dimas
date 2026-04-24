@@ -21,6 +21,27 @@ function normalizeString(value?: string | null) {
   return normalizedValue ? normalizedValue : null
 }
 
+export async function GET(_req: Request, { params }: Props) {
+  const { id } = await params
+
+  const ministry = await prisma.ministry.findUnique({
+    where: { id },
+    include: {
+      media: {
+        include: {
+          media: true,
+        },
+      },
+    },
+  })
+
+  if (!ministry) {
+    return Response.json({ error: "Pastoral nao encontrada." }, { status: 404 })
+  }
+
+  return Response.json(ministry)
+}
+
 export async function PUT(req: Request, { params }: Props) {
   const { id } = await params
   const body = (await req.json()) as UpdateMinistryBody

@@ -39,12 +39,17 @@ function getFinancialReportInclude() {
   };
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const published = searchParams.get("published");
+
   const reports = await prisma.financialReport.findMany({
+    where: published === "true" ? { published: true } : undefined,
     include: getFinancialReportInclude(),
-    orderBy: {
-      updatedAt: "desc",
-    },
+    orderBy:
+      published === "true"
+        ? [{ publishedAt: "desc" }, { updatedAt: "desc" }]
+        : { updatedAt: "desc" },
   });
 
   return Response.json(reports);

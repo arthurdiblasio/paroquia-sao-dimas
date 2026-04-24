@@ -1,14 +1,21 @@
 import Link from "next/link"
 
 import { PriestsTable } from "@/components/admin/priests-table"
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
+
+type PriestItem = {
+  id: string
+  name: string
+  birthDate: string
+  birthCity: string
+  photoUrl: string | null
+  startDate: string
+  endDate: string | null
+  deathDate: string | null
+}
 
 export default async function PriestsPage() {
-  const priests = await prisma.parishPriest.findMany({
-    orderBy: {
-      startDate: "desc",
-    },
-  })
+  const priests = await fetchInternalApi<PriestItem[]>("/api/padres")
 
   return (
     <div>
@@ -29,7 +36,15 @@ export default async function PriestsPage() {
       </div>
 
       <div className="overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-gray-200">
-        <PriestsTable priests={priests} />
+        <PriestsTable
+          priests={priests.map((priest) => ({
+            ...priest,
+            birthDate: new Date(priest.birthDate),
+            startDate: new Date(priest.startDate),
+            endDate: priest.endDate ? new Date(priest.endDate) : null,
+            deathDate: priest.deathDate ? new Date(priest.deathDate) : null,
+          }))}
+        />
       </div>
     </div>
   )

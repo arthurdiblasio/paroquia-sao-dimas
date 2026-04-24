@@ -1,13 +1,20 @@
 import Image from "next/image";
-import { prisma } from "lib/prisma";
 import { Calendar, Cross, Gift } from "lucide-react";
+import { fetchInternalApi } from "@/lib/internal-api";
+
+type PriestItem = {
+  id: string;
+  name: string;
+  birthDate: string;
+  birthCity: string;
+  photoUrl: string | null;
+  startDate: string;
+  endDate: string | null;
+  deathDate: string | null;
+};
 
 export default async function ParocosPage() {
-  const priests = await prisma.parishPriest.findMany({
-    orderBy: {
-      startDate: "desc",
-    },
-  });
+  const priests = await fetchInternalApi<PriestItem[]>("/api/padres");
 
   return (
     <div className="bg-white text-slate-900">

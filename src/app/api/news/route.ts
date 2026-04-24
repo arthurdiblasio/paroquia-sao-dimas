@@ -34,8 +34,14 @@ function getUniqueImageUrls(coverImage?: string | null, images?: string[]) {
   );
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const published = searchParams.get("published");
+  const takeParam = searchParams.get("take");
+  const take = takeParam ? Number(takeParam) : undefined;
+
   const news = await prisma.news.findMany({
+    where: published === "true" ? { published: true } : undefined,
     include: {
       category: true,
       media: {
@@ -44,9 +50,11 @@ export async function GET() {
         },
       },
     },
-    orderBy: {
-      createdAt: "desc",
-    },
+    orderBy:
+      published === "true"
+        ? [{ publishedAt: "desc" }, { createdAt: "desc" }]
+        : { createdAt: "desc" },
+    take: Number.isFinite(take) ? take : undefined,
   });
 
   return Response.json(news);

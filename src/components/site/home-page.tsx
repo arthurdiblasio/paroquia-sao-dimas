@@ -4,7 +4,56 @@ import { ChevronRight, Clock3, Cross } from "lucide-react"
 
 import { DailyLiturgySection } from "@/components/site/daily-liturgy-section"
 import { getDailyLiturgy } from "@/lib/daily-liturgy"
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
+
+type Category = {
+  name: string
+}
+
+type ChurchItem = {
+  id: string
+  name: string
+  address: string
+  isMainChurch: boolean
+  massSchedules: {
+    dayOfWeek: number
+    time: string
+    notes: string | null
+  }[]
+  crunchMedias: {
+    media: {
+      url: string
+    }
+  }[]
+}
+
+type MinistryItem = {
+  id: string
+  name: string
+  description: string | null
+  imageUrl: string | null
+  contactName: string | null
+  contactPhone: string | null
+}
+
+type NewsItem = {
+  id: string
+  title: string
+  subtitle: string | null
+  slug: string
+  content: string
+  imageUrl: string | null
+  category: Category | null
+}
+
+type HomilyItem = {
+  id: string
+  title: string
+  description: string | null
+  content: string | null
+  videoUrl: string | null
+  date: string
+}
 
 function stripHtml(value: string) {
   return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()
@@ -18,13 +67,13 @@ function truncate(value: string, maxLength: number) {
   return `${value.slice(0, maxLength).trimEnd()}...`
 }
 
-function formatDate(value: Date) {
+function formatDate(value: string) {
   return new Intl.DateTimeFormat("pt-BR", {
     day: "2-digit",
     month: "long",
     year: "numeric",
     timeZone: "UTC",
-  }).format(value)
+  }).format(new Date(value))
 }
 
 function getDayLabel(dayOfWeek: number) {
@@ -42,67 +91,16 @@ function getDayLabel(dayOfWeek: number) {
 }
 
 export async function HomePage() {
-  const [mainChurch, churches, ministries, news, homilies, dailyLiturgy] = await Promise.all([
-    prisma.church.findFirst({
-      where: {
-        isMainChurch: true,
-      },
-      include: {
-        massSchedules: {
-          orderBy: [{ dayOfWeek: "asc" }, { time: "asc" }],
-        },
-        crunchMedias: {
-          include: {
-            media: true,
-          },
-          take: 1,
-        },
-      },
-    }),
-    prisma.church.findMany({
-      include: {
-        massSchedules: {
-          orderBy: [{ dayOfWeek: "asc" }, { time: "asc" }],
-        },
-        crunchMedias: {
-          include: {
-            media: true,
-          },
-          take: 1,
-        },
-      },
-      orderBy: [{ isMainChurch: "desc" }, { name: "asc" }],
-      take: 3,
-    }),
-    prisma.ministry.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-      take: 4,
-    }),
-    prisma.news.findMany({
-      where: {
-        published: true,
-      },
-      include: {
-        category: true,
-      },
-      orderBy: {
-        publishedAt: "desc",
-      },
-      take: 3,
-    }),
-    prisma.homily.findMany({
-      where: {
-        published: true,
-      },
-      orderBy: {
-        date: "desc",
-      },
-      take: 3,
-    }),
+  const [allChurches, allMinistries, news, homilies, dailyLiturgy] = await Promise.all([
+    fetchInternalApi<ChurchItem[]>("/api/churches"),
+    fetchInternalApi<MinistryItem[]>("/api/ministries"),
+    fetchInternalApi<NewsItem[]>("/api/news?published=true&take=3"),
+    fetchInternalApi<HomilyItem[]>("/api/homilies?published=true&take=3"),
     getDailyLiturgy(),
   ])
+  const mainChurch = allChurches.find((church) => church.isMainChurch) ?? null
+  const churches = allChurches.slice(0, 3)
+  const ministries = allMinistries.slice(0, 4)
 
   const bannerImage = "/banner.png"
   const bannerImageMobile = "/banner-md.png"
@@ -181,43 +179,6 @@ export async function HomePage() {
           </div>
           <div data-loc="client/src/pages/Home.tsx:86" className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce"><div data-loc="client/src/pages/Home.tsx:87" className="w-6 h-10 rounded-full border-2 border-white/40 flex items-start justify-center pt-2"><div data-loc="client/src/pages/Home.tsx:88" className="w-1 h-3 rounded-full bg-white/60"></div></div></div>
 
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1240px] px-6 py-16 lg:px-10">
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-[1.75rem] bg-white p-8 shadow-[0_24px_60px_-32px_rgba(15,23,42,0.35)] ring-1 ring-slate-200/70">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[#092070]">
-              Comunhão
-            </p>
-            <h3 className="mt-4 text-2xl font-semibold">Vida litúrgica ativa</h3>
-            <p className="mt-3 text-sm leading-7 text-slate-600">
-              Horários, homilias e informações pastorais reunidos para facilitar
-              a participação da comunidade.
-            </p>
-          </div>
-
-          <div className="rounded-[1.75rem] bg-[#df9822] p-8 text-slate-950 shadow-[0_24px_60px_-32px_rgba(223,152,34,0.6)]">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em]">
-              Presença
-            </p>
-            <h3 className="mt-4 text-2xl font-semibold">Informação que chega</h3>
-            <p className="mt-3 text-sm leading-7 text-slate-900/80">
-              As notícias publicadas no administrativo alimentam automaticamente
-              a página pública com mais agilidade.
-            </p>
-          </div>
-
-          <div className="rounded-[1.75rem] bg-[#0f172a] p-8 text-white shadow-[0_24px_60px_-32px_rgba(15,23,42,0.7)]">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/60">
-              Serviço
-            </p>
-            <h3 className="mt-4 text-2xl font-semibold">Canal aberto para pedidos</h3>
-            <p className="mt-3 text-sm leading-7 text-white/72">
-              A área de agendamentos fica pronta para acolher batismos,
-              casamentos e demais solicitações pastorais.
-            </p>
-          </div>
         </div>
       </section>
 

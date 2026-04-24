@@ -2,15 +2,34 @@ import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import { prisma } from "lib/prisma"
+import { fetchInternalApiOrNull } from "@/lib/internal-api"
 
-function formatDate(value: Date) {
+type NewsItem = {
+  id: string
+  title: string
+  subtitle: string | null
+  slug: string
+  content: string
+  imageUrl: string | null
+  publishedAt: string | null
+  createdAt: string
+  category: {
+    name: string
+  } | null
+}
+
+type NewsArticleResponse = {
+  article: NewsItem
+  relatedNews: NewsItem[]
+}
+
+function formatDate(value: string) {
   return new Intl.DateTimeFormat("pt-BR", {
     day: "2-digit",
     month: "long",
     year: "numeric",
     timeZone: "UTC",
-  }).format(value)
+  }).format(new Date(value))
 }
 
 type Props = {
@@ -18,35 +37,13 @@ type Props = {
 }
 
 export async function NewsArticlePage({ slug }: Props) {
-  const article = await prisma.news.findFirst({
-    where: {
-      slug,
-      published: true,
-    },
-    include: {
-      category: true,
-    },
-  })
+  const data = await fetchInternalApiOrNull<NewsArticleResponse>(`/api/news/slug/${slug}`)
 
-  if (!article) {
+  if (!data) {
     notFound()
   }
 
-  const relatedNews = await prisma.news.findMany({
-    where: {
-      published: true,
-      id: {
-        not: article.id,
-      },
-    },
-    include: {
-      category: true,
-    },
-    orderBy: {
-      publishedAt: "desc",
-    },
-    take: 3,
-  })
+  const { article, relatedNews } = data
 
   return (
     <div className=" text-slate-900">

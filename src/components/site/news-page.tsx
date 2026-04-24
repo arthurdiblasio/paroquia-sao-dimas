@@ -1,7 +1,21 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
+
+type NewsItem = {
+  id: string
+  title: string
+  subtitle: string | null
+  slug: string
+  content: string
+  imageUrl: string | null
+  publishedAt: string | null
+  createdAt: string
+  category: {
+    name: string
+  } | null
+}
 
 function stripHtml(value: string) {
   return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()
@@ -15,32 +29,17 @@ function truncate(value: string, maxLength: number) {
   return `${value.slice(0, maxLength).trimEnd()}...`
 }
 
-function formatDate(value: Date) {
+function formatDate(value: string) {
   return new Intl.DateTimeFormat("pt-BR", {
     day: "2-digit",
     month: "long",
     year: "numeric",
     timeZone: "UTC",
-  }).format(value)
+  }).format(new Date(value))
 }
 
 export async function NewsPage() {
-  const news = await prisma.news.findMany({
-    where: {
-      published: true,
-    },
-    include: {
-      category: true,
-    },
-    orderBy: [
-      {
-        publishedAt: "desc",
-      },
-      {
-        createdAt: "desc",
-      },
-    ],
-  })
+  const news = await fetchInternalApi<NewsItem[]>("/api/news?published=true")
 
   const featuredNews = news[0]
   const remainingNews = news.slice(1)

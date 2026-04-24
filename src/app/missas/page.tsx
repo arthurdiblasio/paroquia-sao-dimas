@@ -1,4 +1,16 @@
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
+
+type ChurchItem = {
+  id: string
+  name: string
+  address: string
+  isMainChurch: boolean
+  massSchedules: {
+    dayOfWeek: number
+    time: string
+    notes: string | null
+  }[]
+}
 
 function getDayLabel(dayOfWeek: number) {
   const days = [
@@ -15,14 +27,7 @@ function getDayLabel(dayOfWeek: number) {
 }
 
 export default async function MassesPage() {
-  const churches = await prisma.church.findMany({
-    include: {
-      massSchedules: {
-        orderBy: [{ dayOfWeek: "asc" }, { time: "asc" }],
-      },
-    },
-    orderBy: [{ isMainChurch: "desc" }, { name: "asc" }],
-  })
+  const churches = await fetchInternalApi<ChurchItem[]>("/api/churches")
 
   return (
     <div className="bg-white text-slate-900">

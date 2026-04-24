@@ -27,8 +27,14 @@ function normalizeDate(value: string) {
   return Number.isNaN(parsedDate.getTime()) ? null : parsedDate;
 }
 
-export async function GET() {
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const published = searchParams.get("published");
+  const takeParam = searchParams.get("take");
+  const take = takeParam ? Number(takeParam) : undefined;
+
   const homilies = await prisma.homily.findMany({
+    where: published === "true" ? { published: true } : undefined,
     include: {
       createdBy: {
         select: {
@@ -45,6 +51,7 @@ export async function GET() {
     orderBy: {
       date: "desc",
     },
+    take: Number.isFinite(take) ? take : undefined,
   });
 
   return Response.json(homilies);

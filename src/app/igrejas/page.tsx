@@ -1,7 +1,25 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
-import { prisma } from "lib/prisma"
+
+import { fetchInternalApi } from "@/lib/internal-api"
+
+type ChurchItem = {
+  id: string
+  name: string
+  address: string
+  isMainChurch: boolean
+  massSchedules: {
+    dayOfWeek: number
+    time: string
+    notes: string | null
+  }[]
+  crunchMedias: {
+    media: {
+      url: string
+    }
+  }[]
+}
 
 
 function getDayLabel(dayOfWeek: number) {
@@ -19,20 +37,7 @@ function getDayLabel(dayOfWeek: number) {
 }
 
 export default async function ChurchesPage() {
-  const churches = await prisma.church.findMany({
-    include: {
-      massSchedules: {
-        orderBy: [{ dayOfWeek: "asc" }, { time: "asc" }],
-      },
-      crunchMedias: {
-        include: {
-          media: true,
-        },
-        take: 1,
-      },
-    },
-    orderBy: [{ isMainChurch: "desc" }, { name: "asc" }],
-  })
+  const churches = await fetchInternalApi<ChurchItem[]>("/api/churches")
 
   return (
     <div className="bg-white text-slate-900">

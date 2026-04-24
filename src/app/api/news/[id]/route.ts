@@ -39,6 +39,28 @@ function getUniqueImageUrls(coverImage?: string | null, images?: string[]) {
   );
 }
 
+export async function GET(_req: Request, { params }: Props) {
+  const { id } = await params;
+
+  const news = await prisma.news.findUnique({
+    where: { id },
+    include: {
+      category: true,
+      media: {
+        include: {
+          media: true,
+        },
+      },
+    },
+  });
+
+  if (!news) {
+    return Response.json({ error: "Noticia nao encontrada." }, { status: 404 });
+  }
+
+  return Response.json(news);
+}
+
 export async function PUT(req: Request, { params }: Props) {
   try {
     const { id } = await params;

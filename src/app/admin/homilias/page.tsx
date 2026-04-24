@@ -1,22 +1,23 @@
 import Link from "next/link"
 
 import { HomiliesTable } from "@/components/admin/homilies-table"
+import { fetchInternalApi } from "@/lib/internal-api"
 import { getPublicationStatusFromPublished } from "@/lib/publication-status"
-import { prisma } from "lib/prisma"
+
+type HomilyItem = {
+  id: string
+  title: string
+  description: string | null
+  videoUrl: string | null
+  date: string
+  published: boolean
+  createdBy: {
+    name: string
+  }
+}
 
 export default async function HomiliesPage() {
-  const homilies = await prisma.homily.findMany({
-    include: {
-      createdBy: {
-        select: {
-          name: true,
-        },
-      },
-    },
-    orderBy: {
-      date: "desc",
-    },
-  })
+  const homilies = await fetchInternalApi<HomilyItem[]>("/api/homilies")
 
   return (
     <div>
@@ -46,7 +47,7 @@ export default async function HomiliesPage() {
             title: homily.title,
             description: homily.description,
             videoUrl: homily.videoUrl,
-            date: homily.date.toISOString(),
+            date: homily.date,
             status: getPublicationStatusFromPublished(homily.published),
             createdByName: homily.createdBy.name,
           }))}

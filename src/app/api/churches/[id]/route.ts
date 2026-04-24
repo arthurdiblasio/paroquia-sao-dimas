@@ -23,6 +23,33 @@ type Props = {
   }>
 }
 
+export async function GET(_req: Request, { params }: Props) {
+  const { id } = await params
+
+  const church = await prisma.church.findUnique({
+    where: { id },
+    include: {
+      massSchedules: {
+        orderBy: [
+          { dayOfWeek: "asc" },
+          { time: "asc" },
+        ],
+      },
+      crunchMedias: {
+        include: {
+          media: true,
+        },
+      },
+    },
+  })
+
+  if (!church) {
+    return Response.json({ error: "Igreja nao encontrada." }, { status: 404 })
+  }
+
+  return Response.json(church)
+}
+
 export async function PUT(req: Request, { params }: Props) {
   const { id } = await params
   const body = (await req.json()) as UpdateChurchBody

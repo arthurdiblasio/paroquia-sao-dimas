@@ -1,7 +1,16 @@
 import { notFound } from "next/navigation"
 
 import { MinistryForm } from "@/components/admin/ministry-form"
-import { prisma } from "lib/prisma"
+import { fetchInternalApiOrNull } from "@/lib/internal-api"
+
+type MinistryItem = {
+  id: string
+  name: string
+  description: string | null
+  contactName: string | null
+  contactPhone: string | null
+  imageUrl: string | null
+}
 
 type Props = {
   params: Promise<{
@@ -12,9 +21,7 @@ type Props = {
 export default async function EditMinistryPage({ params }: Props) {
   const { id } = await params
 
-  const ministry = await prisma.ministry.findUnique({
-    where: { id },
-  })
+  const ministry = await fetchInternalApiOrNull<MinistryItem>(`/api/ministries/${id}`)
 
   if (!ministry) {
     notFound()

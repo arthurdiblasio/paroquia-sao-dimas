@@ -1,16 +1,15 @@
 import { ChurchForm } from "@/components/admin/church-form"
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
+
+type ChurchItem = {
+  id: string
+  name: string
+  isMainChurch: boolean
+}
 
 export default async function NewChurchPage() {
-  const currentMainChurch = await prisma.church.findFirst({
-    where: {
-      isMainChurch: true,
-    },
-    select: {
-      id: true,
-      name: true,
-    },
-  })
+  const churches = await fetchInternalApi<ChurchItem[]>("/api/churches")
+  const currentMainChurch = churches.find((church) => church.isMainChurch) ?? null
 
   return <ChurchForm mode="create" currentMainChurch={currentMainChurch} />
 }

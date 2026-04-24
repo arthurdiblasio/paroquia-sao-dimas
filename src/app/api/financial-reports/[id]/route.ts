@@ -44,6 +44,24 @@ function getFinancialReportInclude() {
   };
 }
 
+export async function GET(_req: Request, { params }: Props) {
+  const { id } = await params;
+
+  const report = await prisma.financialReport.findUnique({
+    where: { id },
+    include: getFinancialReportInclude(),
+  });
+
+  if (!report) {
+    return Response.json(
+      { error: "Prestacao de contas nao encontrada." },
+      { status: 404 },
+    );
+  }
+
+  return Response.json(report);
+}
+
 export async function PUT(req: Request, { params }: Props) {
   try {
     const { id } = await params;

@@ -63,6 +63,23 @@ function hasValidPhone(value: string | undefined) {
   return digits.length >= 10 && digits.length <= 11;
 }
 
+export async function GET() {
+  const appointments = await prisma.appointment.findMany({
+    include: {
+      documents: {
+        include: {
+          media: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return Response.json(appointments);
+}
+
 export async function POST(req: Request) {
   const body = (await req.json()) as CreateAppointmentBody;
 

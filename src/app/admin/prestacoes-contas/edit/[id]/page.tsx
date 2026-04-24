@@ -1,7 +1,28 @@
 import { notFound } from "next/navigation"
 
 import { FinancialReportForm } from "@/components/admin/financial-report-form"
-import { prisma } from "lib/prisma"
+import { fetchInternalApiOrNull } from "@/lib/internal-api"
+import { type FinancialReportStatus } from "@/lib/financial-report"
+
+type FinancialReportItem = {
+  id: string
+  title: string
+  description: string
+  status: FinancialReportStatus
+  progressPercentage: number
+  published: boolean
+  phases: {
+    id: string
+    title: string
+    doneDetails: string | null
+    nextDetails: string | null
+    media: {
+      media: {
+        url: string
+      }
+    }[]
+  }[]
+}
 
 type Props = {
   params: Promise<{
@@ -12,23 +33,7 @@ type Props = {
 export default async function EditFinancialReportPage({ params }: Props) {
   const { id } = await params
 
-  const report = await prisma.financialReport.findUnique({
-    where: { id },
-    include: {
-      phases: {
-        orderBy: {
-          phaseOrder: "asc",
-        },
-        include: {
-          media: {
-            include: {
-              media: true,
-            },
-          },
-        },
-      },
-    },
-  })
+  const report = await fetchInternalApiOrNull<FinancialReportItem>(`/api/financial-reports/${id}`)
 
   if (!report) {
     notFound()

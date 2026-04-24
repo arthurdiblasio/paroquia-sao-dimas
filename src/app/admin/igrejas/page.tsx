@@ -1,22 +1,22 @@
 import Link from "next/link"
 
 import { ChurchesTable } from "@/components/admin/churches-table"
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
+
+type ChurchItem = {
+  id: string
+  name: string
+  address: string
+  isMainChurch: boolean
+  massSchedules: {
+    dayOfWeek: number
+    time: string
+    notes: string | null
+  }[]
+}
 
 export default async function ChurchesPage() {
-  const churches = await prisma.church.findMany({
-    include: {
-      massSchedules: true,
-    },
-    orderBy: [
-      {
-        isMainChurch: "desc",
-      },
-      {
-        createdAt: "desc",
-      },
-    ],
-  })
+  const churches = await fetchInternalApi<ChurchItem[]>("/api/churches")
 
   return (
     <div>

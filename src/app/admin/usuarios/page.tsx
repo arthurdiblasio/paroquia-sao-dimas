@@ -1,6 +1,6 @@
 import { getAuthenticatedUserRole } from "@/lib/auth"
-import { prisma } from "lib/prisma"
 import { UsersTable } from "@/components/admin/users-table"
+import { fetchInternalApi } from "@/lib/internal-api"
 
 export default async function UsersPage() {
   const role = await getAuthenticatedUserRole()
@@ -13,18 +13,15 @@ export default async function UsersPage() {
     )
   }
 
-  const users = await prisma.user.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-    select: {
-      id: true,
-      name: true,
-      email: true,
-      role: true,
-      createdAt: true,
-    },
-  })
+  const users = await fetchInternalApi<
+    {
+      id: string
+      name: string
+      email: string
+      role: "ADMIN" | "COMUNICACAO"
+      createdAt: string
+    }[]
+  >("/api/users")
 
   return (
     <div>

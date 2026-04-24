@@ -17,6 +17,24 @@ type CreateChurchBody = {
   schedules: ChurchScheduleInput[];
 };
 
+export async function GET() {
+  const churches = await prisma.church.findMany({
+    include: {
+      massSchedules: {
+        orderBy: [{ dayOfWeek: "asc" }, { time: "asc" }],
+      },
+      crunchMedias: {
+        include: {
+          media: true,
+        },
+      },
+    },
+    orderBy: [{ isMainChurch: "desc" }, { name: "asc" }],
+  });
+
+  return Response.json(churches);
+}
+
 export async function POST(req: Request) {
   const body = (await req.json()) as CreateChurchBody;
 

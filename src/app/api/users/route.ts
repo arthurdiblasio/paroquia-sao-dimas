@@ -6,6 +6,29 @@ const allowedRoles = ["ADMIN", "COMUNICACAO"] as const;
 
 type UserRole = (typeof allowedRoles)[number];
 
+export async function GET() {
+  const role = await getAuthenticatedUserRole();
+
+  if (role !== "ADMIN") {
+    return Response.json({ error: "NÃ£o autorizado." }, { status: 401 });
+  }
+
+  const users = await prisma.user.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+    },
+  });
+
+  return Response.json(users);
+}
+
 export async function POST(req: Request) {
   const role = await getAuthenticatedUserRole();
 

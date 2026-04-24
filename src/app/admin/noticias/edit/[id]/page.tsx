@@ -1,8 +1,18 @@
 import { notFound } from "next/navigation"
 
 import { NewsForm } from "@/components/admin/news-form"
+import { fetchInternalApiOrNull } from "@/lib/internal-api"
 import { getPublicationStatusFromPublished } from "@/lib/publication-status"
-import { prisma } from "lib/prisma"
+
+type NewsItem = {
+  id: string
+  title: string
+  subtitle: string | null
+  content: string
+  categoryId: string
+  imageUrl: string | null
+  published: boolean
+}
 
 type Props = {
   params: Promise<{
@@ -13,9 +23,7 @@ type Props = {
 export default async function EditNewsPage({ params }: Props) {
   const { id } = await params
 
-  const news = await prisma.news.findUnique({
-    where: { id },
-  })
+  const news = await fetchInternalApiOrNull<NewsItem>(`/api/news/${id}`)
 
   if (!news) {
     notFound()

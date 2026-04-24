@@ -1,26 +1,36 @@
 ﻿import Link from "next/link"
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
 
-function formatDate(date: Date) {
+type DashboardAppointment = {
+  id: string
+  type: string
+  name: string
+  createdAt: string
+  preferredDate: string | null
+}
+
+type DashboardData = {
+  publishedNewsCount: number
+  homiliesCount: number
+  pendingAppointmentsCount: number
+  pendingAppointments: DashboardAppointment[]
+}
+
+function formatDate(date: string) {
   return new Intl.DateTimeFormat("pt-BR", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
-  }).format(date)
+  }).format(new Date(date))
 }
 
 export default async function AdminDashboard() {
-  const [publishedNewsCount, homiliesCount, pendingAppointmentsCount, pendingAppointments] =
-    await Promise.all([
-      prisma.news.count({ where: { published: true } }),
-      prisma.homily.count(),
-      prisma.appointment.count({ where: { status: "PENDING" } }),
-      prisma.appointment.findMany({
-        where: { status: "PENDING" },
-        orderBy: { createdAt: "desc" },
-        take: 5,
-      }),
-    ])
+  const {
+    publishedNewsCount,
+    homiliesCount,
+    pendingAppointmentsCount,
+    pendingAppointments,
+  } = await fetchInternalApi<DashboardData>("/api/admin/dashboard")
 
   return (
     <div>

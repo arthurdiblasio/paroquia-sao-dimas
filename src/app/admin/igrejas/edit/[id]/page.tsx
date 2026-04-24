@@ -1,7 +1,27 @@
 import { notFound } from "next/navigation"
 
 import { ChurchForm } from "@/components/admin/church-form"
-import { prisma } from "lib/prisma"
+import { fetchInternalApi, fetchInternalApiOrNull } from "@/lib/internal-api"
+
+type ChurchItem = {
+  id: string
+  name: string
+  address: string
+  latitude: number
+  longitude: number
+  description: string | null
+  isMainChurch: boolean
+  massSchedules: {
+    dayOfWeek: number
+    time: string
+    notes: string | null
+  }[]
+  crunchMedias: {
+    media: {
+      url: string
+    }
+  }[]
+}
 
 type Props = {
   params: Promise<{
@@ -12,31 +32,11 @@ type Props = {
 export default async function EditChurchPage({ params }: Props) {
   const { id } = await params
 
-  const church = await prisma.church.findUnique({
-    where: { id },
-    include: {
-      massSchedules: {
-        orderBy: [
-          { dayOfWeek: "asc" },
-          { time: "asc" },
-        ],
-      },
-      crunchMedias: {
-        include: {
-          media: true,
-        },
-      },
-    },
-  })
-  const currentMainChurch = await prisma.church.findFirst({
-    where: {
-      isMainChurch: true,
-    },
-    select: {
-      id: true,
-      name: true,
-    },
-  })
+  const [church, churches] = await Promise.all([
+    fetchInternalApiOrNull<ChurchItem>(`/api/churches/${id}`),
+    fetchInternalApi<ChurchItem[]>("/api/churches"),
+  ])
+  const currentMainChurch = churches.find((item) => item.isMainChurch) ?? null
 
   if (!church) {
     notFound()

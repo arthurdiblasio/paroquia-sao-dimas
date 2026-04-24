@@ -1,34 +1,30 @@
 import { FinancialReportsList } from "@/components/site/financial-reports-list"
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
+import { type FinancialReportStatus } from "@/lib/financial-report"
+
+type FinancialReportItem = {
+  id: string
+  title: string
+  description: string
+  status: FinancialReportStatus
+  progressPercentage: number
+  phases: Array<{
+    id: string
+    title: string
+    doneDetails: string | null
+    nextDetails: string | null
+    media: Array<{
+      mediaId: string
+      media: {
+        url: string
+        altText: string | null
+      }
+    }>
+  }>
+}
 
 export async function FinancialReportsPage() {
-  const reports = await prisma.financialReport.findMany({
-    where: {
-      published: true,
-    },
-    orderBy: [
-      {
-        publishedAt: "desc",
-      },
-      {
-        updatedAt: "desc",
-      },
-    ],
-    include: {
-      phases: {
-        orderBy: {
-          phaseOrder: "asc",
-        },
-        include: {
-          media: {
-            include: {
-              media: true,
-            },
-          },
-        },
-      },
-    },
-  })
+  const reports = await fetchInternalApi<FinancialReportItem[]>("/api/financial-reports?published=true")
 
   return (
     <div className="bg-white text-slate-900">

@@ -1,14 +1,20 @@
 import Link from "next/link"
 
 import { MinistriesTable } from "@/components/admin/ministries-table"
-import { prisma } from "lib/prisma"
+import { fetchInternalApi } from "@/lib/internal-api"
+
+type MinistryItem = {
+  id: string
+  name: string
+  slug: string
+  description: string | null
+  contactName: string | null
+  contactPhone: string | null
+  imageUrl: string | null
+}
 
 export default async function MinistriesPage() {
-  const ministries = await prisma.ministry.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  })
+  const ministries = await fetchInternalApi<MinistryItem[]>("/api/ministries")
 
   return (
     <div>
