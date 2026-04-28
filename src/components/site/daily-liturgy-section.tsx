@@ -171,9 +171,6 @@ export function DailyLiturgySection({ dailyLiturgy }: DailyLiturgySectionProps) 
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#092070]">
               Liturgia do dia
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-[-0.03em]">
-              Homilia diária e leituras de hoje
-            </h2>
           </div>
 
           <div className="rounded-full bg-[#092070]/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#092070]">

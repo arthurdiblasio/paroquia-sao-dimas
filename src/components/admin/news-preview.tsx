@@ -33,7 +33,7 @@ export function NewsPreview({
       </h2>
 
       <div
-        className="prose prose-lg max-w-none prose-headings:text-[#092070] prose-a:text-[#DF9822] [&_img]:my-6 [&_img]:block [&_img]:max-w-full [&_img]:rounded-xl [&_img]:shadow-sm [&_img[data-align='center']]:mx-auto [&_img[data-align='right']]:ml-auto [&_img[data-align='left']]:mr-auto"
+        className="prose prose-lg max-w-none prose-headings:text-[#092070] prose-a:text-[#DF9822] [&_img]:mx-auto [&_img]:my-6 [&_img]:block [&_img]:max-w-full [&_img]:rounded-xl [&_img]:shadow-sm"
         dangerouslySetInnerHTML={{
           __html: content || "<p>O conteudo aparecera aqui no preview.</p>",
         }}

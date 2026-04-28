@@ -95,9 +95,9 @@ export function FinancialReportForm({
       currentPhases.map((phase, index) =>
         index === phaseIndex
           ? {
-              ...phase,
-              [field]: value,
-            }
+            ...phase,
+            [field]: value,
+          }
           : phase
       )
     )
@@ -191,8 +191,8 @@ export function FinancialReportForm({
       <div className="space-y-2">
         <h1 className="text-2xl font-semibold text-gray-900">
           {mode === "create"
-            ? "Nova prestacao de contas"
-            : "Editar prestacao de contas"}
+            ? "Nova prestação de contas"
+            : "Editar prestação de contas"}
         </h1>
 
         <p className="text-sm text-gray-500">

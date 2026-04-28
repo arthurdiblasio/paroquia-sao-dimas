@@ -33,11 +33,11 @@ export async function FinancialReportsPage() {
 
         <div className="relative mx-auto max-w-[1240px] px-6 py-20 lg:px-10">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-secondary">
-            Prestacao de Contas
+            Prestação de Contas
           </p>
 
           <h1 className="mt-5 max-w-4xl text-5xl font-bold tracking-[-0.05em] sm:text-6xl">
-            Veja como o dizimo esta sendo aplicado na vida da paroquia
+            Veja como o dízimo está sendo aplicado na vida da paróquia
           </h1>
         </div>
       </section>
@@ -46,11 +46,11 @@ export async function FinancialReportsPage() {
         {reports.length === 0 ? (
           <div className="rounded-[2rem] border border-dashed border-slate-300 bg-slate-50 px-8 py-16 text-center">
             <h2 className="text-2xl font-semibold text-slate-900">
-              Nenhuma prestacao publicada ainda
+              Nenhuma prestação publicada ainda
             </h2>
 
             <p className="mt-4 text-sm leading-7 text-slate-600">
-              Assim que a paroquia publicar novas atualizacoes no admin, elas aparecerao aqui.
+              Assim que a paróquia publicar novas atualizações no admin, elas aparecerão aqui.
             </p>
           </div>
         ) : (

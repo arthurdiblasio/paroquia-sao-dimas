@@ -2,10 +2,12 @@
 
 import { useEditor, EditorContent } from "@tiptap/react"
 import type { MouseEvent, ReactNode } from "react"
+import { useState } from "react"
 import StarterKit from "@tiptap/starter-kit"
 import Link from "@tiptap/extension-link"
 import { TextStyle } from "@tiptap/extension-text-style"
 import Color from "@tiptap/extension-color"
+import { ImagePlus, LoaderCircle } from "lucide-react"
 
 import { ResizableImage } from "../editor/extensions/image-resize"
 
@@ -16,12 +18,15 @@ type Props = {
 
 type ToolbarButtonProps = {
   children: ReactNode
+  disabled?: boolean
   onClick: () => void | Promise<void>
 }
 
-function ToolbarButton({ children, onClick }: ToolbarButtonProps) {
+function ToolbarButton({ children, disabled = false, onClick }: ToolbarButtonProps) {
   async function handleClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
+    if (disabled) return
+
     await onClick()
   }
 
@@ -30,7 +35,8 @@ function ToolbarButton({ children, onClick }: ToolbarButtonProps) {
       type="button"
       onMouseDown={(event) => event.preventDefault()}
       onClick={handleClick}
-      className="rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700 transition hover:bg-gray-100"
+      disabled={disabled}
+      className="rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700 transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
     >
       {children}
     </button>
@@ -38,6 +44,9 @@ function ToolbarButton({ children, onClick }: ToolbarButtonProps) {
 }
 
 export function Editor({ value, onChange }: Props) {
+  const [isUploadingImage, setIsUploadingImage] = useState(false)
+  const [imageError, setImageError] = useState("")
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -66,6 +75,57 @@ export function Editor({ value, onChange }: Props) {
       onChange(currentEditor.getHTML())
     },
   })
+
+  async function insertImage() {
+    if (!editor || isUploadingImage) return
+
+    const input = document.createElement("input")
+    input.type = "file"
+    input.accept = "image/*"
+
+    input.onchange = async () => {
+      if (!input.files?.length) {
+        return
+      }
+
+      const file = input.files[0]
+      const formData = new FormData()
+      formData.append("file", file)
+
+      setIsUploadingImage(true)
+      setImageError("")
+
+      try {
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        })
+
+        if (!res.ok) {
+          throw new Error("Upload failed")
+        }
+
+        const data = await res.json()
+
+        if (!data.url) {
+          throw new Error("Upload without url")
+        }
+
+        editor
+          .chain()
+          .focus()
+          .setImage({ src: data.url })
+          .updateAttributes("image", { align: "center" })
+          .run()
+      } catch {
+        setImageError("Nao foi possivel inserir a imagem.")
+      } finally {
+        setIsUploadingImage(false)
+      }
+    }
+
+    input.click()
+  }
 
   if (!editor) {
     return null
@@ -110,47 +170,21 @@ export function Editor({ value, onChange }: Props) {
           Cor
         </ToolbarButton> */}
 
-        {/* <ToolbarButton
-          onClick={async () => {
-            const input = document.createElement("input")
-            input.type = "file"
-            input.accept = "image/*"
-
-            input.onchange = async () => {
-              if (!input.files?.length) {
-                return
-              }
-
-              const file = input.files[0]
-              const formData = new FormData()
-              formData.append("file", file)
-
-              const res = await fetch("/api/upload", {
-                method: "POST",
-                body: formData,
-              })
-
-              if (!res.ok) {
-                return
-              }
-
-              const data = await res.json()
-
-              if (!data.url) {
-                return
-              }
-
-              editor.chain().focus().setImage({ src: data.url }).updateAttributes("image", {
-                align: "center",
-              }).run()
-            }
-
-            input.click()
-          }}
+        <ToolbarButton
+          disabled={isUploadingImage}
+          onClick={insertImage}
         >
-          Imagem
+          <span className="inline-flex items-center gap-1.5">
+            {isUploadingImage ? (
+              <LoaderCircle size={14} className="animate-spin" />
+            ) : (
+              <ImagePlus size={14} />
+            )}
+            Imagem
+          </span>
         </ToolbarButton>
 
+        {/* 
         <ToolbarButton onClick={() => editor.chain().focus().updateAttributes("image", { align: "left" }).run()}>
           Esq
         </ToolbarButton>
@@ -163,6 +197,12 @@ export function Editor({ value, onChange }: Props) {
           Dir
         </ToolbarButton> */}
       </div>
+
+      {imageError && (
+        <p className="border-b border-red-100 bg-red-50 px-4 py-2 text-sm text-red-600">
+          {imageError}
+        </p>
+      )}
 
       <EditorContent editor={editor} className="min-h-[300px] p-4" />
     </div>

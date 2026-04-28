@@ -8,6 +8,7 @@ import { ChevronDown, Menu, X } from "lucide-react"
 
 const navigationItems = [
   { href: "/noticias", label: "Notícias" },
+  { href: "/liturgia", label: "Liturgia" },
   { href: "/pastorais", label: "Pastorais" },
   { href: "/prestacao-contas", label: "Prestação de Contas" },
   { href: "/agendamentos", label: "Agendamentos" },

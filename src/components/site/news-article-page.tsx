@@ -80,7 +80,7 @@ export async function NewsArticlePage({ slug }: Props) {
 
           <div className="px-4 py-10 sm:px-2">
             <div
-              className="prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 prose-a:text-[#092070] prose-strong:text-slate-900"
+              className="prose prose-slate max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-li:text-slate-700 prose-a:text-[#092070] prose-strong:text-slate-900 [&_img]:mx-auto [&_img]:my-8 [&_img]:block [&_img]:max-w-full [&_img]:rounded-xl"
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
           </div>

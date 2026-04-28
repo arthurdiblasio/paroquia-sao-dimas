@@ -73,9 +73,9 @@ export default function FinancialReportsPage() {
       currentReports.map((item) =>
         item.id === id
           ? {
-              ...item,
-              published: publicationStatus === "PUBLISHED",
-            }
+            ...item,
+            published: publicationStatus === "PUBLISHED",
+          }
           : item
       )
     )
@@ -140,7 +140,7 @@ export default function FinancialReportsPage() {
           href="/admin/prestacoes-contas/new"
           className="rounded-md bg-[#092070] px-4 py-2 text-sm text-white hover:opacity-90"
         >
-          Nova prestacao
+          Nova prestação
         </Link>
       </div>
 
