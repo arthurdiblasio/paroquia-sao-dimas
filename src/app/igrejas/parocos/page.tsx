@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Calendar, Cross, Gift } from "lucide-react";
+import { Baby, Calendar, Cross, Gift } from "lucide-react";
 import { fetchInternalApi } from "@/lib/internal-api";
 
 type PriestItem = {
@@ -53,7 +53,10 @@ export default async function ParocosPage() {
                   {priest.name}
                 </h2>
                 <p className="text-sm text-gray-500 flex items-center gap-2">
-                  <Gift size={16} /> {priest.birthCity} - {new Date(priest.birthDate).toLocaleDateString()}
+                  {priest.birthCity}
+                </p>
+                <p className="text-sm text-gray-500 flex items-center gap-2">
+                  <Baby size={16} />{new Date(priest.birthDate).toLocaleDateString()}
                   {priest.deathDate && (
                     <span className="flex items-center gap-1">
                       <Cross size={16} /> {new Date(priest.deathDate).toLocaleDateString()}

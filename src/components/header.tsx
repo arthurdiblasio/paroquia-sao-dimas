@@ -59,7 +59,7 @@ export default function Header() {
                 <ChevronDown size={16} />
               </button>
 
-              <div className="invisible absolute left-0 top-full z-10 mt-1 min-w-[170px] flex-col rounded-2xl border border-white/10 bg-primary/95 p-3 opacity-0 shadow-xl shadow-slate-950/20 transition duration-150 group-hover:visible group-hover:opacity-100">
+              <div className="invisible absolute left-0 top-full z-10 min-w-[170px] flex-col rounded-2xl border border-white/10 bg-primary/95 p-3 pt-4 opacity-0 shadow-xl shadow-slate-950/20 transition duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
                 {churchMenuItems.map((item) => (
                   <Link
                     key={item.href}
