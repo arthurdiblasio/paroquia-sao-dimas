@@ -74,9 +74,9 @@ export default function Footer() {
       <div className="border-t border-white/20">
         <div className="mx-auto max-w-[1200px] px-6 py-4 text-center text-sm">
           © {new Date().getFullYear()} Paróquia São Dimas — Desenvolvido por{" "}
-          <span className="font-semibold text-secondary">
+          <a href="https://diblasiotech.com.br/" target="_blank" rel="noreferrer noopener" className="hover:text-secondary/80 text-secondary">
             Di Blasio Tech
-          </span>
+          </a>
         </div>
       </div>
     </footer>
