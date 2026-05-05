@@ -2,6 +2,7 @@
 
 import Footer from "@/components/footer"
 import Header from "@/components/header"
+import { PwaInstallButton } from "@/components/pwa-install-button"
 import { usePathname } from "next/navigation"
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
@@ -20,6 +21,7 @@ export function PublicShell({ children }: { children: React.ReactNode }) {
       <Header />
       <main className="pt-16">{children}</main>
       <Footer />
+      <PwaInstallButton />
       <a
         href="https://api.whatsapp.com/send?phone=5531990841083&text=Olá, preciso de ajuda com a Paróquia São Dimas."
         target="_blank"
