@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -39,7 +40,7 @@ export default function ForgotPasswordPage() {
       <header className="bg-primary text-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
           <Link href="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="Paróquia São Dimas" className="h-12 w-12" />
+            <Image src="/logo.png" alt="Paróquia São Dimas" className="h-12 w-12" />
             <div>
               <p className="text-xs uppercase tracking-[0.24em] text-secondary">Área Administrativa</p>
               <h1 className="text-xl font-semibold">Recuperar senha</h1>

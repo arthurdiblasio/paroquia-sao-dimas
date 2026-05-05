@@ -19,6 +19,11 @@ export function AddressAutocomplete({
 }: Props) {
 
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const onSelectRef = useRef(onSelect)
+
+  useEffect(() => {
+    onSelectRef.current = onSelect
+  }, [onSelect])
 
   useEffect(() => {
 
@@ -41,7 +46,7 @@ export function AddressAutocomplete({
 
       if (!lat || !lng) return
 
-      onSelect({
+      onSelectRef.current({
         address: place.formatted_address || "",
         lat,
         lng,

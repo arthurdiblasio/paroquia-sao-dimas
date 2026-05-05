@@ -1,5 +1,3 @@
-import Footer from "@/components/footer"
-import Header from "@/components/header"
 import { AppointmentForm } from "@/components/appointments/appointment-form"
 
 export default function AppointmentsPage() {

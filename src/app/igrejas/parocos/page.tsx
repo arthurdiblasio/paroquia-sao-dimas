@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Baby, Calendar, Cross, Gift } from "lucide-react";
+import { Baby, Calendar, Cross } from "lucide-react";
 import { fetchInternalApi } from "@/lib/internal-api";
 
 type PriestItem = {
