@@ -4,7 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { ChevronDown, Menu, X } from "lucide-react"
+import { ChevronDown, Download, Menu, X } from "lucide-react"
+
+import { usePwaInstall } from "@/hooks/use-pwa-install"
 
 const navigationItems = [
   { href: "/noticias", label: "Notícias" },
@@ -23,6 +25,7 @@ const churchMenuItems = [
 export default function Header() {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const { canInstall, installApp } = usePwaInstall()
 
   function isActivePath(href: string) {
     if (href === "/") {
@@ -33,6 +36,11 @@ export default function Header() {
   }
 
   const isChurchMenuActive = churchMenuItems.some((item) => isActivePath(item.href))
+
+  async function handleMobileInstall() {
+    await installApp()
+    setOpen(false)
+  }
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 w-full bg-primary shadow-lg shadow-slate-950/5">
@@ -102,7 +110,7 @@ export default function Header() {
       </div>
 
       {open && (
-        <div className="border-t border-gray-200 bg-white md:hidden">
+        <div className="border-t border-gray-200 bg-white lg:hidden">
           <nav className="flex flex-col gap-4 px-6 py-4">
             <div className="space-y-2">
               <div className="text-sm font-semibold uppercase tracking-wide text-slate-900">Igreja</div>
@@ -136,6 +144,17 @@ export default function Header() {
             >
               Acesso Restrito
             </Link>
+
+            {canInstall && (
+              <button
+                type="button"
+                onClick={handleMobileInstall}
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-secondary px-4 py-2 text-sm font-semibold text-primary transition hover:bg-secondary/90"
+              >
+                <Download className="h-4 w-4" aria-hidden="true" />
+                Baixar aplicativo
+              </button>
+            )}
           </nav>
         </div>
       )}
