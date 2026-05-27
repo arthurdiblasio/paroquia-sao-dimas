@@ -165,11 +165,10 @@ export function AppointmentsTable({ appointments: initialAppointments }: Props) 
         <button
           type="button"
           onClick={() => setActiveView("requests")}
-          className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-            activeView === "requests"
+          className={`rounded-full px-4 py-2 text-sm font-medium transition ${activeView === "requests"
               ? "bg-[#092070] text-white"
               : "bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50"
-          }`}
+            }`}
         >
           Solicitacoes
         </button>
@@ -177,11 +176,10 @@ export function AppointmentsTable({ appointments: initialAppointments }: Props) 
         <button
           type="button"
           onClick={() => setActiveView("calendar")}
-          className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-            activeView === "calendar"
+          className={`rounded-full px-4 py-2 text-sm font-medium transition ${activeView === "calendar"
               ? "bg-[#092070] text-white"
               : "bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-50"
-          }`}
+            }`}
         >
           Agenda dos aprovados
         </button>
@@ -285,11 +283,10 @@ export function AppointmentsTable({ appointments: initialAppointments }: Props) 
                     key={agendaDate}
                     type="button"
                     onClick={() => setSelectedAgendaDate(agendaDate)}
-                    className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                      activeAgendaDate === agendaDate
+                    className={`rounded-full px-4 py-2 text-sm font-medium transition ${activeAgendaDate === agendaDate
                         ? "bg-[#092070] text-white"
                         : "bg-gray-50 text-gray-700 ring-1 ring-gray-200 hover:bg-gray-100"
-                    }`}
+                      }`}
                   >
                     {formatDate(agendaDate)}
                   </button>
@@ -390,11 +387,10 @@ export function AppointmentsTable({ appointments: initialAppointments }: Props) 
                       type="button"
                       disabled={isUpdatingStatus}
                       onClick={() => handleStatusChange(selectedAppointment.id, status)}
-                      className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                        selectedAppointment.status === status
+                      className={`rounded-full px-4 py-2 text-sm font-medium transition ${selectedAppointment.status === status
                           ? "bg-[#092070] text-white"
                           : "bg-gray-50 text-gray-700 ring-1 ring-gray-200 hover:bg-gray-100"
-                      } disabled:cursor-not-allowed disabled:opacity-60`}
+                        } disabled:cursor-not-allowed disabled:opacity-60`}
                     >
                       {isUpdatingStatus && selectedAppointment.status !== status
                         ? "Atualizando..."
@@ -444,31 +440,21 @@ export function AppointmentsTable({ appointments: initialAppointments }: Props) 
 
               {selectedAppointment.type === "BATISMO" && (
                 <div className="mt-6 grid gap-4 md:grid-cols-2">
-                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
+                  <div className="rounded-2xl border border-gray-200 bg-white p-5 md:col-span-2">
                     <h3 className="text-base font-semibold text-gray-900">
-                      Dados da familia
+                      Dados do batismo
                     </h3>
 
-                    <div className="mt-4 space-y-3 text-sm text-gray-700">
-                      <p><span className="font-medium text-gray-900">Telefone da mae:</span> {selectedAppointment.details?.motherPhone || "Nao informado"}</p>
-                      <p><span className="font-medium text-gray-900">Telefone do pai:</span> {selectedAppointment.details?.fatherPhone || "Nao informado"}</p>
-                      <p><span className="font-medium text-gray-900">Telefone da madrinha:</span> {selectedAppointment.details?.godmotherPhone || "Nao informado"}</p>
-                      <p><span className="font-medium text-gray-900">Telefone do padrinho:</span> {selectedAppointment.details?.godfatherPhone || "Nao informado"}</p>
-                      <p><span className="font-medium text-gray-900">Email da mae:</span> {selectedAppointment.details?.motherEmail || "Nao informado"}</p>
-                      <p><span className="font-medium text-gray-900">Email do pai:</span> {selectedAppointment.details?.fatherEmail || "Nao informado"}</p>
+                    <div className="mt-4 grid gap-3 text-sm text-gray-700 md:grid-cols-2">
+                      <p><span className="font-medium text-gray-900">Nome da criança:</span> {selectedAppointment.details?.childName || "Nao informado"}</p>
+                      <p><span className="font-medium text-gray-900">Data de nascimento da criança:</span> {typeof selectedAppointment.details?.childBirthDate === "string" ? formatDate(selectedAppointment.details.childBirthDate) : "Nao informado"}</p>
+                      <p><span className="font-medium text-gray-900">Nome do pai:</span> {selectedAppointment.details?.fatherName || "Nao informado"}</p>
+                      <p><span className="font-medium text-gray-900">Nome da mãe:</span> {selectedAppointment.details?.motherName || "Nao informado"}</p>
+                      <p className="md:col-span-2"><span className="font-medium text-gray-900">Endereço residencial:</span> {selectedAppointment.details?.residentialAddress || "Nao informado"}</p>
+                      <p><span className="font-medium text-gray-900">Telefone para contato:</span> {selectedAppointment.details?.contactPhone || "Nao informado"}</p>
+                      <p><span className="font-medium text-gray-900">Nome do padrinho:</span> {selectedAppointment.details?.godfatherName || "Nao informado"}</p>
+                      <p><span className="font-medium text-gray-900">Nome da madrinha:</span> {selectedAppointment.details?.godmotherName || "Nao informado"}</p>
                     </div>
-                  </div>
-
-                  <div className="rounded-2xl border border-gray-200 bg-white p-5">
-                    <h3 className="text-base font-semibold text-gray-900">
-                      Requisitos dos padrinhos
-                    </h3>
-
-                    <p className="mt-4 text-sm text-gray-700">
-                      {selectedAppointment.details?.godparentsConfirmed
-                        ? "Confirmado que os padrinhos sao catolicos e maiores de 18 anos."
-                        : "Nao confirmado no formulario."}
-                    </p>
                   </div>
                 </div>
               )}

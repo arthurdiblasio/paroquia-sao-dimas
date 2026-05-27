@@ -5,10 +5,9 @@ const appointmentTypes = ["BATISMO", "CASAMENTO"] as const;
 
 const requiredDocumentsByType = {
   BATISMO: [
-    "certidao_nascimento_crianca",
-    "comprovante_endereco_pais",
-    "comprovante_endereco_padrinhos",
-    "comprovante_taxa",
+    "certidao_crianca",
+    "comprovante_endereco",
+    "identidade_padrinhos_batismo",
   ],
   CASAMENTO: [
     "certidao_batismo_noivo",
@@ -30,13 +29,14 @@ type AppointmentDocumentInput = {
 };
 
 type BaptismDetailsInput = {
-  motherPhone?: string;
-  fatherPhone?: string;
-  godmotherPhone?: string;
-  godfatherPhone?: string;
-  motherEmail?: string;
-  fatherEmail?: string;
-  godparentsConfirmed?: boolean;
+  childName?: string;
+  childBirthDate?: string;
+  fatherName?: string;
+  motherName?: string;
+  residentialAddress?: string;
+  contactPhone?: string;
+  godfatherName?: string;
+  godmotherName?: string;
 };
 
 type CreateAppointmentBody = {
@@ -159,51 +159,42 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!hasValidPhone(details.motherPhone)) {
+    const requiredBaptismFields = [
+      { key: "childName", label: "o nome da crianca" },
+      { key: "childBirthDate", label: "a data de nascimento da crianca" },
+      { key: "fatherName", label: "o nome do pai" },
+      { key: "motherName", label: "o nome da mae" },
+      { key: "residentialAddress", label: "o endereco residencial" },
+      { key: "contactPhone", label: "o telefone para contato" },
+      { key: "godfatherName", label: "o nome do padrinho" },
+      { key: "godmotherName", label: "o nome da madrinha" },
+    ] as const;
+
+    for (const field of requiredBaptismFields) {
+      const value = details[field.key]?.trim();
+
+      if (!value) {
+        return Response.json(
+          { error: `Informe ${field.label}.` },
+          { status: 400 },
+        );
+      }
+    }
+
+    const birthDate = new Date(`${details.childBirthDate?.trim()}T00:00:00`);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (Number.isNaN(birthDate.getTime()) || birthDate > today) {
       return Response.json(
-        { error: "Informe um telefone valido para a mae." },
+        { error: "Informe uma data de nascimento valida para a crianca." },
         { status: 400 },
       );
     }
 
-    if (!hasValidPhone(details.fatherPhone)) {
+    if (!hasValidPhone(details.contactPhone)) {
       return Response.json(
-        { error: "Informe um telefone valido para o pai." },
-        { status: 400 },
-      );
-    }
-
-    if (!hasValidPhone(details.godmotherPhone)) {
-      return Response.json(
-        { error: "Informe um telefone valido para a madrinha." },
-        { status: 400 },
-      );
-    }
-
-    if (!hasValidPhone(details.godfatherPhone)) {
-      return Response.json(
-        { error: "Informe um telefone valido para o padrinho." },
-        { status: 400 },
-      );
-    }
-
-    if (!details.motherEmail || !isValidEmail(details.motherEmail.trim())) {
-      return Response.json(
-        { error: "Informe um email valido para a mae." },
-        { status: 400 },
-      );
-    }
-
-    if (!details.fatherEmail || !isValidEmail(details.fatherEmail.trim())) {
-      return Response.json(
-        { error: "Informe um email valido para o pai." },
-        { status: 400 },
-      );
-    }
-
-    if (!details.godparentsConfirmed) {
-      return Response.json(
-        { error: "Confirme os requisitos dos padrinhos." },
+        { error: "Informe um telefone valido para contato." },
         { status: 400 },
       );
     }

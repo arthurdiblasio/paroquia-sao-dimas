@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Modal } from "@/components/ui/modal"
 import { Textarea } from "@/components/ui/textarea"
+import { AddressAutocomplete } from "@/components/ui/address-autocomplete"
 
 type AppointmentType = "BATISMO" | "CASAMENTO"
 
@@ -30,20 +31,26 @@ type UploadedDocument = {
 }
 
 type BaptismDetails = {
-  motherPhone: string
-  fatherPhone: string
-  godmotherPhone: string
-  godfatherPhone: string
-  motherEmail: string
-  fatherEmail: string
-  godparentsConfirmed: boolean
+  childName: string
+  childBirthDate: string
+  fatherName: string
+  motherName: string
+  residentialAddress: string
+  residentialAddressLatitude: number | null
+  residentialAddressLongitude: number | null
+  contactPhone: string
+  godfatherName: string
+  godmotherName: string
 }
 
-const acceptedDocumentExtensions = [".pdf", ".doc", ".docx"]
+const acceptedDocumentExtensions = [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png", ".webp"]
 const acceptedDocumentMimeTypes = [
   "application/pdf",
   "application/msword",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "image/jpeg",
+  "image/png",
+  "image/webp",
 ]
 
 const acceptedDocumentInput = [
@@ -117,28 +124,40 @@ const marriageDocumentFields: DocumentField[] = [
 
 const baptismDocumentFields: DocumentField[] = [
   {
-    key: "certidao_nascimento_crianca",
-    label: "Certidao de nascimento da crianca",
+    key: "certidao_crianca",
+    label: "Certidão da criança",
     helper: "Envie um unico arquivo em PDF, DOC ou DOCX.",
     required: true,
   },
   {
-    key: "comprovante_endereco_pais",
-    label: "Comprovante de endereco dos pais",
+    key: "comprovante_endereco",
+    label: "Comprovante de endereço",
     helper: "Envie um unico arquivo em PDF, DOC ou DOCX.",
     required: true,
   },
   {
-    key: "comprovante_endereco_padrinhos",
-    label: "Comprovante de endereco dos padrinhos",
+    key: "identidade_padrinho_batismo",
+    label: "Identidade do padrinho",
     helper: "Envie um unico arquivo em PDF, DOC ou DOCX.",
     required: true,
   },
   {
-    key: "comprovante_taxa",
-    label: "Comprovante da taxa de R$ 40,00",
+    key: "identidade_madrinha_batismo",
+    label: "Identidade da madrinha",
     helper: "Envie um unico arquivo em PDF, DOC ou DOCX.",
     required: true,
+  },
+  {
+    key: "identidade_padrinho_consagracao_1",
+    label: "Identidade do padrinho de consagração 1",
+    helper: "Envie um unico arquivo em PDF, DOC ou DOCX.",
+    required: false,
+  },
+  {
+    key: "identidade_padrinho_consagracao_2",
+    label: "Identidade do padrinho de consagração 2",
+    helper: "Envie um unico arquivo em PDF, DOC ou DOCX.",
+    required: false,
   },
 ]
 
@@ -202,13 +221,16 @@ export function AppointmentForm() {
     createEmptyUploads()
   )
   const [baptismDetails, setBaptismDetails] = useState<BaptismDetails>({
-    motherPhone: "",
-    fatherPhone: "",
-    godmotherPhone: "",
-    godfatherPhone: "",
-    motherEmail: "",
-    fatherEmail: "",
-    godparentsConfirmed: false,
+    childName: "",
+    childBirthDate: "",
+    fatherName: "",
+    motherName: "",
+    residentialAddress: "",
+    residentialAddressLatitude: null,
+    residentialAddressLongitude: null,
+    contactPhone: "",
+    godfatherName: "",
+    godmotherName: "",
   })
   const [uploadingFieldKey, setUploadingFieldKey] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -238,7 +260,7 @@ export function AppointmentForm() {
       !acceptedDocumentMimeTypes.includes(file.type) &&
       !hasAllowedDocumentExtension(file.name)
     ) {
-      setErrorMessage("Envie apenas arquivos PDF, DOC ou DOCX.")
+      setErrorMessage("Envie apenas arquivos PDF, DOC, DOCX, JPG, PNG ou WEBP.")
       e.target.value = ""
       return
     }
@@ -307,19 +329,26 @@ export function AppointmentForm() {
     const trimmedPhone = phone.trim()
     const trimmedEmail = email.trim()
     const trimmedNotes = notes.trim()
-    const phoneDigits = trimmedPhone.replace(/\D/g, "")
     const missingDocument = visibleDocumentFields.find(
       (field) => field.required && !documentUploads[field.key]
     )
 
-    if (!trimmedName) {
-      setErrorMessage("Informe o nome completo.")
+    const resolvedName = type === "BATISMO"
+      ? baptismDetails.childName.trim()
+      : trimmedName
+    const resolvedPhone = type === "BATISMO"
+      ? baptismDetails.contactPhone.trim()
+      : trimmedPhone
+    const resolvedPhoneDigits = resolvedPhone.replace(/\D/g, "")
+
+    if (!resolvedName) {
+      setErrorMessage(type === "BATISMO" ? "Informe o nome da crianca." : "Informe o nome completo.")
       setIsSubmitting(false)
       return
     }
 
-    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
-      setErrorMessage("Informe um telefone valido.")
+    if (resolvedPhoneDigits.length < 10 || resolvedPhoneDigits.length > 11) {
+      setErrorMessage(type === "BATISMO" ? "Informe um telefone valido para contato." : "Informe um telefone valido.")
       setIsSubmitting(false)
       return
     }
@@ -343,37 +372,39 @@ export function AppointmentForm() {
     }
 
     if (type === "BATISMO") {
-      const phones = [
-        { label: "da mae", value: baptismDetails.motherPhone },
-        { label: "do pai", value: baptismDetails.fatherPhone },
-        { label: "da madrinha", value: baptismDetails.godmotherPhone },
-        { label: "do padrinho", value: baptismDetails.godfatherPhone },
+      const requiredBaptismFields = [
+        { key: "childName", label: "nome da crianca", value: baptismDetails.childName.trim() },
+        { key: "childBirthDate", label: "data de nascimento da crianca", value: baptismDetails.childBirthDate.trim() },
+        { key: "fatherName", label: "nome do pai", value: baptismDetails.fatherName.trim() },
+        { key: "motherName", label: "nome da mae", value: baptismDetails.motherName.trim() },
+        { key: "residentialAddress", label: "endereco residencial", value: baptismDetails.residentialAddress.trim() },
+        { key: "contactPhone", label: "telefone para contato", value: baptismDetails.contactPhone.trim() },
+        { key: "godfatherName", label: "nome do padrinho", value: baptismDetails.godfatherName.trim() },
+        { key: "godmotherName", label: "nome da madrinha", value: baptismDetails.godmotherName.trim() },
       ]
 
-      for (const item of phones) {
-        const digits = item.value.replace(/\D/g, "")
-
-        if (digits.length < 10 || digits.length > 11) {
-          setErrorMessage(`Informe um telefone valido para ${item.label}.`)
+      for (const field of requiredBaptismFields) {
+        if (!field.value) {
+          setErrorMessage(`Informe ${field.label}.`)
           setIsSubmitting(false)
           return
         }
       }
 
-      if (!isValidEmail(baptismDetails.motherEmail.trim())) {
-        setErrorMessage("Informe um email valido para a mae.")
+      const birthDate = new Date(`${baptismDetails.childBirthDate.trim()}T00:00:00`)
+      const currentDate = new Date()
+      currentDate.setHours(0, 0, 0, 0)
+
+      if (Number.isNaN(birthDate.getTime()) || birthDate > currentDate) {
+        setErrorMessage("Informe uma data de nascimento valida para a crianca.")
         setIsSubmitting(false)
         return
       }
 
-      if (!isValidEmail(baptismDetails.fatherEmail.trim())) {
-        setErrorMessage("Informe um email valido para o pai.")
-        setIsSubmitting(false)
-        return
-      }
+      const contactPhoneDigits = baptismDetails.contactPhone.replace(/\D/g, "")
 
-      if (!baptismDetails.godparentsConfirmed) {
-        setErrorMessage("Confirme que os padrinhos sao catolicos e maiores de 18 anos.")
+      if (contactPhoneDigits.length < 10 || contactPhoneDigits.length > 11) {
+        setErrorMessage("Informe um telefone valido para contato.")
         setIsSubmitting(false)
         return
       }
@@ -396,13 +427,16 @@ export function AppointmentForm() {
 
       const details = type === "BATISMO"
         ? {
-          motherPhone: baptismDetails.motherPhone.trim(),
-          fatherPhone: baptismDetails.fatherPhone.trim(),
-          godmotherPhone: baptismDetails.godmotherPhone.trim(),
-          godfatherPhone: baptismDetails.godfatherPhone.trim(),
-          motherEmail: baptismDetails.motherEmail.trim(),
-          fatherEmail: baptismDetails.fatherEmail.trim(),
-          godparentsConfirmed: baptismDetails.godparentsConfirmed,
+          childName: baptismDetails.childName.trim(),
+          childBirthDate: baptismDetails.childBirthDate.trim(),
+          fatherName: baptismDetails.fatherName.trim(),
+          motherName: baptismDetails.motherName.trim(),
+          residentialAddress: baptismDetails.residentialAddress.trim(),
+          residentialAddressLatitude: baptismDetails.residentialAddressLatitude,
+          residentialAddressLongitude: baptismDetails.residentialAddressLongitude,
+          contactPhone: baptismDetails.contactPhone.trim(),
+          godfatherName: baptismDetails.godfatherName.trim(),
+          godmotherName: baptismDetails.godmotherName.trim(),
         }
         : null
 
@@ -413,8 +447,8 @@ export function AppointmentForm() {
         },
         body: JSON.stringify({
           type,
-          name: trimmedName,
-          phone: trimmedPhone,
+          name: resolvedName,
+          phone: resolvedPhone,
           email: trimmedEmail,
           preferredDate: preferredDate || null,
           notes: trimmedNotes,
@@ -436,13 +470,16 @@ export function AppointmentForm() {
       setNotes("")
       setDocumentUploads(createEmptyUploads())
       setBaptismDetails({
-        motherPhone: "",
-        fatherPhone: "",
-        godmotherPhone: "",
-        godfatherPhone: "",
-        motherEmail: "",
-        fatherEmail: "",
-        godparentsConfirmed: false,
+        childName: "",
+        childBirthDate: "",
+        fatherName: "",
+        motherName: "",
+        residentialAddress: "",
+        residentialAddressLatitude: null,
+        residentialAddressLongitude: null,
+        contactPhone: "",
+        godfatherName: "",
+        godmotherName: "",
       })
       setIsSuccessModalOpen(true)
     } catch (error) {
@@ -613,11 +650,78 @@ export function AppointmentForm() {
             <div className="grid gap-5 rounded-2xl border border-[#092070]/10 bg-[#092070]/[0.03] p-5 md:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700">
-                  Telefone da mae
+                  Nome da criança
                 </label>
                 <Input
-                  value={baptismDetails.motherPhone}
-                  onChange={(e) => updateBaptismDetails("motherPhone", formatPhone(e.target.value))}
+                  value={baptismDetails.childName}
+                  onChange={(e) => updateBaptismDetails("childName", e.target.value)}
+                  placeholder="Nome da criança"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Data de nascimento da criança
+                </label>
+                <Input
+                  type="date"
+                  value={baptismDetails.childBirthDate}
+                  onChange={(e) => updateBaptismDetails("childBirthDate", e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Nome do pai
+                </label>
+                <Input
+                  value={baptismDetails.fatherName}
+                  onChange={(e) => updateBaptismDetails("fatherName", e.target.value)}
+                  placeholder="Nome do pai"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Nome da mãe
+                </label>
+                <Input
+                  value={baptismDetails.motherName}
+                  onChange={(e) => updateBaptismDetails("motherName", e.target.value)}
+                  placeholder="Nome da mãe"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2 md:col-span-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Endereço residencial
+                </label>
+                <AddressAutocomplete
+                  value={baptismDetails.residentialAddress}
+                  onChange={(value) => {
+                    updateBaptismDetails("residentialAddress", value)
+                    updateBaptismDetails("residentialAddressLatitude", null)
+                    updateBaptismDetails("residentialAddressLongitude", null)
+                  }}
+                  onSelect={({ address, lat, lng }) => {
+                    updateBaptismDetails("residentialAddress", address)
+                    updateBaptismDetails("residentialAddressLatitude", lat)
+                    updateBaptismDetails("residentialAddressLongitude", lng)
+                  }}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Telefone para contato
+                </label>
+                <Input
+                  value={baptismDetails.contactPhone}
+                  onChange={(e) => updateBaptismDetails("contactPhone", formatPhone(e.target.value))}
                   placeholder="(31) 99999-9999"
                   inputMode="numeric"
                   maxLength={15}
@@ -627,86 +731,27 @@ export function AppointmentForm() {
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700">
-                  Telefone do pai
+                  Nome do padrinho
                 </label>
                 <Input
-                  value={baptismDetails.fatherPhone}
-                  onChange={(e) => updateBaptismDetails("fatherPhone", formatPhone(e.target.value))}
-                  placeholder="(31) 99999-9999"
-                  inputMode="numeric"
-                  maxLength={15}
+                  value={baptismDetails.godfatherName}
+                  onChange={(e) => updateBaptismDetails("godfatherName", e.target.value)}
+                  placeholder="Nome do padrinho"
                   required
                 />
               </div>
 
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700">
-                  Telefone da madrinha
+                  Nome da madrinha
                 </label>
                 <Input
-                  value={baptismDetails.godmotherPhone}
-                  onChange={(e) => updateBaptismDetails("godmotherPhone", formatPhone(e.target.value))}
-                  placeholder="(31) 99999-9999"
-                  inputMode="numeric"
-                  maxLength={15}
+                  value={baptismDetails.godmotherName}
+                  onChange={(e) => updateBaptismDetails("godmotherName", e.target.value)}
+                  placeholder="Nome da madrinha"
                   required
                 />
               </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">
-                  Telefone do padrinho
-                </label>
-                <Input
-                  value={baptismDetails.godfatherPhone}
-                  onChange={(e) => updateBaptismDetails("godfatherPhone", formatPhone(e.target.value))}
-                  placeholder="(31) 99999-9999"
-                  inputMode="numeric"
-                  maxLength={15}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">
-                  Email da mae
-                </label>
-                <Input
-                  type="email"
-                  value={baptismDetails.motherEmail}
-                  onChange={(e) => updateBaptismDetails("motherEmail", e.target.value)}
-                  placeholder="mae@email.com"
-                  autoComplete="email"
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">
-                  Email do pai
-                </label>
-                <Input
-                  type="email"
-                  value={baptismDetails.fatherEmail}
-                  onChange={(e) => updateBaptismDetails("fatherEmail", e.target.value)}
-                  placeholder="pai@email.com"
-                  autoComplete="email"
-                  required
-                />
-              </div>
-
-              <label className="flex items-start gap-3 md:col-span-2">
-                <input
-                  type="checkbox"
-                  checked={baptismDetails.godparentsConfirmed}
-                  onChange={(e) => updateBaptismDetails("godparentsConfirmed", e.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-gray-300 text-[#092070] focus:ring-[#092070]"
-                />
-
-                <span className="text-sm leading-6 text-gray-700">
-                  Confirmo que os padrinhos sao catolicos e maiores de 18 anos.
-                </span>
-              </label>
             </div>
           )}
 
@@ -755,7 +800,7 @@ export function AppointmentForm() {
                         ? "Enviando arquivo..."
                         : uploadedDocument
                           ? `Arquivo enviado: ${uploadedDocument.fileName}`
-                          : "Aceita somente 1 arquivo em PDF, DOC ou DOCX."}
+                          : "Aceita somente 1 arquivo em PDF, DOC, DOCX, JPG, PNG ou WEBP."}
                     </p>
                   </div>
 
